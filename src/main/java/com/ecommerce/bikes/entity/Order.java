@@ -1,6 +1,6 @@
 package com.ecommerce.bikes.entity;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -46,16 +46,9 @@ public class Order {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "order_products", joinColumns = {@JoinColumn(name = "order_id", insertable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "product_id", insertable = false, updatable = false)})
-	private ArrayList<Product> products;
+	private List<Product> products;
 
-	public Order(Long ref, String address, String company, float price) {
-		super();
-		this.ref = ref;
-		this.address = address;
-		this.company = company;
-		this.price = price;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -100,7 +93,7 @@ public class Order {
 		return user;
 	}
 
-	public ArrayList<Product> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 

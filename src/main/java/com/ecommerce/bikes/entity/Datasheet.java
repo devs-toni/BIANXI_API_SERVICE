@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "datasheets")
-public class Datasheets {
+public class Datasheet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,7 +73,7 @@ public class Datasheets {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Datasheets other = (Datasheets) obj;
+		Datasheet other = (Datasheet) obj;
 		return Objects.equals(feature, other.feature) && Objects.equals(featureName, other.featureName)
 				&& Objects.equals(id, other.id) && Objects.equals(product, other.product);
 	}

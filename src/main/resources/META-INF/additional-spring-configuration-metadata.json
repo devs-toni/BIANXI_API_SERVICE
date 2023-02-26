@@ -1,0 +1,52 @@
+{"properties": [
+  {
+    "name": "spring.web.cors.allowed-origins",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.web.cors.allowed-origins'"
+  },
+  {
+    "name": "spring.web.cors.allowed-methods",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.web.cors.allowed-methods'"
+  },
+  {
+    "name": "spring.web.cors.max-age",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.web.cors.max-age'"
+  },
+  {
+    "name": "spring.web.cors.allowed-headers",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.web.cors.allowed-headers'"
+  },
+  {
+    "name": "spring.web.cors.exposed-headers",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.web.cors.exposed-headers'"
+  },
+  {
+    "name": "spring.web.resources.static-locations[0]",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.web.resources.static-locations[0]'"
+  },
+  {
+    "name": "spring.web.resources.static-locations[1]",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.web.resources.static-locations[1]'"
+  },
+  {
+    "name": "app.logfile",
+    "type": "java.lang.String",
+    "description": "A description for 'app.logfile'"
+  },
+  {
+    "name": "app.debug",
+    "type": "java.lang.String",
+    "description": "A description for 'app.debug'"
+  },
+  {
+    "name": "spring.session.store.type",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.session.store.type'"
+  }
+]}

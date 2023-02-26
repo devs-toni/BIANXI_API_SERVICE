@@ -1,35 +1,35 @@
 package com.ecommerce.bikes.entity;
 
-import java.util.Objects;
+
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "sizes")
-public class Sizes {
-	
+public class Size {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "size", nullable = false)
 	private String size;
-	
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_id", nullable = false)
-	private Product product;
 
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "size")
+	private List<BikeConfiguration> configuration;
+	
 	public Long getId() {
 		return id;
 	}
@@ -46,30 +46,16 @@ public class Sizes {
 		this.size = size;
 	}
 
-	public Product getProduct() {
-		return product;
+	public List<BikeConfiguration> getConfiguration() {
+		return configuration;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Sizes other = (Sizes) obj;
-		return Objects.equals(id, other.id) && Objects.equals(product, other.product)
-				&& Objects.equals(size, other.size);
+	public void setConfiguration(List<BikeConfiguration> configuration) {
+		this.configuration = configuration;
 	}
 
 	@Override
 	public String toString() {
 		return "Sizes [id=" + id + ", size=" + size + "]";
 	}
-
 }

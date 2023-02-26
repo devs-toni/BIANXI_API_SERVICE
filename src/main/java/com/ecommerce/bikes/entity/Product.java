@@ -29,7 +29,7 @@ public class Product {
 	
 	@Column(name = "type", 
 			nullable = false)
-	private char type;
+	private String type;
 	
 	@Column(name = "price", 
 			nullable = false)
@@ -38,10 +38,6 @@ public class Product {
 	@Column(name = "offer", 
 			nullable = false)
 	private int offer;
-	
-	@Column(name = "stock", 
-			nullable = false)
-	private int stock;
 	
 	@Column(name = "sentence", 
 			nullable = false)
@@ -54,17 +50,12 @@ public class Product {
 	@OneToMany(cascade = CascadeType.ALL, 
 			   fetch = FetchType.LAZY, 
 			   mappedBy = "product")
-	private Set<Colors> colors;
+	private Set<Datasheet> datasheet;
 	
-	@OneToMany(cascade = CascadeType.ALL, 
-			   fetch = FetchType.LAZY, 
-			   mappedBy = "product")	
-	private Set<Sizes> sizes;
-	
-	@OneToMany(cascade = CascadeType.ALL, 
-			   fetch = FetchType.LAZY, 
-			   mappedBy = "product")
-	private Set<Datasheets> datasheet;
+	@OneToMany(fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL,
+			mappedBy = "product")
+	private List<BikeConfiguration> configuration;
 	
 	@ManyToMany(fetch = FetchType.LAZY,
 				cascade = CascadeType.ALL,
@@ -87,11 +78,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public char getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(char type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -111,14 +102,6 @@ public class Product {
 		this.offer = offer;
 	}
 
-	public int getStock() {
-		return stock;
-	}
-
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-
 	public String getSentence() {
 		return sentence;
 	}
@@ -135,28 +118,20 @@ public class Product {
 		this.description = description;
 	}
 
-	public Set<Colors> getColors() {
-		return colors;
-	}
-
-	public void setColors(Set<Colors> colors) {
-		this.colors = colors;
-	}
-
-	public Set<Sizes> getSizes() {
-		return sizes;
-	}
-
-	public void setSizes(Set<Sizes> sizes) {
-		this.sizes = sizes;
-	}
-
-	public Set<Datasheets> getDatasheet() {
+	public Set<Datasheet> getDatasheet() {
 		return datasheet;
 	}
 
-	public void setDatasheet(Set<Datasheets> datasheet) {
+	public void setDatasheet(Set<Datasheet> datasheet) {
 		this.datasheet = datasheet;
+	}
+
+	public List<BikeConfiguration> getConfiguration() {
+		return configuration;
+	}
+
+	public void setConfiguration(List<BikeConfiguration> configuration) {
+		this.configuration = configuration;
 	}
 
 	public List<Order> getOrders() {
@@ -176,18 +151,17 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return Objects.equals(colors, other.colors) && Objects.equals(datasheet, other.datasheet)
-				&& Objects.equals(description, other.description) && id == other.id && Objects.equals(name, other.name)
-				&& offer == other.offer && Objects.equals(orders, other.orders)
+		return  Objects.equals(configuration, other.configuration)
+				&& Objects.equals(datasheet, other.datasheet) && Objects.equals(description, other.description)
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name) && offer == other.offer
+				&& Objects.equals(orders, other.orders)
 				&& Float.floatToIntBits(price) == Float.floatToIntBits(other.price)
-				&& Objects.equals(sentence, other.sentence) && Objects.equals(sizes, other.sizes)
-				&& stock == other.stock && type == other.type;
+				&& Objects.equals(sentence, other.sentence) && Objects.equals(type, other.type);
 	}
 
 	@Override
 	public String toString() {
-		
 		return "Product [id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", offer=" + offer
-				+ ", stock=" + stock + ", sentence=" + sentence + ", description=" + description + "]";
+				+ ", sentence=" + sentence + ", description=" + description + ", datasheet=" + datasheet + ", configuration=" + configuration + ", orders=" + orders + "]";
 	}
 }

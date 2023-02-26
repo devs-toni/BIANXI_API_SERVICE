@@ -1,5 +1,6 @@
 package com.ecommerce.bikes.controller;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,21 @@ public class ProductController {
 	ProductService productService;
 	
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Object> getProductById (HttpServletResponse r, @PathVariable Long id) {
+	public ResponseEntity<Object> getProductById (HttpServletResponse response, @PathVariable Long id) {
 		try {
 			Product product = productService.findById(id);
 			return new ResponseEntity<>(product, HttpStatus.OK);
+		} catch (NoSuchElementException nsee) {
+			System.out.println(nsee.getLocalizedMessage());
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@GetMapping("/get/type/{type}")
+	public ResponseEntity<Object> getAllProductsByType (HttpServletResponse response, @PathVariable String type) {
+		try {
+			List<Product> products = productService.findAllByType(type);
+			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println(nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

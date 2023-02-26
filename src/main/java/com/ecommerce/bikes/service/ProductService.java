@@ -1,5 +1,6 @@
 package com.ecommerce.bikes.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,9 @@ public class ProductService {
 	
 	public Product findById(Long id) throws NoSuchElementException{
 		return productRepository.findById(id).get();
+	}
+	
+	public List<Product> findAllByType(String type) throws NoSuchElementException{
+		return productRepository.findAllByType(type).get();
 	}
 }
