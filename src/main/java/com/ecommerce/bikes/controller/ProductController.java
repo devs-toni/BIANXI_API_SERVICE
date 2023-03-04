@@ -37,7 +37,18 @@ public class ProductController {
 	@GetMapping("/get/type/{type}")
 	public ResponseEntity<Object> getAllProductsByType (HttpServletResponse response, @PathVariable String type) {
 		try {
-			List<Product> products = productService.findAllByType(type);
+			List<Product> products = productService.findAllProductsByType(type);
+			return new ResponseEntity<>(products, HttpStatus.OK);
+		} catch (NoSuchElementException nsee) {
+			System.out.println(nsee.getLocalizedMessage());
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@GetMapping("/search/{name}")
+	public ResponseEntity<Object> searchProductByName (HttpServletResponse response, @PathVariable String name) {
+		try {
+			List<Product> products = productService.findAllProductsByName(name);
 			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println(nsee.getLocalizedMessage());

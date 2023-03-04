@@ -10,7 +10,10 @@ import com.ecommerce.bikes.entity.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-	
+
 	Optional<Product> findById(Long id);
-	Optional<List<Product>> findAllByType(String c);
-	}
+
+	List<Product> findAllByType(String c);
+
+	List<Product> findByNameContainingIgnoreCase(String name);
+}

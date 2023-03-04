@@ -20,18 +20,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name = "firstname", nullable = false)
-	private String firstname;
-	
-
-	@Column(name = "lastname", nullable = false)
-	private String lastname;
-
-
-	@Column(name = "username", nullable = false)
-	private String username;
-
 
 	@Column(name = "email", nullable = false)
 	private String email;
@@ -49,30 +37,6 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getEmail() {
@@ -108,14 +72,12 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(email, other.email) && Objects.equals(firstname, other.firstname) && id == other.id
-				&& Objects.equals(lastname, other.lastname) && Objects.equals(password, other.password)
-				&& Objects.equals(username, other.username);
+		return Objects.equals(email, other.email) && id == other.id
+			 && Objects.equals(password, other.password);
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", username=" + username
-				+ ", email=" + email + ", password=" + password + "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
 	}
 }
