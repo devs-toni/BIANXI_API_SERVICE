@@ -23,13 +23,13 @@ public class UserController {
 
 	@RequestMapping(value = "/verify", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<Boolean> verifyUser(@RequestBody User user) {
+	public ResponseEntity<Object> verifyUser(@RequestBody User user) {
 		try {
-			boolean response = productService.verifyUser(user.getEmail(), user.getPassword());
-			return new ResponseEntity<>(response, HttpStatus.OK);
+			int id = productService.verifyUser(user.getEmail(), user.getPassword());
+			return new ResponseEntity<Object>(id, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println(nsee.getLocalizedMessage());
-			return new ResponseEntity<>(false, HttpStatus.OK);
+			return new ResponseEntity<Object>(-1, HttpStatus.OK);
 		}
 	}
 }
