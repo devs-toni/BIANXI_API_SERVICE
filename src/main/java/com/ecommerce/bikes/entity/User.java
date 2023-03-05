@@ -30,9 +30,20 @@ public class User {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
 	private List<Order> orders;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+	private List<Like> likes;
 
 	public int getId() {
 		return id;
+	}
+
+	public List<Like> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
 	}
 
 	public void setId(int id) {

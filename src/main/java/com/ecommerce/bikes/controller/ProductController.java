@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.bikes.entity.Product;
+import com.ecommerce.bikes.entity.User;
 import com.ecommerce.bikes.service.ProductService;
 
+import jakarta.persistence.NoResultException;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -50,6 +52,18 @@ public class ProductController {
 		}
 	}
 
+	@GetMapping("/get/favourites/{userId}")
+	public ResponseEntity<Object> getFavourites(HttpServletResponse response, @PathVariable long userId) {
+		try {
+			User user = productService.findUserById(userId);
+			List<Product> products =  user.getLikes().stream().map(like -> like.getProduct()).toList();
+			return new ResponseEntity<>(products, HttpStatus.OK);
+		} catch (NoSuchElementException nsee) {
+			System.out.println(nsee.getLocalizedMessage());
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+
 	@GetMapping("/search/{name}")
 	public ResponseEntity<Object> searchProductByName(HttpServletResponse response, @PathVariable String name) {
 		try {
@@ -69,7 +83,19 @@ public class ProductController {
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println(nsee.getLocalizedMessage());
-			return new ResponseEntity<>(-1, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(-1, HttpStatus.OK);
+		}
+	}
+	
+	@PostMapping("/like/get")
+	@ResponseBody
+	public ResponseEntity<Object> getLike(@RequestBody ArrayList<Integer> data, HttpServletResponse response) {
+		try {
+			productService.getLike(data.get(0), data.get(1));
+			return new ResponseEntity<>(1, HttpStatus.OK);
+		} catch (NoSuchElementException | NoResultException exc) {
+			System.out.println(exc.getLocalizedMessage());
+			return new ResponseEntity<>(0, HttpStatus.OK);
 		}
 	}
 
@@ -81,7 +107,7 @@ public class ProductController {
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println(nsee.getLocalizedMessage());
-			return new ResponseEntity<>(-1, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(-1, HttpStatus.OK);
 		}
 	}
 }

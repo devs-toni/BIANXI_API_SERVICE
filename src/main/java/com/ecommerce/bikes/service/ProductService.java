@@ -17,6 +17,7 @@ import com.ecommerce.bikes.repository.SizesRepository;
 import com.ecommerce.bikes.repository.UserRepository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
@@ -47,6 +48,7 @@ public class ProductService {
 	public List<Product> findAllProductsByName(String name) throws NoSuchElementException {
 		return productRepository.findByNameContainingIgnoreCase(name);
 	}
+	
 
 	@Transactional
 	public int insertLike(int productId, int userId) {
@@ -54,6 +56,16 @@ public class ProductService {
 		.setParameter(1, productId)
 		.setParameter(2, userId)
 		.executeUpdate();
+		
+		return result;
+	}
+
+	@Transactional
+	public Object getLike(int productId, int userId) throws NoResultException {
+		Object result = entityManager.createNativeQuery("SELECT * FROM likes WHERE product_id=? AND user_id=?")
+				.setParameter(1, productId)
+				.setParameter(2, userId)
+				.getSingleResult();
 		
 		return result;
 	}
@@ -83,6 +95,10 @@ public class ProductService {
 			return user.getId();
 		}
 		return -1;
+	}
+	
+	public User findUserById(long userId) throws NoSuchElementException {
+		return userRepository.findById(userId).get();
 	}
 
 }

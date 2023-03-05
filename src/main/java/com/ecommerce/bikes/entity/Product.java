@@ -18,49 +18,48 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "products")
 public class Product {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name = "name", 
-			nullable = false)
+
+	@Column(name = "name", nullable = false)
 	private String name;
-	
-	@Column(name = "type", 
-			nullable = false)
+
+	@Column(name = "type", nullable = false)
 	private String type;
-	
-	@Column(name = "price", 
-			nullable = false)
+
+	@Column(name = "price", nullable = false)
 	private float price;
-	
-	@Column(name = "offer", 
-			nullable = false)
+
+	@Column(name = "offer", nullable = false)
 	private int offer;
-	
-	@Column(name = "sentence", 
-			nullable = false)
+
+	@Column(name = "sentence", nullable = false)
 	private String sentence;
-	
-	@Column(name = "description", 
-			nullable = false)
+
+	@Column(name = "description", nullable = false)
 	private String description;
-	
-	@OneToMany(cascade = CascadeType.ALL, 
-			   fetch = FetchType.LAZY, 
-			   mappedBy = "product")
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
 	private Set<Datasheet> datasheet;
-	
-	@OneToMany(fetch = FetchType.LAZY,
-			cascade = CascadeType.ALL,
-			mappedBy = "product")
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
 	private List<BikeConfiguration> configuration;
-	
-	@ManyToMany(fetch = FetchType.LAZY,
-				cascade = CascadeType.ALL,
-				mappedBy = "products")	
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "products")
 	private List<Order> orders;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+	private List<Like> likes;
+
+	public List<Like> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
+	}
 
 	public Long getId() {
 		return id;
@@ -151,10 +150,9 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return  Objects.equals(configuration, other.configuration)
-				&& Objects.equals(datasheet, other.datasheet) && Objects.equals(description, other.description)
-				&& Objects.equals(id, other.id) && Objects.equals(name, other.name) && offer == other.offer
-				&& Objects.equals(orders, other.orders)
+		return Objects.equals(configuration, other.configuration) && Objects.equals(datasheet, other.datasheet)
+				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name) && offer == other.offer && Objects.equals(orders, other.orders)
 				&& Float.floatToIntBits(price) == Float.floatToIntBits(other.price)
 				&& Objects.equals(sentence, other.sentence) && Objects.equals(type, other.type);
 	}
@@ -162,6 +160,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", offer=" + offer
-				+ ", sentence=" + sentence + ", description=" + description + ", datasheet=" + datasheet + ", configuration=" + configuration + ", orders=" + orders + "]";
+				+ ", sentence=" + sentence + ", description=" + description + ", datasheet=" + datasheet
+				+ ", configuration=" + configuration + ", orders=" + orders + "]";
 	}
 }
