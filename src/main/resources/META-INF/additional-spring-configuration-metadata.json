@@ -48,5 +48,20 @@
     "name": "spring.session.store.type",
     "type": "java.lang.String",
     "description": "A description for 'spring.session.store.type'"
+  },
+  {
+    "name": "stripe.key.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'stripe.key.secret'"
+  }
+]}{
+    "name": "stripe.key.public",
+    "type": "java.lang.String",
+    "description": "A description for 'stripe.key.public'"
+  }
+]}{
+    "name": "stripe.key.public",
+    "type": "java.lang.String",
+    "description": "A description for 'stripe.key.public'"
   }
 ]}
