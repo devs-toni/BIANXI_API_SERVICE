@@ -42,7 +42,6 @@ public class OrderController {
 			for (Integer product : products) {
 				arrayList.add(productService.findById(Long.valueOf(String.valueOf(product))));
 			}
-			System.out.println(1);
 			Long idOrder = orderService.createOrder(arrayList,
 					userService.findUserById(Integer.valueOf(String.valueOf(body.get(1)))), (String) body.get(2),
 					Float.valueOf(String.valueOf(body.get(3))));
