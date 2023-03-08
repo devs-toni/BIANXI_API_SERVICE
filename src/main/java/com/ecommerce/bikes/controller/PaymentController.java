@@ -26,6 +26,7 @@ public class PaymentController {
 	public ResponseEntity<String> payment(@RequestBody PaymentIntentDTO paymentIntentDTO) throws StripeException {
 		PaymentIntent paymentIntent = paymentService.paymentIntent(paymentIntentDTO);
 		String paymentString = paymentIntent.toJson();
+		System.err.println("@@@ Payment intent succesfully ");
 		return new ResponseEntity<String>(paymentString, HttpStatus.OK);
 	}
 
@@ -33,10 +34,11 @@ public class PaymentController {
 	public ResponseEntity<String> confirm(@PathVariable("id") String id) {
 		try {
 			PaymentIntent paymentIntent = paymentService.confirm(id);
-			String paymentString = paymentIntent.toJson();
+			String paymentString = paymentIntent.toJson();		
+			System.err.println("@@@ Payment confirmation succesfully ");
 			return new ResponseEntity<String>(paymentString, HttpStatus.OK);
 		} catch (StripeException e) {
-			System.out.println(e.getMessage());
+			System.err.println("Payment confirm - " + e.getLocalizedMessage());
 			return new ResponseEntity<String>("Mierda", HttpStatus.OK);
 		}
 	}
@@ -45,6 +47,7 @@ public class PaymentController {
 	public ResponseEntity<String> cancel(@PathVariable("id") String id) throws StripeException {
 		PaymentIntent paymentIntent = paymentService.cancel(id);
 		String paymentString = paymentIntent.toJson();
+		System.err.println("@@@ Payment cancelation succesfully");
 		return new ResponseEntity<String>(paymentString, HttpStatus.OK);
 	}
 
