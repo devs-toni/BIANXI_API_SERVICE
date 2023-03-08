@@ -39,7 +39,7 @@ public class ProductController {
 			Product product = productService.findById(id);
 			return new ResponseEntity<>(product, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Get product by id - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -50,7 +50,7 @@ public class ProductController {
 			List<Product> products = productService.findAll();
 			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Get all products - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -61,7 +61,7 @@ public class ProductController {
 			List<Product> products = productService.findAllProductsByType(type);
 			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Get product by type - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -73,7 +73,7 @@ public class ProductController {
 			List<Product> products =  user.getLikes().stream().map(like -> like.getProduct()).toList();
 			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Get like products - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -84,7 +84,7 @@ public class ProductController {
 			List<Product> products = productService.findAllProductsByName(name);
 			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Get search products - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -96,7 +96,7 @@ public class ProductController {
 			int result = productService.insertLike(data.get(0), data.get(1));
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Add like - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(-1, HttpStatus.OK);
 		}
 	}
@@ -108,7 +108,7 @@ public class ProductController {
 			productService.getLike(data.get(0), data.get(1));
 			return new ResponseEntity<>(1, HttpStatus.OK);
 		} catch (NoSuchElementException | NoResultException exc) {
-			System.out.println(exc.getMessage());
+			System.out.println("Get like - " + exc.getLocalizedMessage());
 			return new ResponseEntity<>(0, HttpStatus.OK);
 		}
 	}
@@ -120,7 +120,7 @@ public class ProductController {
 			int result = productService.deleteLike(data.get(0), data.get(1));
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Delete like - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(-1, HttpStatus.OK);
 		}
 	}
