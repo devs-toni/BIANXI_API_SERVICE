@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecommerce.bikes.entity.Product;
 import com.ecommerce.bikes.entity.User;
 import com.ecommerce.bikes.service.ProductService;
+import com.ecommerce.bikes.service.UserService;
 
 import jakarta.persistence.NoResultException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +30,8 @@ public class ProductController {
 
 	@Autowired
 	ProductService productService;
+	@Autowired
+	UserService userService;
 
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> getProductById(HttpServletResponse response, @PathVariable Long id) {
@@ -36,7 +39,18 @@ public class ProductController {
 			Product product = productService.findById(id);
 			return new ResponseEntity<>(product, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getLocalizedMessage());
+			System.out.println(nsee.getMessage());
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@GetMapping("/get/all")
+	public ResponseEntity<Object> getAllProducts() {
+		try {
+			List<Product> products = productService.findAll();
+			return new ResponseEntity<>(products, HttpStatus.OK);
+		} catch (NoSuchElementException nsee) {
+			System.out.println(nsee.getMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -47,7 +61,7 @@ public class ProductController {
 			List<Product> products = productService.findAllProductsByType(type);
 			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getLocalizedMessage());
+			System.out.println(nsee.getMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -55,11 +69,11 @@ public class ProductController {
 	@GetMapping("/get/favourites/{userId}")
 	public ResponseEntity<Object> getFavourites(HttpServletResponse response, @PathVariable long userId) {
 		try {
-			User user = productService.findUserById(userId);
+			User user = userService.findUserById(userId);
 			List<Product> products =  user.getLikes().stream().map(like -> like.getProduct()).toList();
 			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getLocalizedMessage());
+			System.out.println(nsee.getMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -70,7 +84,7 @@ public class ProductController {
 			List<Product> products = productService.findAllProductsByName(name);
 			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getLocalizedMessage());
+			System.out.println(nsee.getMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -82,7 +96,7 @@ public class ProductController {
 			int result = productService.insertLike(data.get(0), data.get(1));
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getLocalizedMessage());
+			System.out.println(nsee.getMessage());
 			return new ResponseEntity<>(-1, HttpStatus.OK);
 		}
 	}
@@ -94,7 +108,7 @@ public class ProductController {
 			productService.getLike(data.get(0), data.get(1));
 			return new ResponseEntity<>(1, HttpStatus.OK);
 		} catch (NoSuchElementException | NoResultException exc) {
-			System.out.println(exc.getLocalizedMessage());
+			System.out.println(exc.getMessage());
 			return new ResponseEntity<>(0, HttpStatus.OK);
 		}
 	}
@@ -106,7 +120,7 @@ public class ProductController {
 			int result = productService.deleteLike(data.get(0), data.get(1));
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getLocalizedMessage());
+			System.out.println(nsee.getMessage());
 			return new ResponseEntity<>(-1, HttpStatus.OK);
 		}
 	}

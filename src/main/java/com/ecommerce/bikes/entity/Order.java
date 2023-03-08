@@ -1,7 +1,6 @@
 package com.ecommerce.bikes.entity;
 
 import java.util.List;
-import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,14 +25,8 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "ref", nullable = false)
-	private Long ref;
-	
 	@Column(name = "address", nullable = false)
 	private String address;
-	
-	@Column(name = "company", nullable = false)
-	private String company;
 	
 	@Column(name = "price", nullable = false)
 	private float price;	
@@ -43,26 +36,27 @@ public class Order {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
-
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "order_products", joinColumns = {@JoinColumn(name = "order_id", insertable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "product_id", insertable = false, updatable = false)})
 	private List<Product> products;
 
-	
+	protected Order() {}
+
+	public Order(String address, float price, User user, List<Product> products) {
+		super();
+		this.address = address;
+		this.price = price;
+		this.user = user;
+		this.products = products;
+	}
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getRef() {
-		return ref;
-	}
-
-	public void setRef(Long ref) {
-		this.ref = ref;
 	}
 
 	public String getAddress() {
@@ -72,15 +66,7 @@ public class Order {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	public String getCompany() {
-		return company;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
-	}
-
+	
 	public float getPrice() {
 		return price;
 	}
@@ -95,27 +81,6 @@ public class Order {
 
 	public List<Product> getProducts() {
 		return products;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Order other = (Order) obj;
-		return Objects.equals(address, other.address) && Objects.equals(company, other.company)
-				&& Objects.equals(id, other.id) && Float.floatToIntBits(price) == Float.floatToIntBits(other.price)
-				&& Objects.equals(products, other.products) && Objects.equals(ref, other.ref)
-				&& Objects.equals(user, other.user);
-	}
-
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", ref=" + ref + ", address=" + address + ", company=" + company + ", price=" + price
-				+ ", user=" + user + ", products=" + products + "]";
 	}
 
 }

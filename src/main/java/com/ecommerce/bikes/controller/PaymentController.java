@@ -36,7 +36,7 @@ public class PaymentController {
 			String paymentString = paymentIntent.toJson();
 			return new ResponseEntity<String>(paymentString, HttpStatus.OK);
 		} catch (StripeException e) {
-			System.out.println(e.getLocalizedMessage());
+			System.out.println(e.getMessage());
 			return new ResponseEntity<String>("Mierda", HttpStatus.OK);
 		}
 	}

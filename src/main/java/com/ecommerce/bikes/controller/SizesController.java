@@ -27,7 +27,7 @@ public class SizesController {
 			List<Size> sizes = productService.findAllSizes();
 			return new ResponseEntity<>(sizes, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getLocalizedMessage());
+			System.out.println(nsee.getMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 

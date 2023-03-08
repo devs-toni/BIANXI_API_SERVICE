@@ -19,11 +19,13 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
 	@Column(name = "email", nullable = false)
 	private String email;
 	
+	@Column(name = "role", nullable = false)
+	private char role;
 
 	@Column(name = "password", nullable = false)
 	private String password;
@@ -34,7 +36,7 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Like> likes;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -46,7 +48,7 @@ public class User {
 		this.likes = likes;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -72,6 +74,15 @@ public class User {
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+	
+
+	public char getRole() {
+		return role;
+	}
+
+	public void setRole(char role) {
+		this.role = role;
 	}
 
 	@Override
