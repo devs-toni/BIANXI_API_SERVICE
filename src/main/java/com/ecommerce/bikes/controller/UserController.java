@@ -37,7 +37,7 @@ public class UserController {
 			System.err.println("@@@User verified succesfully");
 			return new ResponseEntity<>(userData, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.err.println("Verifyng user - " + nsee.getLocalizedMessage());
+			System.err.println("Error when verifyng user - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(userData, HttpStatus.OK);
 		}
 	}
@@ -48,14 +48,15 @@ public class UserController {
 
 		try {
 			User userExistUser = userService.findUserByEmail(user.getEmail());
-			System.err.println("@@@User saved succesfully");
+			System.err.println("@@@User encountered succesfully");
 			return new ResponseEntity<>(userExistUser, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			try {
 				User userSavedUser = userService.save(user);
+				System.err.println("@@@User saved succesfully");
 				return new ResponseEntity<>(userSavedUser, HttpStatus.OK);
 			} catch (NoSuchElementException e) {
-				System.err.println("Saving user - " + nsee.getLocalizedMessage());
+				System.err.println("Error when saving user - " + nsee.getLocalizedMessage());
 				return new ResponseEntity<>(null, HttpStatus.OK);
 			}
 		}
