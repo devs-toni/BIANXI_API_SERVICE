@@ -25,9 +25,10 @@ public class ColorController {
 	public ResponseEntity<Object> getAllColors() {
 		try {
 			List<Color> colors = productService.findAllColors();
+			System.err.println("@@@ Get all colors succesfully");
 			return new ResponseEntity<>(colors, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.err.println("Get all colors - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
