@@ -32,6 +32,7 @@ public class ProductController {
 	ProductService productService;
 	@Autowired
 	UserService userService;
+	
 
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> getProductById(HttpServletResponse response, @PathVariable Long id) {
@@ -89,6 +90,11 @@ public class ProductController {
 		}
 	}
 
+	
+	/*
+	 * LIKES CONTROLLERS
+	 */
+	
 	@PostMapping("/like/add")
 	@ResponseBody
 	public ResponseEntity<Object> addLike(@RequestBody ArrayList<Integer> data, HttpServletResponse response) {

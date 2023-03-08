@@ -48,7 +48,7 @@ public class OrderController {
 					Float.valueOf(String.valueOf(body.get(3))));
 			return new ResponseEntity<>(idOrder, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Create and add order - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(-1l, HttpStatus.OK);
 		}
 	}
@@ -57,11 +57,10 @@ public class OrderController {
 	public ResponseEntity<List<Order>> getAllOrdersEntity(@PathVariable("id") Long id) {
 
 		try {
-			System.out.println(id);
 			List<Order> orders = orderService.findAllByUser(id);
 			return new ResponseEntity<>(orders, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Get user orders - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
@@ -70,12 +69,10 @@ public class OrderController {
 	public ResponseEntity<List<Product>> getAllProducts(@PathVariable("id") Long id) {
 
 		try {
-			System.out.println("id del orden - " + id);
 			Order order = orderService.findById(id);
-			System.out.println(order);
 			return new ResponseEntity<>(order.getProducts(), HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.out.println(nsee.getMessage());
+			System.out.println("Get order products - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
