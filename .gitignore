@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 src/main/resources/application.yml
+src/main/java/com/ecommerce/bikes/security/WebSecurityConfig.java
 localhost.p12
 
 ### STS ###
