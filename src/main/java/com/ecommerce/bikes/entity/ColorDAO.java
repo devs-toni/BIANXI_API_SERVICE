@@ -3,6 +3,7 @@ package com.ecommerce.bikes.entity;
 
 import java.util.List;
 
+import com.ecommerce.bikes.domain.Color;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -17,7 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "colors")
-public class Color {
+public class ColorDAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +53,10 @@ public class Color {
 
 	public void setConfiguration(List<BikeConfiguration> configuration) {
 		this.configuration = configuration;
+	}
+
+	public static Color toDomain(ColorDAO colorDAO) {
+		return new Color(colorDAO.id, colorDAO.color);
 	}
 
 	@Override

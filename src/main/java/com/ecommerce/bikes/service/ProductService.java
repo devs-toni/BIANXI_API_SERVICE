@@ -3,10 +3,11 @@ package com.ecommerce.bikes.service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.ecommerce.bikes.domain.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ecommerce.bikes.entity.Color;
+import com.ecommerce.bikes.entity.ColorDAO;
 import com.ecommerce.bikes.entity.Product;
 import com.ecommerce.bikes.entity.Size;
 import com.ecommerce.bikes.repository.ColorRepository;
@@ -76,7 +77,7 @@ public class ProductService {
 	}
 
 	public List<Color> findAllColors() {
-		return colorRepository.findAll();
+		return  colorRepository.findAll().stream().map(ColorDAO::toDomain).toList();
 	}
 
 
