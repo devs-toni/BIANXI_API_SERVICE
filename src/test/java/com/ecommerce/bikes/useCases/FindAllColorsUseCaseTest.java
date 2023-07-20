@@ -16,7 +16,7 @@ public class FindAllColorsUseCaseTest {
 
 
     @Test
-    public void getColorDAOandReceiveColor() {
+    public void getColorsDAOandReceiveColorsDomain() {
         when(colorRepository.findAll()).thenReturn(ColorMother.colorsDAO);
 
         assertEquals(findAllColorsUseCase.get().get(0), ColorMother.colors.get(0));
