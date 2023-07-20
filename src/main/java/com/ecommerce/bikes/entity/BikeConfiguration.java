@@ -35,7 +35,7 @@ public class BikeConfiguration {
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "size_id", nullable = false)
-	private Size size;
+	private SizeDAO sizeDAO;
 
 	@Column(name = "stock")
 	private Integer stock;
@@ -56,12 +56,12 @@ public class BikeConfiguration {
 		this.product = product;
 	}
 
-	public Size getSizes() {
-		return size;
+	public SizeDAO getSizes() {
+		return sizeDAO;
 	}
 
-	public void setSizes(Size sizes) {
-		this.size = sizes;
+	public void setSizes(SizeDAO sizes) {
+		this.sizeDAO = sizes;
 	}
 
 	public ColorDAO getColor() {
@@ -90,13 +90,13 @@ public class BikeConfiguration {
 			return false;
 		BikeConfiguration other = (BikeConfiguration) obj;
 		return Objects.equals(colorDAO, other.colorDAO) && Objects.equals(id, other.id)
-				&& Objects.equals(product, other.product) && Objects.equals(size, other.size)
+				&& Objects.equals(product, other.product) && Objects.equals(sizeDAO, other.sizeDAO)
 				&& Objects.equals(stock, other.stock);
 	}
 
 	@Override
 	public String toString() {
-		return "BikeConfig [id=" + id + ", product=" + product + ", sizes=" + size + ", color=" + colorDAO + ", stock="
+		return "BikeConfig [id=" + id + ", product=" + product + ", sizes=" + sizeDAO + ", color=" + colorDAO + ", stock="
 				+ stock + "]";
 	}
 }

@@ -1,8 +1,11 @@
 package com.ecommerce.bikes.entity;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.ecommerce.bikes.domain.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -17,7 +20,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "sizes")
-public class Size {
+public class SizeDAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +32,12 @@ public class Size {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "size")
 	private List<BikeConfiguration> configuration;
+
+	public SizeDAO(Long id, String size) {
+		this.id = id;
+		this.size = size;
+		this.configuration = Collections.emptyList();
+	}
 	
 	public Long getId() {
 		return id;
@@ -52,6 +61,10 @@ public class Size {
 
 	public void setConfiguration(List<BikeConfiguration> configuration) {
 		this.configuration = configuration;
+	}
+
+	public static Size toDomain (SizeDAO sizeDAO) {
+		return new Size(sizeDAO.id, sizeDAO.size, sizeDAO.configuration);
 	}
 
 	@Override

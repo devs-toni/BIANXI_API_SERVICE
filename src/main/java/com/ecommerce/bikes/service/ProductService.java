@@ -3,16 +3,13 @@ package com.ecommerce.bikes.service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import com.ecommerce.bikes.domain.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ecommerce.bikes.entity.ColorDAO;
 import com.ecommerce.bikes.entity.Product;
-import com.ecommerce.bikes.entity.Size;
 import com.ecommerce.bikes.repository.ColorRepository;
 import com.ecommerce.bikes.repository.ProductRepository;
-import com.ecommerce.bikes.repository.SizesRepository;
+import com.ecommerce.bikes.repository.SizeRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -25,7 +22,7 @@ public class ProductService {
 	@Autowired
 	ProductRepository productRepository;
 	@Autowired
-	SizesRepository sizesRepository;
+	SizeRepository sizeRepository;
 	@Autowired
 	ColorRepository colorRepository;
 	@PersistenceContext
@@ -72,9 +69,7 @@ public class ProductService {
 		return result;
 	}
 
-	public List<Size> findAllSizes() {
-		return sizesRepository.findAll();
-	}
+
 
 
 
