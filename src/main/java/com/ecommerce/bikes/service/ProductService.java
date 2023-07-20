@@ -21,10 +21,7 @@ public class ProductService {
 
 	@Autowired
 	ProductRepository productRepository;
-	@Autowired
-	SizeRepository sizeRepository;
-	@Autowired
-	ColorRepository colorRepository;
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -68,10 +65,4 @@ public class ProductService {
 
 		return result;
 	}
-
-
-
-
-
-
 }
