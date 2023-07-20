@@ -31,6 +31,11 @@ public class ColorDAO {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "color")
 	private List<BikeConfiguration> configuration;
 
+	public ColorDAO(Long id, String color) {
+		this.id = id;
+		this.color = color;
+	}
+
 	public Long getId() {
 		return id;
 	}

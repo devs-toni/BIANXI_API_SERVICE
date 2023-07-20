@@ -76,9 +76,6 @@ public class ProductService {
 		return sizesRepository.findAll();
 	}
 
-	public List<Color> findAllColors() {
-		return  colorRepository.findAll().stream().map(ColorDAO::toDomain).toList();
-	}
 
 
 
