@@ -12,7 +12,7 @@ public class FindAllSizesUseCase {
 
     private SizeRepository sizeRepository;
 
-    public FindAllSizesUseCase (SizeRepository sizeRepository) {
+    public FindAllSizesUseCase(SizeRepository sizeRepository) {
         this.sizeRepository = sizeRepository;
     }
 

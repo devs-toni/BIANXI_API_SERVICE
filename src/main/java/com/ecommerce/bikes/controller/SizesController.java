@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.ecommerce.bikes.domain.Size;
+import com.ecommerce.bikes.http.SizeDTO;
 import com.ecommerce.bikes.useCases.FindAllSizesUseCase;
 import com.mysql.cj.x.protobuf.MysqlxCrud;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,8 @@ import com.ecommerce.bikes.service.ProductService;
 
 
 @RestController
-@RequestMapping("/sizes")
+@RequestMapping("/api/sizes")
 public class SizesController {
-
-	@Autowired
-	ProductService productService;
 
 	private FindAllSizesUseCase findAllSizesUseCase;
 
@@ -30,16 +28,13 @@ public class SizesController {
 		this.findAllSizesUseCase = findAllSizesUseCase;
 	}
 
-	@GetMapping("/get/all")
-	public ResponseEntity<Object> getAllSizes() {
+	@GetMapping
+	public ResponseEntity<List<SizeDTO>> getAllSizes() {
 		try {
-			List<Size> sizes = findAllSizesUseCase.get();
-			System.err.println("@@@ Get all sizes succesfully");
+			List<SizeDTO> sizes = findAllSizesUseCase.get().stream().map(Size::toResponse).toList();
 			return new ResponseEntity<>(sizes, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
-			System.err.println("Get all sizes - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-
 	}
 }
