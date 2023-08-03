@@ -6,17 +6,17 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ecommerce.bikes.entity.Product;
+import com.ecommerce.bikes.entity.ProductDAO;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<ProductDAO, Long> {
 
-	Optional<Product> findById(Long id);
+	Optional<ProductDAO> findById(Long id);
 
-	List<Product> findAllByType(String c);
+	List<ProductDAO> findAllByType(String c);
 
-	List<Product> findByNameContainingIgnoreCase(String name);
+	List<ProductDAO> findByNameContainingIgnoreCase(String name);
 	
-	List<Product> findAll();
+	List<ProductDAO> findAll();
 
 }

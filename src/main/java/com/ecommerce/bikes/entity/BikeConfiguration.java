@@ -26,16 +26,16 @@ public class BikeConfiguration {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", nullable = false)
-	private Product product;
+	private ProductDAO product;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "color_id", nullable = false)
-	private ColorDAO colorDAO;
+	private ColorDAO color;
 
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "size_id", nullable = false)
-	private SizeDAO sizeDAO;
+	private SizeDAO size;
 
 	@Column(name = "stock")
 	private Integer stock;
@@ -48,28 +48,28 @@ public class BikeConfiguration {
 		this.id = id;
 	}
 
-	public Product getProduct() {
+	public ProductDAO getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct(ProductDAO productDAO) {
+		this.product = productDAO;
 	}
 
 	public SizeDAO getSizes() {
-		return sizeDAO;
+		return size;
 	}
 
 	public void setSizes(SizeDAO sizes) {
-		this.sizeDAO = sizes;
+		this.size = sizes;
 	}
 
 	public ColorDAO getColor() {
-		return colorDAO;
+		return color;
 	}
 
 	public void setColor(ColorDAO colorDAO) {
-		this.colorDAO = colorDAO;
+		this.color = colorDAO;
 	}
 
 	public Integer getStock() {
@@ -89,14 +89,14 @@ public class BikeConfiguration {
 		if (getClass() != obj.getClass())
 			return false;
 		BikeConfiguration other = (BikeConfiguration) obj;
-		return Objects.equals(colorDAO, other.colorDAO) && Objects.equals(id, other.id)
-				&& Objects.equals(product, other.product) && Objects.equals(sizeDAO, other.sizeDAO)
+		return Objects.equals(color, other.color) && Objects.equals(id, other.id)
+				&& Objects.equals(product, other.product) && Objects.equals(size, other.size)
 				&& Objects.equals(stock, other.stock);
 	}
 
 	@Override
 	public String toString() {
-		return "BikeConfig [id=" + id + ", product=" + product + ", sizes=" + sizeDAO + ", color=" + colorDAO + ", stock="
+		return "BikeConfig [id=" + id + ", product=" + product + ", sizes=" + size + ", color=" + color + ", stock="
 				+ stock + "]";
 	}
 }

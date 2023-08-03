@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.bikes.entity.Product;
-import com.ecommerce.bikes.entity.User;
+import com.ecommerce.bikes.entity.ProductDAO;
+import com.ecommerce.bikes.entity.UserDAO;
 import com.ecommerce.bikes.service.ProductService;
 import com.ecommerce.bikes.service.UserService;
 
@@ -37,8 +37,8 @@ public class ProductController {
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> getProductById(HttpServletResponse response, @PathVariable Long id) {
 		try {
-			Product product = productService.findById(id);
-			return new ResponseEntity<>(product, HttpStatus.OK);
+			ProductDAO productDAO = productService.findById(id);
+			return new ResponseEntity<>(productDAO, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println("Get product by id - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -48,8 +48,8 @@ public class ProductController {
 	@GetMapping("/get/all")
 	public ResponseEntity<Object> getAllProducts() {
 		try {
-			List<Product> products = productService.findAll();
-			return new ResponseEntity<>(products, HttpStatus.OK);
+			List<ProductDAO> productDAOS = productService.findAll();
+			return new ResponseEntity<>(productDAOS, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println("Get all products - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -59,8 +59,8 @@ public class ProductController {
 	@GetMapping("/get/type/{type}")
 	public ResponseEntity<Object> getAllProductsByType(HttpServletResponse response, @PathVariable String type) {
 		try {
-			List<Product> products = productService.findAllProductsByType(type);
-			return new ResponseEntity<>(products, HttpStatus.OK);
+			List<ProductDAO> productDAOS = productService.findAllProductsByType(type);
+			return new ResponseEntity<>(productDAOS, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println("Get product by type - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -70,9 +70,9 @@ public class ProductController {
 	@GetMapping("/get/favourites/{userId}")
 	public ResponseEntity<Object> getFavourites(HttpServletResponse response, @PathVariable long userId) {
 		try {
-			User user = userService.findUserById(userId);
-			List<Product> products =  user.getLikes().stream().map(like -> like.getProduct()).toList();
-			return new ResponseEntity<>(products, HttpStatus.OK);
+			UserDAO userDAO = userService.findUserById(userId);
+			List<ProductDAO> productDAOS =  userDAO.getLikes().stream().map(like -> like.getProduct()).toList();
+			return new ResponseEntity<>(productDAOS, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println("Get like products - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -82,8 +82,8 @@ public class ProductController {
 	@GetMapping("/search/{name}")
 	public ResponseEntity<Object> searchProductByName(HttpServletResponse response, @PathVariable String name) {
 		try {
-			List<Product> products = productService.findAllProductsByName(name);
-			return new ResponseEntity<>(products, HttpStatus.OK);
+			List<ProductDAO> productDAOS = productService.findAllProductsByName(name);
+			return new ResponseEntity<>(productDAOS, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println("Get search products - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

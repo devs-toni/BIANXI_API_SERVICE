@@ -36,6 +36,8 @@ public class ColorDAO {
 		this.color = color;
 	}
 
+	public ColorDAO() {}
+
 	public Long getId() {
 		return id;
 	}

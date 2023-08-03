@@ -1,65 +1,56 @@
 package com.ecommerce.bikes.controller;
 
+import com.ecommerce.bikes.domain.User;
+import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.http.UserRegisterRequest;
+import com.ecommerce.bikes.http.UserRegisterResponse;
+import com.ecommerce.bikes.service.UserService;
+import com.ecommerce.bikes.useCases.RegisterUserUseCase;
+import com.ecommerce.bikes.useCases.VerifyUserUseCase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.ecommerce.bikes.entity.User;
-import com.ecommerce.bikes.service.UserService;
-
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
-	@Autowired
-	UserService userService;
+    private RegisterUserUseCase registerUserUseCase;
 
-	@RequestMapping(value = "/verify", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	@ResponseBody
-	public ResponseEntity<List<Object>> verifyUser(@RequestBody User user) {
-		List<Object> userData = new ArrayList<>();
+    private VerifyUserUseCase verifyUserUseCase;
 
-		try {
-			User userVerified = userService.verifyUser(user.getEmail(), user.getPassword());
-			userData.add(userVerified.getId());
-			userData.add(userVerified.getEmail());
-			userData.add(userVerified.getRole());
-			System.err.println("@@@User verified succesfully");
-			return new ResponseEntity<>(userData, HttpStatus.OK);
-		} catch (NoSuchElementException nsee) {
-			System.err.println("Error when verifyng user - " + nsee.getLocalizedMessage());
-			return new ResponseEntity<>(userData, HttpStatus.OK);
-		}
-	}
+    public UserController(RegisterUserUseCase registerUserUseCase, VerifyUserUseCase verifyUserUseCase) {
+        this.registerUserUseCase = registerUserUseCase;
+        this.verifyUserUseCase = verifyUserUseCase;
+    }
 
-	@PostMapping("/save")
-	@ResponseBody
-	public ResponseEntity<User> saveUser(@RequestBody User user) {
+    @PostMapping(value = "/verify", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<UserRegisterResponse> verifyUser(@RequestBody UserRegisterRequest userRegisterRequest) {
 
-		try {
-			User userExistUser = userService.findUserByEmail(user.getEmail());
-			System.err.println("@@@User encountered succesfully");
-			return new ResponseEntity<>(userExistUser, HttpStatus.OK);
-		} catch (NoSuchElementException nsee) {
-			try {
-				User userSavedUser = userService.save(user);
-				System.err.println("@@@User saved succesfully");
-				return new ResponseEntity<>(userSavedUser, HttpStatus.OK);
-			} catch (NoSuchElementException e) {
-				System.err.println("Error when saving user - " + nsee.getLocalizedMessage());
-				return new ResponseEntity<>(null, HttpStatus.OK);
-			}
-		}
+        try {
+            User user = verifyUserUseCase.verify(userRegisterRequest.getEmail(), userRegisterRequest.getPassword());
+            UserRegisterResponse response = User.toUserRegisterResponse(user);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (NoSuchElementException nsee) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+    }
 
-	}
+    @PostMapping
+    public ResponseEntity<UserRegisterResponse> save(@RequestBody UserRegisterRequest userRegisterRequest) {
+
+        try {
+            UserRegisterResponse userSaved = User.toUserRegisterResponse(
+					registerUserUseCase.save(UserRegisterRequest.toDomain(userRegisterRequest))
+			);
+            return new ResponseEntity<>(userSaved, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+    }
 }

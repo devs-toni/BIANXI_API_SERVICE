@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ecommerce.bikes.entity.Order;
+import com.ecommerce.bikes.entity.OrderDAO;
 
-public interface OrderRepository extends JpaRepository<Order, Long>{
+public interface OrderRepository extends JpaRepository<OrderDAO, Long>{
 		
-	List<Order> findAllByUserId(long userId);
+	List<OrderDAO> findAllByUserId(long userId);
 	
-	Order save(Order order);
+	OrderDAO save(OrderDAO orderDAO);
 	
-	Optional<Order> findById(Long id);
+	Optional<OrderDAO> findById(Long id);
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.ecommerce.bikes.domain.Product;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class ProductDAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,10 +49,26 @@ public class Product {
 	private List<BikeConfiguration> configuration;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "products")
-	private List<Order> orders;
+	private List<OrderDAO> orderDAOS;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
 	private List<Like> likes;
+
+	public ProductDAO(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<OrderDAO> orderDAOS, List<Like> likes) {
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.price = price;
+		this.offer = offer;
+		this.sentence = sentence;
+		this.description = description;
+		this.datasheet = datasheet;
+		this.configuration = configuration;
+		this.orderDAOS = orderDAOS;
+		this.likes = likes;
+	}
+
+	public ProductDAO() {}
 
 	public List<Like> getLikes() {
 		return likes;
@@ -133,12 +150,28 @@ public class Product {
 		this.configuration = configuration;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
+	public List<OrderDAO> getOrders() {
+		return orderDAOS;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setOrders(List<OrderDAO> orderDAOS) {
+		this.orderDAOS = orderDAOS;
+	}
+
+	public static Product toDomain(ProductDAO product) {
+		return new Product(
+				product.id,
+				product.name,
+				product.type,
+				product.price,
+				product.offer,
+				product.sentence,
+				product.description,
+				product.datasheet,
+				product.configuration,
+				product.orderDAOS.stream().map(OrderDAO::toDomain).toList(),
+				product.likes
+		);
 	}
 
 	@Override
@@ -149,10 +182,10 @@ public class Product {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Product other = (Product) obj;
+		ProductDAO other = (ProductDAO) obj;
 		return Objects.equals(configuration, other.configuration) && Objects.equals(datasheet, other.datasheet)
 				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
-				&& Objects.equals(name, other.name) && offer == other.offer && Objects.equals(orders, other.orders)
+				&& Objects.equals(name, other.name) && offer == other.offer && Objects.equals(orderDAOS, other.orderDAOS)
 				&& Float.floatToIntBits(price) == Float.floatToIntBits(other.price)
 				&& Objects.equals(sentence, other.sentence) && Objects.equals(type, other.type);
 	}
@@ -161,6 +194,6 @@ public class Product {
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", offer=" + offer
 				+ ", sentence=" + sentence + ", description=" + description + ", datasheet=" + datasheet
-				+ ", configuration=" + configuration + ", orders=" + orders + "]";
+				+ ", configuration=" + configuration + ", orders=" + orderDAOS + "]";
 	}
 }

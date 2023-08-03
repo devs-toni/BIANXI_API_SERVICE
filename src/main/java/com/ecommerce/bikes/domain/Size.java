@@ -1,6 +1,7 @@
 package com.ecommerce.bikes.domain;
 
 import com.ecommerce.bikes.entity.BikeConfiguration;
+import com.ecommerce.bikes.http.SizeDTO;
 
 import java.util.List;
 import java.util.Objects;
@@ -8,15 +9,43 @@ import java.util.Objects;
 public class Size {
 
     private Long id;
-
     private String size;
-
     private List<BikeConfiguration> configuration = null;
-
     public Size (Long id, String size, List<BikeConfiguration> configuration) {
         this.id = id;
         this.size = size;
         this.configuration = configuration;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public List<BikeConfiguration> getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(List<BikeConfiguration> configuration) {
+        this.configuration = configuration;
+    }
+
+    public static SizeDTO toResponse(Size size) {
+        return new SizeDTO(
+                size.id,
+                size.size
+        );
     }
 
     @Override

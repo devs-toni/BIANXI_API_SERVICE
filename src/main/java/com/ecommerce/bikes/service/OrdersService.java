@@ -3,13 +3,12 @@ package com.ecommerce.bikes.service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.aspectj.util.PartialOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ecommerce.bikes.entity.Order;
-import com.ecommerce.bikes.entity.Product;
-import com.ecommerce.bikes.entity.User;
+import com.ecommerce.bikes.entity.OrderDAO;
+import com.ecommerce.bikes.entity.ProductDAO;
+import com.ecommerce.bikes.entity.UserDAO;
 import com.ecommerce.bikes.repository.OrderRepository;
 
 @Service
@@ -18,17 +17,17 @@ public class OrdersService {
 	@Autowired
 	OrderRepository orderRepository;
 
-	public List<Order> findAllByUser(long userId) throws NoSuchElementException {
+	public List<OrderDAO> findAllByUser(long userId) throws NoSuchElementException {
 		return orderRepository.findAllByUserId(userId);
 	}
 
-	public Long createOrder(List<Product> products, User user, String address, float amount) {
-		products.forEach(p -> System.out.println(p.getId()));
-		Order order = orderRepository.save(new Order(address, amount, user, products));
-		return order.getId();
+	public Long createOrder(List<ProductDAO> productDAOS, UserDAO userDAO, String address, float amount) {
+		productDAOS.forEach(p -> System.out.println(p.getId()));
+		OrderDAO orderDAO = orderRepository.save(new OrderDAO(address, amount, userDAO, productDAOS));
+		return orderDAO.getId();
 	}
 
-	public Order findById(Long id) throws NoSuchElementException {
+	public OrderDAO findById(Long id) throws NoSuchElementException {
 		return orderRepository.findById(id).get();
 	}
 }

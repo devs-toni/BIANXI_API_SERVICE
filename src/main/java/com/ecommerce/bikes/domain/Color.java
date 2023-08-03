@@ -1,15 +1,41 @@
 package com.ecommerce.bikes.domain;
 
+import com.ecommerce.bikes.http.ColorDTO;
+
 import java.util.Objects;
+
 
 public class Color {
 
     private Long id;
     private String color;
 
-    public Color (Long id, String color) {
+    public Color(Long id, String color) {
         this.id = id;
         this.color = color;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public static ColorDTO toResponse(Color color) {
+        return new ColorDTO(
+                color.id,
+                color.color
+        );
     }
 
     @Override
