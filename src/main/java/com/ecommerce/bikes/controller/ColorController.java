@@ -1,44 +1,34 @@
 package com.ecommerce.bikes.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-
 import com.ecommerce.bikes.domain.Color;
 import com.ecommerce.bikes.http.ColorDTO;
 import com.ecommerce.bikes.useCases.FindAllColorsUseCase;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.bikes.entity.ColorDAO;
-import com.ecommerce.bikes.service.ProductService;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/colors")
+@RequestMapping("api/colors")
 public class ColorController {
 
-	private ProductService productService;
-	private FindAllColorsUseCase findAllColorsUseCase;
+    private FindAllColorsUseCase findAllColorsUseCase;
 
-	public ColorController (ProductService productService, FindAllColorsUseCase findAllColorsUseCase) {
-		this.productService = productService;
-		this.findAllColorsUseCase = findAllColorsUseCase;
-	}
+    public ColorController(FindAllColorsUseCase findAllColorsUseCase) {
+        this.findAllColorsUseCase = findAllColorsUseCase;
+    }
 
-	@GetMapping("/all")
-	public ResponseEntity<List<ColorDTO>> getAllColors() {
-		try {
-			List<ColorDTO> colors = findAllColorsUseCase.get().stream().map(Color::toResponse).toList();
-			System.err.println("@@@ Get all colors succesfully");
-			return new ResponseEntity<>(colors, HttpStatus.OK);
-		} catch (NoSuchElementException nsee) {
-			System.err.println("Get all colors - " + nsee.getLocalizedMessage());
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-	}
+    @GetMapping
+    public ResponseEntity<List<ColorDTO>> getAllColors() {
+        try {
+            List<ColorDTO> colors = findAllColorsUseCase.get().stream().map(Color::toResponse).toList();
+            return new ResponseEntity<>(colors, HttpStatus.OK);
+        } catch (NoSuchElementException nsee) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 }

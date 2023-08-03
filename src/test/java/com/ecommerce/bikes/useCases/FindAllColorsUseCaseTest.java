@@ -1,8 +1,11 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.ColorMother;
+import com.ecommerce.bikes.domain.Color;
 import com.ecommerce.bikes.repository.ColorRepository;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -19,8 +22,8 @@ public class FindAllColorsUseCaseTest {
     public void getColorsDAOandReceiveColorsDomain() {
         when(colorRepository.findAll()).thenReturn(ColorMother.colorsDAO);
 
-        assertEquals(findAllColorsUseCase.get().get(0), ColorMother.colors.get(0));
+        List<Color> colorList = findAllColorsUseCase.get();
+
+        assertEquals(ColorMother.colors, colorList);
     }
-
-
 }
