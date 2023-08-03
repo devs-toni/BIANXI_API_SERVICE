@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("api/colors")
+@RequestMapping("/api/colors")
 public class ColorController {
 
     private FindAllColorsUseCase findAllColorsUseCase;

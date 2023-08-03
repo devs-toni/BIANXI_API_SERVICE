@@ -2,6 +2,7 @@ package com.ecommerce.bikes.domain;
 
 import com.ecommerce.bikes.entity.Like;
 import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.http.UserRegisterResponse;
 
 import java.util.Collections;
 import java.util.List;
@@ -98,6 +99,14 @@ public class User {
                 user.password,
                 user.orders.stream().map(Order::toEntity).toList(),
                 user.likes
+        );
+    }
+
+    public static UserRegisterResponse toUserRegisterResponse(User user) {
+        return new UserRegisterResponse(
+                user.id,
+                user.email,
+                user.role
         );
     }
 

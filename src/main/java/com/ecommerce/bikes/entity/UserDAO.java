@@ -1,127 +1,121 @@
 package com.ecommerce.bikes.entity;
 
+import com.ecommerce.bikes.domain.User;
+import jakarta.persistence.*;
+
 import java.util.List;
 import java.util.Objects;
-
-import com.ecommerce.bikes.domain.Order;
-import com.ecommerce.bikes.domain.User;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
 public class UserDAO {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(name = "email", nullable = false)
-	private String email;
-	
-	@Column(name = "role", nullable = false)
-	private char role;
+    @Column(name = "email", nullable = false)
+    private String email;
 
-	@Column(name = "password", nullable = false)
-	private String password;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
-	private List<OrderDAO> orderDAOS;
-	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-	private List<Like> likes;
+    @Column(name = "role", nullable = false)
+    private char role;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "password", nullable = false)
+    private String password;
 
-	public List<Like> getLikes() {
-		return likes;
-	}
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
+    private List<OrderDAO> orderDAOS;
 
-	public void setLikes(List<Like> likes) {
-		this.likes = likes;
-	}
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Like> likes;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public List<Like> getLikes() {
+        return likes;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public List<OrderDAO> getOrders() {
-		return orderDAOS;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setOrders(List<OrderDAO> orderDAOS) {
-		this.orderDAOS = orderDAOS;
-	}
-	
+    public String getPassword() {
+        return password;
+    }
 
-	public char getRole() {
-		return role;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setRole(char role) {
-		this.role = role;
-	}
+    public List<OrderDAO> getOrders() {
+        return orderDAOS;
+    }
 
-	public UserDAO(Long id, String email, char role, String password, List<OrderDAO> orderDAOS, List<Like> likes) {
-		this.id = id;
-		this.email = email;
-		this.role = role;
-		this.password = password;
-		this.orderDAOS = orderDAOS;
-		this.likes = likes;
-	}
+    public void setOrders(List<OrderDAO> orderDAOS) {
+        this.orderDAOS = orderDAOS;
+    }
 
-	public static User toDomain(UserDAO userDAO) {
-		return new User(
-				userDAO.id,
-				userDAO.email,
-				userDAO.role,
-				userDAO.password,
-				userDAO.orderDAOS.stream().map(OrderDAO::toDomain).toList(),
-				userDAO.likes
-		);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserDAO other = (UserDAO) obj;
-		return Objects.equals(email, other.email) && id == other.id
-			 && Objects.equals(password, other.password);
-	}
+    public char getRole() {
+        return role;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
-	}
+    public void setRole(char role) {
+        this.role = role;
+    }
+
+    public UserDAO(Long id, String email, char role, String password, List<OrderDAO> orderDAOS, List<Like> likes) {
+        this.id = id;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+        this.orderDAOS = orderDAOS;
+        this.likes = likes;
+    }
+
+    public UserDAO() {
+    }
+
+    public static User toDomain(UserDAO userDAO) {
+        return new User(
+                userDAO.id,
+                userDAO.email,
+                userDAO.role,
+                userDAO.password,
+                userDAO.orderDAOS.stream().map(OrderDAO::toDomain).toList(),
+                userDAO.likes
+        );
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserDAO other = (UserDAO) obj;
+        return Objects.equals(email, other.email) && id == other.id
+                && Objects.equals(password, other.password);
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
+    }
 }
