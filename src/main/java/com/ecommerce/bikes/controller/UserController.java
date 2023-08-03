@@ -1,19 +1,14 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.domain.User;
-import com.ecommerce.bikes.entity.UserDAO;
 import com.ecommerce.bikes.http.UserRegisterRequest;
 import com.ecommerce.bikes.http.UserRegisterResponse;
-import com.ecommerce.bikes.service.UserService;
 import com.ecommerce.bikes.useCases.RegisterUserUseCase;
 import com.ecommerce.bikes.useCases.VerifyUserUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
