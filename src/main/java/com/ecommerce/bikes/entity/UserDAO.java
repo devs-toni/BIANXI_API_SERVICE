@@ -3,6 +3,8 @@ package com.ecommerce.bikes.entity;
 import java.util.List;
 import java.util.Objects;
 
+import com.ecommerce.bikes.domain.Order;
+import com.ecommerce.bikes.domain.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserDAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +33,7 @@ public class User {
 	private String password;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
-	private List<Order> orders;
+	private List<OrderDAO> orderDAOS;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Like> likes;
@@ -68,12 +70,12 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
+	public List<OrderDAO> getOrders() {
+		return orderDAOS;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setOrders(List<OrderDAO> orderDAOS) {
+		this.orderDAOS = orderDAOS;
 	}
 	
 
@@ -85,6 +87,26 @@ public class User {
 		this.role = role;
 	}
 
+	public UserDAO(Long id, String email, char role, String password, List<OrderDAO> orderDAOS, List<Like> likes) {
+		this.id = id;
+		this.email = email;
+		this.role = role;
+		this.password = password;
+		this.orderDAOS = orderDAOS;
+		this.likes = likes;
+	}
+
+	public static User toDomain(UserDAO userDAO) {
+		return new User(
+				userDAO.id,
+				userDAO.email,
+				userDAO.role,
+				userDAO.password,
+				userDAO.orderDAOS.stream().map(OrderDAO::toDomain).toList(),
+				userDAO.likes
+		);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,7 +115,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		UserDAO other = (UserDAO) obj;
 		return Objects.equals(email, other.email) && id == other.id
 			 && Objects.equals(password, other.password);
 	}

@@ -2,6 +2,7 @@ package com.ecommerce.bikes.entity;
 
 import java.util.List;
 
+import com.ecommerce.bikes.domain.Order;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -19,7 +20,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class OrderDAO {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,20 +35,26 @@ public class Order {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	private UserDAO user;
 	
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "order_products", joinColumns = {@JoinColumn(name = "order_id", insertable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "product_id", insertable = false, updatable = false)})
-	private List<Product> products;
+	private List<ProductDAO> products;
 
-	protected Order() {}
+	protected OrderDAO() {}
 
-	public Order(String address, float price, User user, List<Product> products) {
-		super();
+	public OrderDAO(String address, float price, UserDAO user, List<ProductDAO> products) {
 		this.address = address;
 		this.price = price;
 		this.user = user;
+		this.products = products;
+	}
+
+	public OrderDAO(Long id, String address, float price, List<ProductDAO> products) {
+		this.id = id;
+		this.address = address;
+		this.price = price;
 		this.products = products;
 	}
 
@@ -75,12 +82,21 @@ public class Order {
 		this.price = price;
 	}
 
-	public User getUser() {
+	public UserDAO getUser() {
 		return user;
 	}
 
-	public List<Product> getProducts() {
+	public List<ProductDAO> getProducts() {
 		return products;
+	}
+
+	public static Order toDomain(OrderDAO orderDAO) {
+		return new Order(
+				orderDAO.id,
+				orderDAO.address,
+				orderDAO.price,
+				orderDAO.products.stream().map(ProductDAO::toDomain).toList()
+		);
 	}
 
 }

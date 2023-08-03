@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.ecommerce.bikes.domain.Color;
+import com.ecommerce.bikes.http.ColorDTO;
 import com.ecommerce.bikes.useCases.FindAllColorsUseCase;
 import com.mysql.cj.x.protobuf.MysqlxCrud;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,6 @@ import com.ecommerce.bikes.service.ProductService;
 public class ColorController {
 
 	private ProductService productService;
-
 	private FindAllColorsUseCase findAllColorsUseCase;
 
 	public ColorController (ProductService productService, FindAllColorsUseCase findAllColorsUseCase) {
@@ -31,11 +31,11 @@ public class ColorController {
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<Object> getAllColors() {
+	public ResponseEntity<List<ColorDTO>> getAllColors() {
 		try {
-			List<Color> colorDAOS = findAllColorsUseCase.get();
+			List<ColorDTO> colors = findAllColorsUseCase.get().stream().map(Color::toResponse).toList();
 			System.err.println("@@@ Get all colors succesfully");
-			return new ResponseEntity<>(colorDAOS, HttpStatus.OK);
+			return new ResponseEntity<>(colors, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.err.println("Get all colors - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

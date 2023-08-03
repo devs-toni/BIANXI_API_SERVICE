@@ -6,10 +6,8 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ecommerce.bikes.entity.Product;
-import com.ecommerce.bikes.repository.ColorRepository;
+import com.ecommerce.bikes.entity.ProductDAO;
 import com.ecommerce.bikes.repository.ProductRepository;
-import com.ecommerce.bikes.repository.SizeRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -26,19 +24,19 @@ public class ProductService {
 	private EntityManager entityManager;
 
 
-	public Product findById(Long id) throws NoSuchElementException {
+	public ProductDAO findById(Long id) throws NoSuchElementException {
 		return productRepository.findById(id).get();
 	}
 
-	public List<Product> findAllProductsByType(String type) throws NoSuchElementException {
+	public List<ProductDAO> findAllProductsByType(String type) throws NoSuchElementException {
 		return productRepository.findAllByType(type);
 	}
 
-	public List<Product> findAllProductsByName(String name) throws NoSuchElementException {
+	public List<ProductDAO> findAllProductsByName(String name) throws NoSuchElementException {
 		return productRepository.findByNameContainingIgnoreCase(name);
 	}
 
-	public List<Product> findAll() {
+	public List<ProductDAO> findAll() {
 		return productRepository.findAll();
 	}
 

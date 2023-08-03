@@ -3,15 +3,13 @@ package com.ecommerce.bikes.repository;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import com.ecommerce.bikes.entity.UserDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ecommerce.bikes.entity.User;
-
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<UserDAO, Long> {
 	
-	Optional<User> findByEmail(String email) throws NoSuchElementException;
+	Optional<UserDAO> findByEmail(String email) throws NoSuchElementException;
 	
-	Optional<User> findById(long userId) throws NoSuchElementException;
-	
+	Optional<UserDAO> findById(long userId) throws NoSuchElementException;
 
 }

@@ -25,12 +25,12 @@ public class Like {
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	private UserDAO user;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id", nullable = false)
-	private Product product;
+	private ProductDAO product;
 
 	public long getId() {
 		return id;
@@ -40,20 +40,20 @@ public class Like {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public UserDAO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(UserDAO userDAO) {
+		this.user = userDAO;
 	}
 
-	public Product getProduct() {
+	public ProductDAO getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct(ProductDAO productDAO) {
+		this.product = productDAO;
 	}
 
 	@Override

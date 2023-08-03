@@ -31,7 +31,7 @@ public class Datasheet {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id", nullable = false)
-	private Product product;
+	private ProductDAO product;
 
 	public Long getId() {
 		return id;
@@ -57,12 +57,12 @@ public class Datasheet {
 		this.feature = feature;
 	}
 
-	public Product getProduct() {
+	public ProductDAO getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct(ProductDAO productDAO) {
+		this.product = productDAO;
 	}
 
 	@Override

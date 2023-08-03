@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.bikes.entity.Order;
-import com.ecommerce.bikes.entity.Product;
+import com.ecommerce.bikes.entity.OrderDAO;
+import com.ecommerce.bikes.entity.ProductDAO;
 import com.ecommerce.bikes.service.OrdersService;
 import com.ecommerce.bikes.service.ProductService;
 import com.ecommerce.bikes.service.UserService;
@@ -38,7 +38,7 @@ public class OrderController {
 
 		try {
 			List<Integer> products = (List<Integer>) body.get(0);
-			List<Product> arrayList = new ArrayList<>();
+			List<ProductDAO> arrayList = new ArrayList<>();
 			for (Integer product : products) {
 				arrayList.add(productService.findById(Long.valueOf(String.valueOf(product))));
 			}
@@ -53,11 +53,11 @@ public class OrderController {
 	}
 
 	@GetMapping("/get/all/{id}")
-	public ResponseEntity<List<Order>> getAllOrdersEntity(@PathVariable("id") Long id) {
+	public ResponseEntity<List<OrderDAO>> getAllOrdersEntity(@PathVariable("id") Long id) {
 
 		try {
-			List<Order> orders = orderService.findAllByUser(id);
-			return new ResponseEntity<>(orders, HttpStatus.OK);
+			List<OrderDAO> orderDAOS = orderService.findAllByUser(id);
+			return new ResponseEntity<>(orderDAOS, HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println("Get user orders - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -65,11 +65,11 @@ public class OrderController {
 	}
 	
 	@GetMapping("/get/products/{id}")
-	public ResponseEntity<List<Product>> getAllProducts(@PathVariable("id") Long id) {
+	public ResponseEntity<List<ProductDAO>> getAllProducts(@PathVariable("id") Long id) {
 
 		try {
-			Order order = orderService.findById(id);
-			return new ResponseEntity<>(order.getProducts(), HttpStatus.OK);
+			OrderDAO orderDAO = orderService.findById(id);
+			return new ResponseEntity<>(orderDAO.getProducts(), HttpStatus.OK);
 		} catch (NoSuchElementException nsee) {
 			System.out.println("Get order products - " + nsee.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.OK);

@@ -38,6 +38,8 @@ public class SizeDAO {
 		this.size = size;
 		this.configuration = Collections.emptyList();
 	}
+
+	public SizeDAO () {}
 	
 	public Long getId() {
 		return id;
