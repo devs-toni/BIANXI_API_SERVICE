@@ -48,13 +48,10 @@ public class ProductDAO {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
 	private List<BikeConfiguration> configuration;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "products")
-	private List<OrderDAO> orderDAOS;
-
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
 	private List<Like> likes;
 
-	public ProductDAO(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<OrderDAO> orderDAOS, List<Like> likes) {
+	public ProductDAO(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likes) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
@@ -64,7 +61,6 @@ public class ProductDAO {
 		this.description = description;
 		this.datasheet = datasheet;
 		this.configuration = configuration;
-		this.orderDAOS = orderDAOS;
 		this.likes = likes;
 	}
 
@@ -150,14 +146,6 @@ public class ProductDAO {
 		this.configuration = configuration;
 	}
 
-	public List<OrderDAO> getOrders() {
-		return orderDAOS;
-	}
-
-	public void setOrders(List<OrderDAO> orderDAOS) {
-		this.orderDAOS = orderDAOS;
-	}
-
 	public static Product toDomain(ProductDAO product) {
 		return new Product(
 				product.id,
@@ -169,7 +157,6 @@ public class ProductDAO {
 				product.description,
 				product.datasheet,
 				product.configuration,
-				product.orderDAOS.stream().map(OrderDAO::toDomain).toList(),
 				product.likes
 		);
 	}
@@ -185,7 +172,7 @@ public class ProductDAO {
 		ProductDAO other = (ProductDAO) obj;
 		return Objects.equals(configuration, other.configuration) && Objects.equals(datasheet, other.datasheet)
 				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
-				&& Objects.equals(name, other.name) && offer == other.offer && Objects.equals(orderDAOS, other.orderDAOS)
+				&& Objects.equals(name, other.name) && offer == other.offer
 				&& Float.floatToIntBits(price) == Float.floatToIntBits(other.price)
 				&& Objects.equals(sentence, other.sentence) && Objects.equals(type, other.type);
 	}
@@ -194,6 +181,6 @@ public class ProductDAO {
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", offer=" + offer
 				+ ", sentence=" + sentence + ", description=" + description + ", datasheet=" + datasheet
-				+ ", configuration=" + configuration + ", orders=" + orderDAOS + "]";
+				+ ", configuration=" + configuration + "]";
 	}
 }

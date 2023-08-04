@@ -1,9 +1,12 @@
 package com.ecommerce.bikes.controller;
 
+import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.entity.ProductDAO;
 import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.repository.UserRepository;
 import com.ecommerce.bikes.service.ProductService;
+import com.ecommerce.bikes.useCases.FindAllProductsByTypeUseCase;
 import jakarta.persistence.NoResultException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 public class ProductController {
 
     @Autowired
@@ -24,8 +27,14 @@ public class ProductController {
     @Autowired
     UserRepository userRepository;
 
+    private FindAllProductsByTypeUseCase findAllProductsByTypeUseCase;
 
-    @GetMapping("/get/{id}")
+    public ProductController(FindAllProductsByTypeUseCase findAllProductsByTypeUseCase) {
+        this.findAllProductsByTypeUseCase = findAllProductsByTypeUseCase;
+    }
+
+
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getProductById(HttpServletResponse response, @PathVariable Long id) {
         try {
             ProductDAO productDAO = productService.findById(id);
@@ -36,7 +45,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get/all")
+    @GetMapping
     public ResponseEntity<Object> getAllProducts() {
         try {
             List<ProductDAO> productDAOS = productService.findAll();
@@ -47,18 +56,17 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get/type/{type}")
-    public ResponseEntity<Object> getAllProductsByType(HttpServletResponse response, @PathVariable String type) {
+    @GetMapping("/type/{type}")
+    public ResponseEntity<List<ProductResponse>> getAllProductsByType(HttpServletResponse response, @PathVariable String type) {
         try {
-            List<ProductDAO> productDAOS = productService.findAllProductsByType(type);
-            return new ResponseEntity<>(productDAOS, HttpStatus.OK);
+            List<ProductResponse> products = findAllProductsByTypeUseCase.find(type).stream().map(Product::toResponse).toList();
+            return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (NoSuchElementException nsee) {
-            System.out.println("Get product by type - " + nsee.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
-    @GetMapping("/get/favourites/{userId}")
+    @GetMapping("/favourites/{userId}")
     public ResponseEntity<Object> getFavourites(HttpServletResponse response, @PathVariable long userId) {
         try {
             UserDAO userDAO = userRepository.findById(userId).get();

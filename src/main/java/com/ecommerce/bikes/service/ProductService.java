@@ -28,9 +28,7 @@ public class ProductService {
 		return productRepository.findById(id).get();
 	}
 
-	public List<ProductDAO> findAllProductsByType(String type) throws NoSuchElementException {
-		return productRepository.findAllByType(type);
-	}
+
 
 	public List<ProductDAO> findAllProductsByName(String name) throws NoSuchElementException {
 		return productRepository.findByNameContainingIgnoreCase(name);

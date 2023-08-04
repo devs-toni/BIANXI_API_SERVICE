@@ -1,16 +1,13 @@
-package com.ecommerce.bikes.domain;
+package com.ecommerce.bikes.http;
 
 import com.ecommerce.bikes.entity.BikeConfiguration;
 import com.ecommerce.bikes.entity.Datasheet;
 import com.ecommerce.bikes.entity.Like;
-import com.ecommerce.bikes.entity.ProductDAO;
-import com.ecommerce.bikes.http.ProductResponse;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
-public class Product {
+public class ProductResponse {
 
     private Long id;
 
@@ -32,7 +29,7 @@ public class Product {
 
     private List<Like> likes;
 
-    public Product(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likes) {
+    public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likes) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -123,47 +120,5 @@ public class Product {
 
     public void setLikes(List<Like> likes) {
         this.likes = likes;
-    }
-
-    public static ProductDAO toEntity(Product product) {
-        return new ProductDAO(
-                product.id,
-                product.name,
-                product.type,
-                product.price,
-                product.offer,
-                product.sentence,
-                product.description,
-                product.datasheet,
-                product.configuration,
-                product.likes
-        );
-    }
-
-    public static ProductResponse toResponse(Product product) {
-        return new ProductResponse(
-                product.id,
-                product.name,
-                product.type,
-                product.price,
-                product.offer,
-                product.sentence,
-                product.description,
-                product.datasheet,
-                product.configuration,
-                product.likes
-        );
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product product)) return false;
-        return Float.compare(product.price, price) == 0 && offer == product.offer && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(type, product.type) && Objects.equals(sentence, product.sentence) && Objects.equals(description, product.description) && Objects.equals(datasheet, product.datasheet) && Objects.equals(configuration, product.configuration) && Objects.equals(likes, product.likes);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, type, price, offer, sentence, description, datasheet, configuration, likes);
     }
 }
