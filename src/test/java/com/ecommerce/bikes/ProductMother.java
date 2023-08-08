@@ -1,15 +1,15 @@
 package com.ecommerce.bikes;
 
 import com.ecommerce.bikes.domain.Product;
-import com.ecommerce.bikes.entity.ProductDAO;
+import com.ecommerce.bikes.entity.ProductEntity;
 
 import java.util.Collections;
 import java.util.List;
 
 public class ProductMother {
 
-    public static List<ProductDAO> productsByType = List.of(
-            new ProductDAO(
+    public static List<ProductEntity> productsByType = List.of(
+            new ProductEntity(
                     1L,
                     "dummy",
                     "road",

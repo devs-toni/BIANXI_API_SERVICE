@@ -1,6 +1,6 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.http.ColorDTO;
+import com.ecommerce.bikes.http.ColorResponse;
 
 import java.util.Objects;
 
@@ -31,8 +31,8 @@ public class Color {
         this.color = color;
     }
 
-    public static ColorDTO toResponse(Color color) {
-        return new ColorDTO(
+    public static ColorResponse toResponse(Color color) {
+        return new ColorResponse(
                 color.id,
                 color.color
         );

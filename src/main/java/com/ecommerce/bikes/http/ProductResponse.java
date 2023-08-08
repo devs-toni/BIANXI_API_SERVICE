@@ -1,8 +1,8 @@
 package com.ecommerce.bikes.http;
 
-import com.ecommerce.bikes.entity.BikeConfiguration;
-import com.ecommerce.bikes.entity.Datasheet;
-import com.ecommerce.bikes.entity.LikeDAO;
+import com.ecommerce.bikes.entity.BikeConfigurationEntity;
+import com.ecommerce.bikes.entity.DatasheetEntity;
+import com.ecommerce.bikes.entity.LikeEntity;
 
 import java.util.List;
 import java.util.Set;
@@ -23,13 +23,13 @@ public class ProductResponse {
 
     private String description;
 
-    private Set<Datasheet> datasheet;
+    private Set<DatasheetEntity> datasheet;
 
-    private List<BikeConfiguration> configuration;
+    private List<BikeConfigurationEntity> configuration;
 
-    private List<LikeDAO> likeDAOS;
+    private List<LikeEntity> likeEntities;
 
-    public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<LikeDAO> likeDAOS) {
+    public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<DatasheetEntity> datasheet, List<BikeConfigurationEntity> configuration, List<LikeEntity> likeEntities) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -39,7 +39,7 @@ public class ProductResponse {
         this.description = description;
         this.datasheet = datasheet;
         this.configuration = configuration;
-        this.likeDAOS = likeDAOS;
+        this.likeEntities = likeEntities;
     }
 
     public Long getId() {
@@ -98,27 +98,27 @@ public class ProductResponse {
         this.description = description;
     }
 
-    public Set<Datasheet> getDatasheet() {
+    public Set<DatasheetEntity> getDatasheet() {
         return datasheet;
     }
 
-    public void setDatasheet(Set<Datasheet> datasheet) {
+    public void setDatasheet(Set<DatasheetEntity> datasheet) {
         this.datasheet = datasheet;
     }
 
-    public List<BikeConfiguration> getConfiguration() {
+    public List<BikeConfigurationEntity> getConfiguration() {
         return configuration;
     }
 
-    public void setConfiguration(List<BikeConfiguration> configuration) {
+    public void setConfiguration(List<BikeConfigurationEntity> configuration) {
         this.configuration = configuration;
     }
 
-    public List<LikeDAO> getLikes() {
-        return likeDAOS;
+    public List<LikeEntity> getLikes() {
+        return likeEntities;
     }
 
-    public void setLikes(List<LikeDAO> likeDAOS) {
-        this.likeDAOS = likeDAOS;
+    public void setLikes(List<LikeEntity> likeEntities) {
+        this.likeEntities = likeEntities;
     }
 }

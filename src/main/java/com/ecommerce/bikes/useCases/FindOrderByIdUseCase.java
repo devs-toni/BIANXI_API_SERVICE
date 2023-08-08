@@ -1,7 +1,7 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Order;
-import com.ecommerce.bikes.entity.OrderDAO;
+import com.ecommerce.bikes.entity.OrderEntity;
 import com.ecommerce.bikes.exception.OrderNotFoundException;
 import com.ecommerce.bikes.repository.OrderRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class FindOrderByIdUseCase {
     }
 
     public Order find(Long id) throws OrderNotFoundException {
-        OrderDAO orderDAO = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("The order does not exist"));
-        return OrderDAO.toDomain(orderDAO);
+        OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("The order does not exist"));
+        return OrderEntity.toDomain(orderEntity);
     }
 }

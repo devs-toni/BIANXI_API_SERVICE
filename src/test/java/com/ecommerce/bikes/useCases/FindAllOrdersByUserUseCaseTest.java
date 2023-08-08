@@ -1,7 +1,7 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Order;
-import com.ecommerce.bikes.entity.OrderDAO;
+import com.ecommerce.bikes.entity.OrderEntity;
 import com.ecommerce.bikes.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.List;
 
 import static com.ecommerce.bikes.OrderMother.order;
-import static com.ecommerce.bikes.OrderMother.orderDAO;
+import static com.ecommerce.bikes.OrderMother.orderEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,7 +21,7 @@ public class FindAllOrdersByUserUseCaseTest {
     private final FindAllOrdersByUserUseCase findAllOrdersByUserUseCase = new FindAllOrdersByUserUseCase(orderRepository);
     @Test
     public void find_all_by_user() {
-        List<OrderDAO> expectedOrders = List.of(orderDAO);
+        List<OrderEntity> expectedOrders = List.of(orderEntity);
         Long userId = 1L;
 
         when(orderRepository.findAllByUserId(userId)).thenReturn(expectedOrders);

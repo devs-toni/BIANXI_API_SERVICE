@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "datasheets")
-public class Datasheet {
+public class DatasheetEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Datasheet {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id", nullable = false)
-	private ProductDAO product;
+	private ProductEntity product;
 
 	public Long getId() {
 		return id;
@@ -57,12 +57,12 @@ public class Datasheet {
 		this.feature = feature;
 	}
 
-	public ProductDAO getProduct() {
+	public ProductEntity getProduct() {
 		return product;
 	}
 
-	public void setProduct(ProductDAO productDAO) {
-		this.product = productDAO;
+	public void setProduct(ProductEntity productEntity) {
+		this.product = productEntity;
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class Datasheet {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Datasheet other = (Datasheet) obj;
+		DatasheetEntity other = (DatasheetEntity) obj;
 		return Objects.equals(feature, other.feature) && Objects.equals(featureName, other.featureName)
 				&& Objects.equals(id, other.id) && Objects.equals(product, other.product);
 	}

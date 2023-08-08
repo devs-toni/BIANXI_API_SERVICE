@@ -1,7 +1,7 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Product;
-import com.ecommerce.bikes.entity.ProductDAO;
+import com.ecommerce.bikes.entity.ProductEntity;
 import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.repository.ProductRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -29,7 +29,7 @@ public class FindProductByIdUseCaseTest {
     public void find_correct_product() throws ProductNotFoundException {
         Long productId = 1L;
 
-        when(productRepository.findById(productId)).thenReturn(Optional.of(productDAO));
+        when(productRepository.findById(productId)).thenReturn(Optional.of(productEntity));
 
         assertEquals(productExpected, findProductByIdUseCase.find(productId));
     }
@@ -43,6 +43,6 @@ public class FindProductByIdUseCaseTest {
 
 
 
-    public static ProductDAO productDAO = createProductDAO();
+    public static ProductEntity productEntity = createProductDAO();
     public static Product productExpected = createProduct();
 }

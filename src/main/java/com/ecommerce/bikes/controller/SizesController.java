@@ -1,7 +1,7 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.domain.Size;
-import com.ecommerce.bikes.http.SizeDTO;
+import com.ecommerce.bikes.http.SizeResponse;
 import com.ecommerce.bikes.useCases.FindAllSizesUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +23,9 @@ public class SizesController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SizeDTO>> findAll() {
+    public ResponseEntity<List<SizeResponse>> findAll() {
 
-        List<SizeDTO> sizes = findAllSizesUseCase.find().stream().map(Size::toResponse).toList();
+        List<SizeResponse> sizes = findAllSizesUseCase.find().stream().map(Size::toResponse).toList();
         return new ResponseEntity<>(sizes, HttpStatus.OK);
     }
 }

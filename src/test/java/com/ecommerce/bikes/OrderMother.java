@@ -1,7 +1,7 @@
 package com.ecommerce.bikes;
 
 import com.ecommerce.bikes.domain.Order;
-import com.ecommerce.bikes.entity.OrderDAO;
+import com.ecommerce.bikes.entity.OrderEntity;
 
 import static com.ecommerce.bikes.ProductMother.productsByType;
 import static com.ecommerce.bikes.ProductMother.productsByTypeDomain;
@@ -9,7 +9,7 @@ import static com.ecommerce.bikes.TestDataHelpers.createUserDAO;
 
 public class OrderMother {
 
-    public static OrderDAO orderDAO = new OrderDAO(
+    public static OrderEntity orderEntity = new OrderEntity(
             "direction",
             5f,
             createUserDAO(),

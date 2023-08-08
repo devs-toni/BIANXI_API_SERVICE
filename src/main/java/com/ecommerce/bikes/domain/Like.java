@@ -1,6 +1,6 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.LikeDAO;
+import com.ecommerce.bikes.entity.LikeEntity;
 
 import java.util.Objects;
 
@@ -45,8 +45,8 @@ public class Like {
         this.product = product;
     }
 
-    public static LikeDAO toEntity(Like like) {
-        return new LikeDAO(
+    public static LikeEntity toEntity(Like like) {
+        return new LikeEntity(
                 like.id,
                 User.toEntity(like.user),
                 Product.toEntity(like.product)

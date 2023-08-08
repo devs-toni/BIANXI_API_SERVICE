@@ -9,7 +9,7 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.util.Optional;
 
-import static com.ecommerce.bikes.OrderMother.orderDAO;
+import static com.ecommerce.bikes.OrderMother.orderEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -26,7 +26,7 @@ public class FindOrderByIdUseCaseTest {
 
         Long orderId = 1L;
 
-        when(orderRepository.findById(1L)).thenReturn(Optional.of(orderDAO));
+        when(orderRepository.findById(1L)).thenReturn(Optional.of(orderEntity));
 
         Order order = findOrderByIdUseCase.find(orderId);
 

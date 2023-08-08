@@ -1,7 +1,7 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Product;
-import com.ecommerce.bikes.entity.ProductDAO;
+import com.ecommerce.bikes.entity.ProductEntity;
 import com.ecommerce.bikes.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,6 @@ public class FindAllProductsUseCase {
     }
 
     public List<Product> find() {
-        return productRepository.findAll().stream().map(ProductDAO::toDomain).toList();
+        return productRepository.findAll().stream().map(ProductEntity::toDomain).toList();
     }
 }

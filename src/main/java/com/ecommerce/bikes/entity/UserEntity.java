@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class UserDAO {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,20 +24,20 @@ public class UserDAO {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
-    private List<OrderDAO> orders;
+    private List<OrderEntity> orders;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private List<LikeDAO> likes;
+    private List<LikeEntity> likes;
 
     public Long getId() {
         return id;
     }
 
-    public List<LikeDAO> getLikes() {
+    public List<LikeEntity> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<LikeDAO> likeDAOS) {
+    public void setLikes(List<LikeEntity> likeEntities) {
         this.likes = likes;
     }
 
@@ -61,11 +61,11 @@ public class UserDAO {
         this.password = password;
     }
 
-    public List<OrderDAO> getOrders() {
+    public List<OrderEntity> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<OrderDAO> orders) {
+    public void setOrders(List<OrderEntity> orders) {
         this.orders = orders;
     }
 
@@ -78,7 +78,7 @@ public class UserDAO {
         this.role = role;
     }
 
-    public UserDAO(Long id, String email, char role, String password, List<OrderDAO> orders, List<LikeDAO> likes) {
+    public UserEntity(Long id, String email, char role, String password, List<OrderEntity> orders, List<LikeEntity> likes) {
         this.id = id;
         this.email = email;
         this.role = role;
@@ -87,17 +87,17 @@ public class UserDAO {
         this.likes = likes;
     }
 
-    public UserDAO() {
+    public UserEntity() {
     }
 
-    public static User toDomain(UserDAO userDAO) {
+    public static User toDomain(UserEntity userEntity) {
         return new User(
-                userDAO.id,
-                userDAO.email,
-                userDAO.role,
-                userDAO.password,
-                userDAO.orders.stream().map(OrderDAO::toDomain).toList(),
-                userDAO.likes.stream().map(LikeDAO::toDomain).toList()
+                userEntity.id,
+                userEntity.email,
+                userEntity.role,
+                userEntity.password,
+                userEntity.orders.stream().map(OrderEntity::toDomain).toList(),
+                userEntity.likes.stream().map(LikeEntity::toDomain).toList()
         );
     }
 
@@ -109,7 +109,7 @@ public class UserDAO {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserDAO other = (UserDAO) obj;
+        UserEntity other = (UserEntity) obj;
         return Objects.equals(email, other.email) && id == other.id
                 && Objects.equals(password, other.password);
     }

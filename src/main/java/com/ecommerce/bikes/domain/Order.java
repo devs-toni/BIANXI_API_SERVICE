@@ -1,8 +1,6 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.OrderDAO;
-import com.ecommerce.bikes.entity.ProductDAO;
-import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.entity.OrderEntity;
 import com.ecommerce.bikes.http.OrderResponse;
 
 import java.util.List;
@@ -61,8 +59,8 @@ public class Order {
         this.products = products;
     }
 
-    public static OrderDAO toEntity(Order order) {
-        return new OrderDAO(
+    public static OrderEntity toEntity(Order order) {
+        return new OrderEntity(
                 order.id,
                 order.address,
                 order.price,

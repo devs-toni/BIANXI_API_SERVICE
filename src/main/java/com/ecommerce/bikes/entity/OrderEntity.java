@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class OrderDAO {
+public class OrderEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,30 +35,30 @@ public class OrderDAO {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false)
-	private UserDAO user;
+	private UserEntity user;
 	
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "order_products", joinColumns = {@JoinColumn(name = "order_id", insertable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "product_id", insertable = false, updatable = false)})
-	private List<ProductDAO> products;
+	private List<ProductEntity> products;
 
-	protected OrderDAO() {}
+	protected OrderEntity() {}
 
-	public OrderDAO(String address, float price, UserDAO user, List<ProductDAO> products) {
+	public OrderEntity(String address, float price, UserEntity user, List<ProductEntity> products) {
 		this.address = address;
 		this.price = price;
 		this.user = user;
 		this.products = products;
 	}
 
-	public OrderDAO(Long id, String address, float price, List<ProductDAO> products) {
+	public OrderEntity(Long id, String address, float price, List<ProductEntity> products) {
 		this.id = id;
 		this.address = address;
 		this.price = price;
 		this.products = products;
 	}
 
-	public OrderDAO(Long id, String address, float price, UserDAO user, List<ProductDAO> products) {
+	public OrderEntity(Long id, String address, float price, UserEntity user, List<ProductEntity> products) {
 		this.id = id;
 		this.address = address;
 		this.price = price;
@@ -90,20 +90,20 @@ public class OrderDAO {
 		this.price = price;
 	}
 
-	public UserDAO getUser() {
+	public UserEntity getUser() {
 		return user;
 	}
 
-	public List<ProductDAO> getProducts() {
+	public List<ProductEntity> getProducts() {
 		return products;
 	}
 
-	public static Order toDomain(OrderDAO orderDAO) {
+	public static Order toDomain(OrderEntity orderEntity) {
 		return new Order(
-				orderDAO.id,
-				orderDAO.address,
-				orderDAO.price,
-				orderDAO.products.stream().map(ProductDAO::toDomain).toList()
+				orderEntity.id,
+				orderEntity.address,
+				orderEntity.price,
+				orderEntity.products.stream().map(ProductEntity::toDomain).toList()
 		);
 	}
 

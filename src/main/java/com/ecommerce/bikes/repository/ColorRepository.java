@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ecommerce.bikes.entity.ColorDAO;
+import com.ecommerce.bikes.entity.ColorEntity;
 
-public interface ColorRepository extends JpaRepository<ColorDAO, Long>{
+public interface ColorRepository extends JpaRepository<ColorEntity, Long>{
 
-	List<ColorDAO> findAll();
+	List<ColorEntity> findAll();
 }

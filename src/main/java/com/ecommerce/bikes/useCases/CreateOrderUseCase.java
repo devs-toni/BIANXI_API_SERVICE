@@ -1,9 +1,9 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Product;
-import com.ecommerce.bikes.entity.OrderDAO;
-import com.ecommerce.bikes.entity.ProductDAO;
-import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.entity.OrderEntity;
+import com.ecommerce.bikes.entity.ProductEntity;
+import com.ecommerce.bikes.entity.UserEntity;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.repository.OrderRepository;
 import com.ecommerce.bikes.repository.ProductRepository;
@@ -31,20 +31,20 @@ public class CreateOrderUseCase {
 
         List<Product> productsInOrder = new ArrayList<>();
         productsIds.forEach(productId -> {
-            Product product = ProductDAO.toDomain(Objects.requireNonNull(productRepository.findById(productId).orElse(null)));
+            Product product = ProductEntity.toDomain(Objects.requireNonNull(productRepository.findById(productId).orElse(null)));
             productsInOrder.add(product);
         });
 
-        UserDAO user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("The user does not exist"));
+        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("The user does not exist"));
 
-        OrderDAO orderToSave = new OrderDAO(
+        OrderEntity orderToSave = new OrderEntity(
                 address,
                 amount,
                 user,
                 productsInOrder.stream().map(Product::toEntity).toList()
         );
 
-        OrderDAO orderDAO = orderRepository.save(orderToSave);
-        return orderDAO.getId();
+        OrderEntity orderEntity = orderRepository.save(orderToSave);
+        return orderEntity.getId();
     }
 }

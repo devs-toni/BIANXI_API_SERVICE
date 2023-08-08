@@ -1,7 +1,6 @@
 package com.ecommerce.bikes.entity;
 
 import com.ecommerce.bikes.domain.Like;
-import com.ecommerce.bikes.domain.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -17,7 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "likes")
-public class LikeDAO {
+public class LikeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,21 +26,21 @@ public class LikeDAO {
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false)
-	private UserDAO user;
+	private UserEntity user;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id", nullable = false)
-	private ProductDAO product;
+	private ProductEntity product;
 
-	public LikeDAO(Long id, UserDAO user, ProductDAO product) {
+	public LikeEntity(Long id, UserEntity user, ProductEntity product) {
 		this.id = id;
 		this.user = user;
 		this.product = product;
 
 	}
 
-	public LikeDAO() {}
+	public LikeEntity() {}
 
 	public long getId() {
 		return id;
@@ -51,20 +50,20 @@ public class LikeDAO {
 		this.id = id;
 	}
 
-	public UserDAO getUser() {
+	public UserEntity getUser() {
 		return user;
 	}
 
-	public void setUser(UserDAO userDAO) {
-		this.user = userDAO;
+	public void setUser(UserEntity userEntity) {
+		this.user = userEntity;
 	}
 
-	public ProductDAO getProduct() {
+	public ProductEntity getProduct() {
 		return product;
 	}
 
-	public void setProduct(ProductDAO productDAO) {
-		this.product = productDAO;
+	public void setProduct(ProductEntity productEntity) {
+		this.product = productEntity;
 	}
 
 	@Override
@@ -72,11 +71,11 @@ public class LikeDAO {
 		return "Like [id=" + id + ", user=" + user.getId() + ", product=" + product.getId() + "]";
 	}
 
-	public static Like toDomain(LikeDAO likeDAO) {
+	public static Like toDomain(LikeEntity like) {
 		return new Like(
-				likeDAO.id,
-				UserDAO.toDomain(likeDAO.user),
-				ProductDAO.toDomain(likeDAO.product)
+				like.id,
+				UserEntity.toDomain(like.user),
+				ProductEntity.toDomain(like.product)
 		);
 	}
 }

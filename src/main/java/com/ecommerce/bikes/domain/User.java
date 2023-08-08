@@ -1,7 +1,6 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.LikeDAO;
-import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.entity.UserEntity;
 import com.ecommerce.bikes.http.UserRegisterResponse;
 
 import java.util.Collections;
@@ -91,8 +90,8 @@ public class User {
         this.likes = likes;
     }
 
-    public static UserDAO toEntity(User user) {
-        return new UserDAO(
+    public static UserEntity toEntity(User user) {
+        return new UserEntity(
                 user.id,
                 user.email,
                 user.role,

@@ -29,7 +29,7 @@ public class RegisterUserUseCaseTest {
 
         when(
                 userRepository.save(User.toEntity(userToSaveWithEncodedPassword))
-        ).thenReturn(savedUserDAO);
+        ).thenReturn(savedUserEntity);
 
         User userSaved = registerUserUseCase.save(user);
 
@@ -40,7 +40,7 @@ public class RegisterUserUseCaseTest {
     public void throws_UserAlreadyExistsException_when_user_is_present() {
         User user = userToSave;
 
-        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(savedUserDAO));
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(savedUserEntity));
 
         assertThrows(UserAlreadyExistException.class, () -> {
             registerUserUseCase.save(user);

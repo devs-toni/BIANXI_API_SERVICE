@@ -1,7 +1,7 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Color;
-import com.ecommerce.bikes.entity.ColorDAO;
+import com.ecommerce.bikes.entity.ColorEntity;
 import com.ecommerce.bikes.repository.ColorRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,6 @@ public class FindAllColorsUseCase {
     }
 
     public List<Color> find() {
-        return colorRepository.findAll().stream().map(ColorDAO::toDomain).toList();
+        return colorRepository.findAll().stream().map(ColorEntity::toDomain).toList();
     }
 }

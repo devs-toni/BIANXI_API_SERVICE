@@ -2,16 +2,15 @@ package com.ecommerce.bikes;
 
 import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.domain.User;
-import com.ecommerce.bikes.entity.ProductDAO;
-import com.ecommerce.bikes.entity.UserDAO;
-import org.springframework.security.core.parameters.P;
+import com.ecommerce.bikes.entity.ProductEntity;
+import com.ecommerce.bikes.entity.UserEntity;
 
 import java.util.Collections;
 
 public class TestDataHelpers {
 
-    public static ProductDAO createProductDAO() {
-        return new ProductDAO(
+    public static ProductEntity createProductDAO() {
+        return new ProductEntity(
                 1L,
                 "Dummy",
                 "road",
@@ -40,8 +39,8 @@ public class TestDataHelpers {
         );
     }
 
-    public static UserDAO createUserDAO() {
-        return new UserDAO(
+    public static UserEntity createUserDAO() {
+        return new UserEntity(
                 1L,
                 "johndoe@doe.com",
                 'U',

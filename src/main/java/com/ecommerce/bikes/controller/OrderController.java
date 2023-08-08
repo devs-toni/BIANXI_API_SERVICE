@@ -2,25 +2,18 @@ package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.domain.Order;
 import com.ecommerce.bikes.domain.Product;
-import com.ecommerce.bikes.entity.ProductDAO;
 import com.ecommerce.bikes.exception.OrderNotFoundException;
-import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.http.OrderResponse;
 import com.ecommerce.bikes.http.ProductResponse;
-import com.ecommerce.bikes.repository.ProductRepository;
 import com.ecommerce.bikes.useCases.CreateOrderUseCase;
 import com.ecommerce.bikes.useCases.FindAllOrdersByUserUseCase;
 import com.ecommerce.bikes.useCases.FindOrderByIdUseCase;
-import com.ecommerce.bikes.useCases.FindProductByIdUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/orders")

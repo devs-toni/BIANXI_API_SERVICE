@@ -1,9 +1,9 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.BikeConfiguration;
-import com.ecommerce.bikes.entity.Datasheet;
-import com.ecommerce.bikes.entity.LikeDAO;
-import com.ecommerce.bikes.entity.ProductDAO;
+import com.ecommerce.bikes.entity.BikeConfigurationEntity;
+import com.ecommerce.bikes.entity.DatasheetEntity;
+import com.ecommerce.bikes.entity.LikeEntity;
+import com.ecommerce.bikes.entity.ProductEntity;
 import com.ecommerce.bikes.http.ProductResponse;
 
 import java.util.List;
@@ -26,13 +26,13 @@ public class Product {
 
     private String description;
 
-    private Set<Datasheet> datasheet;
+    private Set<DatasheetEntity> datasheet;
 
-    private List<BikeConfiguration> configuration;
+    private List<BikeConfigurationEntity> configuration;
 
-    private List<LikeDAO> likes;
+    private List<LikeEntity> likes;
 
-    public Product(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<LikeDAO> likes) {
+    public Product(Long id, String name, String type, float price, int offer, String sentence, String description, Set<DatasheetEntity> datasheet, List<BikeConfigurationEntity> configuration, List<LikeEntity> likes) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -101,32 +101,32 @@ public class Product {
         this.description = description;
     }
 
-    public Set<Datasheet> getDatasheet() {
+    public Set<DatasheetEntity> getDatasheet() {
         return datasheet;
     }
 
-    public void setDatasheet(Set<Datasheet> datasheet) {
+    public void setDatasheet(Set<DatasheetEntity> datasheet) {
         this.datasheet = datasheet;
     }
 
-    public List<BikeConfiguration> getConfiguration() {
+    public List<BikeConfigurationEntity> getConfiguration() {
         return configuration;
     }
 
-    public void setConfiguration(List<BikeConfiguration> configuration) {
+    public void setConfiguration(List<BikeConfigurationEntity> configuration) {
         this.configuration = configuration;
     }
 
-    public List<LikeDAO> getLikes() {
+    public List<LikeEntity> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<LikeDAO> likes) {
+    public void setLikes(List<LikeEntity> likes) {
         this.likes = likes;
     }
 
-    public static ProductDAO toEntity(Product product) {
-        return new ProductDAO(
+    public static ProductEntity toEntity(Product product) {
+        return new ProductEntity(
                 product.id,
                 product.name,
                 product.type,

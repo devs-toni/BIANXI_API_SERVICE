@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "colors")
-public class ColorDAO {
+public class ColorEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +29,14 @@ public class ColorDAO {
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "color")
-	private List<BikeConfiguration> configuration;
+	private List<BikeConfigurationEntity> configuration;
 
-	public ColorDAO(Long id, String color) {
+	public ColorEntity(Long id, String color) {
 		this.id = id;
 		this.color = color;
 	}
 
-	public ColorDAO() {}
+	public ColorEntity() {}
 
 	public Long getId() {
 		return id;
@@ -54,15 +54,15 @@ public class ColorDAO {
 		this.color = color;
 	}
 
-	public List<BikeConfiguration> getConfiguration() {
+	public List<BikeConfigurationEntity> getConfiguration() {
 		return configuration;
 	}
 
-	public void setConfiguration(List<BikeConfiguration> configuration) {
+	public void setConfiguration(List<BikeConfigurationEntity> configuration) {
 		this.configuration = configuration;
 	}
 
-	public static Color toDomain(ColorDAO colorDAO) {
+	public static Color toDomain(ColorEntity colorDAO) {
 		return new Color(colorDAO.id, colorDAO.color);
 	}
 

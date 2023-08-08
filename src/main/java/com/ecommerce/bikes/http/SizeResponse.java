@@ -1,11 +1,11 @@
 package com.ecommerce.bikes.http;
 
-public class SizeDTO {
+public class SizeResponse {
 
     private Long id;
     private String size;
 
-    public SizeDTO(Long id, String size) {
+    public SizeResponse(Long id, String size) {
         this.id = id;
         this.size = size;
     }

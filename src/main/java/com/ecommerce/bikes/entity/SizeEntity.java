@@ -1,7 +1,6 @@
 package com.ecommerce.bikes.entity;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,7 +19,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "sizes")
-public class SizeDAO {
+public class SizeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,15 +30,15 @@ public class SizeDAO {
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "size")
-	private List<BikeConfiguration> configuration;
+	private List<BikeConfigurationEntity> configuration;
 
-	public SizeDAO(Long id, String size) {
+	public SizeEntity(Long id, String size) {
 		this.id = id;
 		this.size = size;
 		this.configuration = Collections.emptyList();
 	}
 
-	public SizeDAO () {}
+	public SizeEntity() {}
 	
 	public Long getId() {
 		return id;
@@ -57,16 +56,16 @@ public class SizeDAO {
 		this.size = size;
 	}
 
-	public List<BikeConfiguration> getConfiguration() {
+	public List<BikeConfigurationEntity> getConfiguration() {
 		return configuration;
 	}
 
-	public void setConfiguration(List<BikeConfiguration> configuration) {
+	public void setConfiguration(List<BikeConfigurationEntity> configuration) {
 		this.configuration = configuration;
 	}
 
-	public static Size toDomain (SizeDAO sizeDAO) {
-		return new Size(sizeDAO.id, sizeDAO.size, sizeDAO.configuration);
+	public static Size toDomain (SizeEntity size) {
+		return new Size(size.id, size.size, size.configuration);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "products")
-public class ProductDAO {
+public class ProductEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,15 +42,15 @@ public class ProductDAO {
 	private String description;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-	private Set<Datasheet> datasheet;
+	private Set<DatasheetEntity> datasheet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
-	private List<BikeConfiguration> configuration;
+	private List<BikeConfigurationEntity> configuration;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
-	private List<LikeDAO> likeDAOS;
+	private List<LikeEntity> likes;
 
-	public ProductDAO(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<LikeDAO> likeDAOS) {
+	public ProductEntity(Long id, String name, String type, float price, int offer, String sentence, String description, Set<DatasheetEntity> datasheet, List<BikeConfigurationEntity> configuration, List<LikeEntity> likes) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
@@ -60,17 +60,17 @@ public class ProductDAO {
 		this.description = description;
 		this.datasheet = datasheet;
 		this.configuration = configuration;
-		this.likeDAOS = likeDAOS;
+		this.likes = likes;
 	}
 
-	public ProductDAO() {}
+	public ProductEntity() {}
 
-	public List<LikeDAO> getLikes() {
-		return likeDAOS;
+	public List<LikeEntity> getLikes() {
+		return likes;
 	}
 
-	public void setLikes(List<LikeDAO> likeDAOS) {
-		this.likeDAOS = likeDAOS;
+	public void setLikes(List<LikeEntity> likes) {
+		this.likes = likes;
 	}
 
 	public Long getId() {
@@ -129,23 +129,23 @@ public class ProductDAO {
 		this.description = description;
 	}
 
-	public Set<Datasheet> getDatasheet() {
+	public Set<DatasheetEntity> getDatasheet() {
 		return datasheet;
 	}
 
-	public void setDatasheet(Set<Datasheet> datasheet) {
+	public void setDatasheet(Set<DatasheetEntity> datasheet) {
 		this.datasheet = datasheet;
 	}
 
-	public List<BikeConfiguration> getConfiguration() {
+	public List<BikeConfigurationEntity> getConfiguration() {
 		return configuration;
 	}
 
-	public void setConfiguration(List<BikeConfiguration> configuration) {
+	public void setConfiguration(List<BikeConfigurationEntity> configuration) {
 		this.configuration = configuration;
 	}
 
-	public static Product toDomain(ProductDAO product) {
+	public static Product toDomain(ProductEntity product) {
 		return new Product(
 				product.id,
 				product.name,
@@ -156,7 +156,7 @@ public class ProductDAO {
 				product.description,
 				product.datasheet,
 				product.configuration,
-				product.likeDAOS
+				product.likes
 		);
 	}
 
@@ -168,7 +168,7 @@ public class ProductDAO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProductDAO other = (ProductDAO) obj;
+		ProductEntity other = (ProductEntity) obj;
 		return Objects.equals(configuration, other.configuration) && Objects.equals(datasheet, other.datasheet)
 				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name) && offer == other.offer

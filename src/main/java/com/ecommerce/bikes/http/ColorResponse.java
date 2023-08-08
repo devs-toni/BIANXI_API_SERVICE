@@ -1,11 +1,11 @@
 package com.ecommerce.bikes.http;
 
-public class ColorDTO {
+public class ColorResponse {
 
     private Long id;
     private String color;
 
-    public ColorDTO(Long id, String color) {
+    public ColorResponse(Long id, String color) {
         this.id = id;
         this.color = color;
     }

@@ -1,7 +1,7 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.User;
-import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.entity.UserEntity;
 import com.ecommerce.bikes.exception.UserAlreadyExistException;
 import com.ecommerce.bikes.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,11 +25,11 @@ public class RegisterUserUseCase {
             throw new UserAlreadyExistException("This user already exists");
 
         } else {
-            UserDAO userToSave = User.toEntity(user);
+            UserEntity userToSave = User.toEntity(user);
             userToSave.setPassword(passwordEncoder.encode(userToSave.getPassword()));
-            UserDAO savedUser = userRepository.save(userToSave);
+            UserEntity savedUser = userRepository.save(userToSave);
 
-            return UserDAO.toDomain(savedUser);
+            return UserEntity.toDomain(savedUser);
         }
     }
 }

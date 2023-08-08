@@ -1,6 +1,5 @@
 package com.ecommerce.bikes.useCases;
 
-import com.ecommerce.bikes.entity.UserDAO;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -9,9 +8,8 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.util.Optional;
 
-import static com.ecommerce.bikes.UserMother.savedUserDAOWithLikes;
+import static com.ecommerce.bikes.UserMother.savedUserEntityWithLikes;
 import static com.ecommerce.bikes.UserMother.savedUserWithLikes;
-import static java.util.Optional.empty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -32,7 +30,7 @@ public class FindFavouritesUseCaseTest {
 
         Long userId = 1L;
 
-        when(userRepository.findById(userId)).thenReturn(Optional.of(savedUserDAOWithLikes));
+        when(userRepository.findById(userId)).thenReturn(Optional.of(savedUserEntityWithLikes));
 
         assertEquals(savedUserWithLikes.getLikes().get(0).getProduct(), findFavouritesUseCase.find(userId).get(0));
     }

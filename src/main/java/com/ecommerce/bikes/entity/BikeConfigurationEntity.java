@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "stock_colors_sizes")
-public class BikeConfiguration {
+public class BikeConfigurationEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,16 +26,16 @@ public class BikeConfiguration {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", nullable = false)
-	private ProductDAO product;
+	private ProductEntity product;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "color_id", nullable = false)
-	private ColorDAO color;
+	private ColorEntity color;
 
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "size_id", nullable = false)
-	private SizeDAO size;
+	private SizeEntity size;
 
 	@Column(name = "stock")
 	private Integer stock;
@@ -48,27 +48,27 @@ public class BikeConfiguration {
 		this.id = id;
 	}
 
-	public ProductDAO getProduct() {
+	public ProductEntity getProduct() {
 		return product;
 	}
 
-	public void setProduct(ProductDAO productDAO) {
-		this.product = productDAO;
+	public void setProduct(ProductEntity productEntity) {
+		this.product = productEntity;
 	}
 
-	public SizeDAO getSizes() {
+	public SizeEntity getSizes() {
 		return size;
 	}
 
-	public void setSizes(SizeDAO sizes) {
+	public void setSizes(SizeEntity sizes) {
 		this.size = sizes;
 	}
 
-	public ColorDAO getColor() {
+	public ColorEntity getColor() {
 		return color;
 	}
 
-	public void setColor(ColorDAO colorDAO) {
+	public void setColor(ColorEntity colorDAO) {
 		this.color = colorDAO;
 	}
 
@@ -88,7 +88,7 @@ public class BikeConfiguration {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BikeConfiguration other = (BikeConfiguration) obj;
+		BikeConfigurationEntity other = (BikeConfigurationEntity) obj;
 		return Objects.equals(color, other.color) && Objects.equals(id, other.id)
 				&& Objects.equals(product, other.product) && Objects.equals(size, other.size)
 				&& Objects.equals(stock, other.stock);

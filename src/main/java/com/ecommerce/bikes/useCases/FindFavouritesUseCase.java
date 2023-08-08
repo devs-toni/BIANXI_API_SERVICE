@@ -2,9 +2,9 @@ package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.domain.User;
-import com.ecommerce.bikes.entity.LikeDAO;
-import com.ecommerce.bikes.entity.ProductDAO;
-import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.entity.LikeEntity;
+import com.ecommerce.bikes.entity.ProductEntity;
+import com.ecommerce.bikes.entity.UserEntity;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -21,9 +21,9 @@ public class FindFavouritesUseCase {
     }
 
     public List<Product> find(Long userId) throws UserNotFoundException {
-        UserDAO userDAO = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("The user does not exist"));
-        User user = UserDAO.toDomain(userDAO);
-        List<ProductDAO> products = userDAO.getLikes().stream().map(LikeDAO::getProduct).toList();
-        return products.stream().map(ProductDAO::toDomain).toList();
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("The user does not exist"));
+        User user = UserEntity.toDomain(userEntity);
+        List<ProductEntity> products = userEntity.getLikes().stream().map(LikeEntity::getProduct).toList();
+        return products.stream().map(ProductEntity::toDomain).toList();
     }
 }
