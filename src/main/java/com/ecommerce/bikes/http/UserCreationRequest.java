@@ -1,4 +1,4 @@
-package com.ecommerce.bikes.response;
+package com.ecommerce.bikes.http;
 
 public class UserCreationRequest {
 
