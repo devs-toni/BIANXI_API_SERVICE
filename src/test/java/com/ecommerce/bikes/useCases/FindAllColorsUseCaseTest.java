@@ -19,10 +19,10 @@ public class FindAllColorsUseCaseTest {
 
 
     @Test
-    public void getColorsDAOandReceiveColorsDomain() {
+    public void getColors() {
         when(colorRepository.findAll()).thenReturn(ColorMother.colorsDAO);
 
-        List<Color> colorList = findAllColorsUseCase.get();
+        List<Color> colorList = findAllColorsUseCase.find();
 
         assertEquals(ColorMother.colors, colorList);
     }

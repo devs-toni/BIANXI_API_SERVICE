@@ -10,25 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/colors")
 public class ColorController {
 
-    private FindAllColorsUseCase findAllColorsUseCase;
+    private final FindAllColorsUseCase findAllColorsUseCase;
 
     public ColorController(FindAllColorsUseCase findAllColorsUseCase) {
         this.findAllColorsUseCase = findAllColorsUseCase;
     }
 
     @GetMapping
-    public ResponseEntity<List<ColorDTO>> getAllColors() {
-        try {
-            List<ColorDTO> colors = findAllColorsUseCase.get().stream().map(Color::toResponse).toList();
-            return new ResponseEntity<>(colors, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+    public ResponseEntity<List<ColorDTO>> findAll() {
+
+        List<ColorDTO> colors = findAllColorsUseCase.find().stream().map(Color::toResponse).toList();
+        return new ResponseEntity<>(colors, HttpStatus.OK);
     }
 }

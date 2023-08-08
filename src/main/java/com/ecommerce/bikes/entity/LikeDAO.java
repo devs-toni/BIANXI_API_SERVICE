@@ -1,5 +1,7 @@
 package com.ecommerce.bikes.entity;
 
+import com.ecommerce.bikes.domain.Like;
+import com.ecommerce.bikes.domain.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -15,12 +17,12 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "likes")
-public class Like {
+public class LikeDAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
+	private Long id;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -31,6 +33,15 @@ public class Like {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id", nullable = false)
 	private ProductDAO product;
+
+	public LikeDAO(Long id, UserDAO user, ProductDAO product) {
+		this.id = id;
+		this.user = user;
+		this.product = product;
+
+	}
+
+	public LikeDAO() {}
 
 	public long getId() {
 		return id;
@@ -60,6 +71,12 @@ public class Like {
 	public String toString() {
 		return "Like [id=" + id + ", user=" + user.getId() + ", product=" + product.getId() + "]";
 	}
-	
-	
+
+	public static Like toDomain(LikeDAO likeDAO) {
+		return new Like(
+				likeDAO.id,
+				UserDAO.toDomain(likeDAO.user),
+				ProductDAO.toDomain(likeDAO.product)
+		);
+	}
 }

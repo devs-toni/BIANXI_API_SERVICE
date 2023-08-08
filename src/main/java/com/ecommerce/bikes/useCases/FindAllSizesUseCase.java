@@ -16,7 +16,7 @@ public class FindAllSizesUseCase {
         this.sizeRepository = sizeRepository;
     }
 
-    public List<Size> get() {
+    public List<Size> find() {
         return sizeRepository.findAll().stream().map(SizeDAO::toDomain).toList();
     }
 }

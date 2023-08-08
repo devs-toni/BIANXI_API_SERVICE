@@ -1,0 +1,46 @@
+package com.ecommerce.bikes.useCases;
+
+import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.exception.UserNotFoundException;
+import com.ecommerce.bikes.repository.UserRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
+import java.util.Optional;
+
+import static com.ecommerce.bikes.UserMother.savedUserDAOWithLikes;
+import static com.ecommerce.bikes.UserMother.savedUserWithLikes;
+import static java.util.Optional.empty;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class FindFavouritesUseCaseTest {
+
+    private UserRepository userRepository = mock(UserRepository.class);
+    private FindFavouritesUseCase findFavouritesUseCase = new FindFavouritesUseCase(userRepository);
+
+    @AfterEach
+    public void resetMocks() {
+        reset(userRepository);
+    }
+
+    @Test
+    public void findFavourites() throws UserNotFoundException {
+
+        Long userId = 1L;
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(savedUserDAOWithLikes));
+
+        assertEquals(savedUserWithLikes.getLikes().get(0).getProduct(), findFavouritesUseCase.find(userId).get(0));
+    }
+
+    @Test
+    public void throwUserNotFoundExceptionIfUserDoesNotExist () {
+        assertThrows(UserNotFoundException.class, () -> {
+            findFavouritesUseCase.find(1L);
+        });
+    }
+}

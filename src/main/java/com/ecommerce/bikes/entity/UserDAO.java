@@ -24,20 +24,20 @@ public class UserDAO {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
-    private List<OrderDAO> orderDAOS;
+    private List<OrderDAO> orders;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Like> likes;
+    private List<LikeDAO> likes;
 
     public Long getId() {
         return id;
     }
 
-    public List<Like> getLikes() {
+    public List<LikeDAO> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<Like> likes) {
+    public void setLikes(List<LikeDAO> likeDAOS) {
         this.likes = likes;
     }
 
@@ -62,11 +62,11 @@ public class UserDAO {
     }
 
     public List<OrderDAO> getOrders() {
-        return orderDAOS;
+        return orders;
     }
 
-    public void setOrders(List<OrderDAO> orderDAOS) {
-        this.orderDAOS = orderDAOS;
+    public void setOrders(List<OrderDAO> orders) {
+        this.orders = orders;
     }
 
 
@@ -78,12 +78,12 @@ public class UserDAO {
         this.role = role;
     }
 
-    public UserDAO(Long id, String email, char role, String password, List<OrderDAO> orderDAOS, List<Like> likes) {
+    public UserDAO(Long id, String email, char role, String password, List<OrderDAO> orders, List<LikeDAO> likes) {
         this.id = id;
         this.email = email;
         this.role = role;
         this.password = password;
-        this.orderDAOS = orderDAOS;
+        this.orders = orders;
         this.likes = likes;
     }
 
@@ -96,8 +96,8 @@ public class UserDAO {
                 userDAO.email,
                 userDAO.role,
                 userDAO.password,
-                userDAO.orderDAOS.stream().map(OrderDAO::toDomain).toList(),
-                userDAO.likes
+                userDAO.orders.stream().map(OrderDAO::toDomain).toList(),
+                userDAO.likes.stream().map(LikeDAO::toDomain).toList()
         );
     }
 

@@ -2,9 +2,9 @@ package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.entity.OrderDAO;
 import com.ecommerce.bikes.entity.ProductDAO;
+import com.ecommerce.bikes.repository.ProductRepository;
 import com.ecommerce.bikes.repository.UserRepository;
 import com.ecommerce.bikes.service.OrdersService;
-import com.ecommerce.bikes.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class OrderController {
     @Autowired
     OrdersService orderService;
     @Autowired
-    ProductService productService;
+    ProductRepository productRepository;
     @Autowired
     UserRepository userRepository;
 
@@ -33,7 +33,7 @@ public class OrderController {
             List<Integer> products = (List<Integer>) body.get(0);
             List<ProductDAO> arrayList = new ArrayList<>();
             for (Integer product : products) {
-                arrayList.add(productService.findById(Long.valueOf(String.valueOf(product))));
+                arrayList.add(productRepository.findById(Long.valueOf(String.valueOf(product))).get());
             }
             Long idOrder = orderService.createOrder(
                     arrayList,

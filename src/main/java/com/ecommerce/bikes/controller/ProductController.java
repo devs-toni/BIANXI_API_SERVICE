@@ -1,132 +1,112 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.domain.Product;
-import com.ecommerce.bikes.entity.ProductDAO;
-import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.exception.ProductNotFoundException;
+import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.http.ProductResponse;
-import com.ecommerce.bikes.repository.UserRepository;
-import com.ecommerce.bikes.service.ProductService;
-import com.ecommerce.bikes.useCases.FindAllProductsByTypeUseCase;
-import jakarta.persistence.NoResultException;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ecommerce.bikes.useCases.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
 
-    @Autowired
-    ProductService productService;
-    @Autowired
-    UserRepository userRepository;
+    private final FindAllProductsByTypeUseCase findAllProductsByTypeUseCase;
+    private final FindProductByIdUseCase findProductByIdUseCase;
+    private final FindAllProductsUseCase findAllProductsUseCase;
+    private final FindProductsByNameUseCase findProductsByNameUseCase;
+    private final FindFavouritesUseCase findFavouritesUseCase;
+    private final InsertLikeUseCase insertLikeUseCase;
+    private final GetLikeUseCase getLikeUseCase;
+    private final DeleteLikeUseCase deleteLikeUseCase;
 
-    private FindAllProductsByTypeUseCase findAllProductsByTypeUseCase;
-
-    public ProductController(FindAllProductsByTypeUseCase findAllProductsByTypeUseCase) {
+    public ProductController(
+            FindAllProductsByTypeUseCase findAllProductsByTypeUseCase,
+            FindProductByIdUseCase findProductByIdUseCase,
+            FindAllProductsUseCase findAllProductsUseCase,
+            FindProductsByNameUseCase findProductsByNameUseCase,
+            FindFavouritesUseCase findFavouritesUseCase,
+            InsertLikeUseCase insertLikeUseCase,
+            GetLikeUseCase getLikeUseCase,
+            DeleteLikeUseCase deleteLikeUseCase
+    ) {
         this.findAllProductsByTypeUseCase = findAllProductsByTypeUseCase;
+        this.findProductByIdUseCase = findProductByIdUseCase;
+        this.findAllProductsUseCase = findAllProductsUseCase;
+        this.findProductsByNameUseCase = findProductsByNameUseCase;
+        this.findFavouritesUseCase = findFavouritesUseCase;
+        this.insertLikeUseCase = insertLikeUseCase;
+        this.getLikeUseCase = getLikeUseCase;
+        this.deleteLikeUseCase = deleteLikeUseCase;
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getProductById(HttpServletResponse response, @PathVariable Long id) {
+    public ResponseEntity<ProductResponse> findProductById(@PathVariable Long id) {
         try {
-            ProductDAO productDAO = productService.findById(id);
-            return new ResponseEntity<>(productDAO, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Get product by id - " + nsee.getLocalizedMessage());
+            Product product = findProductByIdUseCase.find(id);
+            return new ResponseEntity<>(Product.toResponse(product), HttpStatus.OK);
+        } catch (ProductNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
     @GetMapping
-    public ResponseEntity<Object> getAllProducts() {
-        try {
-            List<ProductDAO> productDAOS = productService.findAll();
-            return new ResponseEntity<>(productDAOS, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Get all products - " + nsee.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+    public ResponseEntity<List<ProductResponse>> findAll() {
+
+        List<Product> products = findAllProductsUseCase.find();
+        return new ResponseEntity<>(products.stream().map(Product::toResponse).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/type/{type}")
-    public ResponseEntity<List<ProductResponse>> getAllProductsByType(HttpServletResponse response, @PathVariable String type) {
-        try {
-            List<ProductResponse> products = findAllProductsByTypeUseCase.find(type).stream().map(Product::toResponse).toList();
-            return new ResponseEntity<>(products, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+    public ResponseEntity<List<ProductResponse>> findAllByType(@PathVariable String type) {
+
+        List<Product> products = findAllProductsByTypeUseCase.find(type);
+        return new ResponseEntity<>(products.stream().map(Product::toResponse).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/favourites/{userId}")
-    public ResponseEntity<Object> getFavourites(HttpServletResponse response, @PathVariable long userId) {
+    public ResponseEntity<List<ProductResponse>> findFavourites(@PathVariable Long userId) {
         try {
-            UserDAO userDAO = userRepository.findById(userId).get();
-            List<ProductDAO> productDAOS = userDAO.getLikes().stream().map(like -> like.getProduct()).toList();
-            return new ResponseEntity<>(productDAOS, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Get like products - " + nsee.getLocalizedMessage());
+            List<Product> favourites = findFavouritesUseCase.find(userId);
+            return new ResponseEntity<>(favourites.stream().map(Product::toResponse).toList(), HttpStatus.OK);
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
     @GetMapping("/search/{name}")
-    public ResponseEntity<Object> searchProductByName(HttpServletResponse response, @PathVariable String name) {
-        try {
-            List<ProductDAO> productDAOS = productService.findAllProductsByName(name);
-            return new ResponseEntity<>(productDAOS, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Get search products - " + nsee.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+    public ResponseEntity<List<ProductResponse>> findByName(@PathVariable String name) {
+
+        List<Product> products = findProductsByNameUseCase.find(name);
+        return new ResponseEntity<>(products.stream().map(Product::toResponse).toList(), HttpStatus.OK);
     }
 
-
-    /*
-     * LIKES CONTROLLERS
-     */
-
-    @PostMapping("/like/add")
+    @GetMapping("/likes/{productId}/{userId}")
     @ResponseBody
-    public ResponseEntity<Object> addLike(@RequestBody ArrayList<Integer> data, HttpServletResponse response) {
-        try {
-            int result = productService.insertLike(data.get(0), data.get(1));
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Add like - " + nsee.getLocalizedMessage());
-            return new ResponseEntity<>(-1, HttpStatus.OK);
-        }
+    public ResponseEntity<Integer> getLike(@PathVariable Long productId, @PathVariable Long userId) {
+
+        getLikeUseCase.get(productId, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/like/get")
+    @PostMapping("/likes/{productId}/{userId}")
     @ResponseBody
-    public ResponseEntity<Object> getLike(@RequestBody ArrayList<Integer> data, HttpServletResponse response) {
-        try {
-            productService.getLike(data.get(0), data.get(1));
-            return new ResponseEntity<>(1, HttpStatus.OK);
-        } catch (NoSuchElementException | NoResultException exc) {
-            System.out.println("Get like - " + exc.getLocalizedMessage());
-            return new ResponseEntity<>(0, HttpStatus.OK);
-        }
+    public ResponseEntity<Integer> addLike(@PathVariable Long productId, @PathVariable Long userId) {
+
+        insertLikeUseCase.add(productId, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/like/delete")
+    @DeleteMapping("/likes/{productId}/{userId}")
     @ResponseBody
-    public ResponseEntity<Object> deleteLik(@RequestBody ArrayList<Integer> data, HttpServletResponse response) {
-        try {
-            int result = productService.deleteLike(data.get(0), data.get(1));
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Delete like - " + nsee.getLocalizedMessage());
-            return new ResponseEntity<>(-1, HttpStatus.OK);
-        }
+    public ResponseEntity<Integer> deleteLike(@PathVariable Long productId, @PathVariable Long userId) {
+
+        deleteLikeUseCase.delete(productId, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

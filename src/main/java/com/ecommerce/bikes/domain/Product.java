@@ -2,7 +2,7 @@ package com.ecommerce.bikes.domain;
 
 import com.ecommerce.bikes.entity.BikeConfiguration;
 import com.ecommerce.bikes.entity.Datasheet;
-import com.ecommerce.bikes.entity.Like;
+import com.ecommerce.bikes.entity.LikeDAO;
 import com.ecommerce.bikes.entity.ProductDAO;
 import com.ecommerce.bikes.http.ProductResponse;
 
@@ -30,9 +30,9 @@ public class Product {
 
     private List<BikeConfiguration> configuration;
 
-    private List<Like> likes;
+    private List<LikeDAO> likes;
 
-    public Product(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likes) {
+    public Product(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<LikeDAO> likes) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -117,11 +117,11 @@ public class Product {
         this.configuration = configuration;
     }
 
-    public List<Like> getLikes() {
+    public List<LikeDAO> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<Like> likes) {
+    public void setLikes(List<LikeDAO> likes) {
         this.likes = likes;
     }
 

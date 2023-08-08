@@ -7,7 +7,10 @@ import com.ecommerce.bikes.useCases.RegisterUserUseCase;
 import com.ecommerce.bikes.useCases.VerifyUserUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.NoSuchElementException;
 
@@ -15,9 +18,8 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private RegisterUserUseCase registerUserUseCase;
-
-    private VerifyUserUseCase verifyUserUseCase;
+    private final RegisterUserUseCase registerUserUseCase;
+    private final VerifyUserUseCase verifyUserUseCase;
 
     public UserController(RegisterUserUseCase registerUserUseCase, VerifyUserUseCase verifyUserUseCase) {
         this.registerUserUseCase = registerUserUseCase;
@@ -41,8 +43,8 @@ public class UserController {
 
         try {
             UserRegisterResponse userSaved = User.toUserRegisterResponse(
-					registerUserUseCase.save(UserRegisterRequest.toDomain(userRegisterRequest))
-			);
+                    registerUserUseCase.save(UserRegisterRequest.toDomain(userRegisterRequest))
+            );
             return new ResponseEntity<>(userSaved, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(null, HttpStatus.OK);

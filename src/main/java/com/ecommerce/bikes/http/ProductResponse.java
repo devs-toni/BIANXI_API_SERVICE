@@ -2,7 +2,7 @@ package com.ecommerce.bikes.http;
 
 import com.ecommerce.bikes.entity.BikeConfiguration;
 import com.ecommerce.bikes.entity.Datasheet;
-import com.ecommerce.bikes.entity.Like;
+import com.ecommerce.bikes.entity.LikeDAO;
 
 import java.util.List;
 import java.util.Set;
@@ -27,9 +27,9 @@ public class ProductResponse {
 
     private List<BikeConfiguration> configuration;
 
-    private List<Like> likes;
+    private List<LikeDAO> likeDAOS;
 
-    public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likes) {
+    public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<LikeDAO> likeDAOS) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -39,7 +39,7 @@ public class ProductResponse {
         this.description = description;
         this.datasheet = datasheet;
         this.configuration = configuration;
-        this.likes = likes;
+        this.likeDAOS = likeDAOS;
     }
 
     public Long getId() {
@@ -114,11 +114,11 @@ public class ProductResponse {
         this.configuration = configuration;
     }
 
-    public List<Like> getLikes() {
-        return likes;
+    public List<LikeDAO> getLikes() {
+        return likeDAOS;
     }
 
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
+    public void setLikes(List<LikeDAO> likeDAOS) {
+        this.likeDAOS = likeDAOS;
     }
 }

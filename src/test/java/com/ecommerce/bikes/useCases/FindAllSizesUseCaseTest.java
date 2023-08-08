@@ -23,7 +23,7 @@ public class FindAllSizesUseCaseTest {
     public void get_SizesDAO_and_Receive_Sizes_Domain() {
         when(sizeRepository.findAll()).thenReturn(SizeMother.sizesDAO);
 
-        List<Size> sizeList = findAllSizesUseCase.get();
+        List<Size> sizeList = findAllSizesUseCase.find();
 
         assertEquals(SizeMother.sizes, sizeList);
     }

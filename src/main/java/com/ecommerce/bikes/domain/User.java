@@ -1,6 +1,6 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.Like;
+import com.ecommerce.bikes.entity.LikeDAO;
 import com.ecommerce.bikes.entity.UserDAO;
 import com.ecommerce.bikes.http.UserRegisterResponse;
 
@@ -98,7 +98,7 @@ public class User {
                 user.role,
                 user.password,
                 user.orders.stream().map(Order::toEntity).toList(),
-                user.likes
+                user.likes.stream().map(Like::toEntity).toList()
         );
     }
 

@@ -10,13 +10,13 @@ import java.util.List;
 @Service
 public class FindAllColorsUseCase {
 
-    private ColorRepository colorRepository;
+    private final ColorRepository colorRepository;
 
     public FindAllColorsUseCase (ColorRepository colorRepository) {
         this.colorRepository = colorRepository;
     }
 
-    public List<Color> get() {
+    public List<Color> find() {
         return colorRepository.findAll().stream().map(ColorDAO::toDomain).toList();
     }
 }

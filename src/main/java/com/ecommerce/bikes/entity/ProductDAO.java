@@ -12,7 +12,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -49,9 +48,9 @@ public class ProductDAO {
 	private List<BikeConfiguration> configuration;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
-	private List<Like> likes;
+	private List<LikeDAO> likeDAOS;
 
-	public ProductDAO(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likes) {
+	public ProductDAO(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<LikeDAO> likeDAOS) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
@@ -61,17 +60,17 @@ public class ProductDAO {
 		this.description = description;
 		this.datasheet = datasheet;
 		this.configuration = configuration;
-		this.likes = likes;
+		this.likeDAOS = likeDAOS;
 	}
 
 	public ProductDAO() {}
 
-	public List<Like> getLikes() {
-		return likes;
+	public List<LikeDAO> getLikes() {
+		return likeDAOS;
 	}
 
-	public void setLikes(List<Like> likes) {
-		this.likes = likes;
+	public void setLikes(List<LikeDAO> likeDAOS) {
+		this.likeDAOS = likeDAOS;
 	}
 
 	public Long getId() {
@@ -157,7 +156,7 @@ public class ProductDAO {
 				product.description,
 				product.datasheet,
 				product.configuration,
-				product.likes
+				product.likeDAOS
 		);
 	}
 
