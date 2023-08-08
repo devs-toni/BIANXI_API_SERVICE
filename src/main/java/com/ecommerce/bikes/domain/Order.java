@@ -15,6 +15,12 @@ public class Order {
     private float price;
     private List<Product> products;
 
+    public Order(String address, float price, List<Product> products) {
+        this.address = address;
+        this.price = price;
+        this.products = products;
+    }
+
     public Order(Long id, String address, float price, List<Product> products) {
         this.id = id;
         this.address = address;

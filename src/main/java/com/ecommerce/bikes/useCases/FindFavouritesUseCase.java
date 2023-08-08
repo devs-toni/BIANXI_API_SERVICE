@@ -7,9 +7,11 @@ import com.ecommerce.bikes.entity.ProductDAO;
 import com.ecommerce.bikes.entity.UserDAO;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FindFavouritesUseCase {
 
     private final UserRepository userRepository;

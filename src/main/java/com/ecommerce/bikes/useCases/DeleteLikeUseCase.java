@@ -2,7 +2,9 @@ package com.ecommerce.bikes.useCases;
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DeleteLikeUseCase {
 
     private final EntityManager entityManager;

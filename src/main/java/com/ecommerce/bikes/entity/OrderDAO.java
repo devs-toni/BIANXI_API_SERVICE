@@ -58,6 +58,14 @@ public class OrderDAO {
 		this.products = products;
 	}
 
+	public OrderDAO(Long id, String address, float price, UserDAO user, List<ProductDAO> products) {
+		this.id = id;
+		this.address = address;
+		this.price = price;
+		this.user = user;
+		this.products = products;
+	}
+
 	public Long getId() {
 		return id;
 	}

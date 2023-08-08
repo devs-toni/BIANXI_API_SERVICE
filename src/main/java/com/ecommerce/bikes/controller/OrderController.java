@@ -1,10 +1,18 @@
 package com.ecommerce.bikes.controller;
 
-import com.ecommerce.bikes.entity.OrderDAO;
+import com.ecommerce.bikes.domain.Order;
+import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.entity.ProductDAO;
+import com.ecommerce.bikes.exception.OrderNotFoundException;
+import com.ecommerce.bikes.exception.ProductNotFoundException;
+import com.ecommerce.bikes.exception.UserNotFoundException;
+import com.ecommerce.bikes.http.OrderResponse;
+import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.repository.ProductRepository;
-import com.ecommerce.bikes.repository.UserRepository;
-import com.ecommerce.bikes.service.OrdersService;
+import com.ecommerce.bikes.useCases.CreateOrderUseCase;
+import com.ecommerce.bikes.useCases.FindAllOrdersByUserUseCase;
+import com.ecommerce.bikes.useCases.FindOrderByIdUseCase;
+import com.ecommerce.bikes.useCases.FindProductByIdUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,63 +20,49 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
 
-    @Autowired
-    OrdersService orderService;
-    @Autowired
-    ProductRepository productRepository;
-    @Autowired
-    UserRepository userRepository;
+    private final FindOrderByIdUseCase findOrderByIdUseCase;
+    private final FindAllOrdersByUserUseCase findAllOrdersByUserUseCase;
+    private final CreateOrderUseCase createOrderUseCase;
 
-    @PostMapping("/new")
+    public OrderController(FindOrderByIdUseCase findOrderByIdUseCase, FindAllOrdersByUserUseCase findAllOrdersByUserUseCase, CreateOrderUseCase createOrderUseCase) {
+        this.findOrderByIdUseCase = findOrderByIdUseCase;
+        this.findAllOrdersByUserUseCase = findAllOrdersByUserUseCase;
+        this.createOrderUseCase = createOrderUseCase;
+    }
+
+    @PostMapping
     @ResponseBody
-    public ResponseEntity<Long> createOrder(@RequestBody ArrayList<Object> body) {
-
-        try {
-            List<Integer> products = (List<Integer>) body.get(0);
-            List<ProductDAO> arrayList = new ArrayList<>();
-            for (Integer product : products) {
-                arrayList.add(productRepository.findById(Long.valueOf(String.valueOf(product))).get());
-            }
-            Long idOrder = orderService.createOrder(
-                    arrayList,
-                    userRepository.findById(Integer.valueOf(String.valueOf(body.get(1)))).get(),
-                    (String) body.get(2),
-                    Float.valueOf(String.valueOf(body.get(3))));
-            return new ResponseEntity<>(idOrder, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Create and add order - " + nsee.getLocalizedMessage());
-            return new ResponseEntity<>(-1l, HttpStatus.OK);
-        }
+    public ResponseEntity<Long> create(
+            @RequestBody List<Long> productsIds,
+            @RequestBody Long userId,
+            @RequestBody String orderAddress,
+            @RequestBody Float orderAmount
+    ) throws UserNotFoundException {
+        Long orderId = createOrderUseCase.create(productsIds, userId, orderAddress, orderAmount);
+        return new ResponseEntity<>(orderId, HttpStatus.OK);
     }
 
-    @GetMapping("/get/all/{id}")
-    public ResponseEntity<List<OrderDAO>> getAllOrdersEntity(@PathVariable("id") Long id) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<OrderResponse>> findAllByUser(@PathVariable Long userId) {
 
-        try {
-            List<OrderDAO> orderDAOS = orderService.findAllByUser(id);
-            return new ResponseEntity<>(orderDAOS, HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Get user orders - " + nsee.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
+        List<Order> orders = findAllOrdersByUserUseCase.find(userId);
+        return new ResponseEntity<>(orders.stream().map(Order::toResponse).toList(), HttpStatus.OK);
     }
 
-    @GetMapping("/get/products/{id}")
-    public ResponseEntity<List<ProductDAO>> getAllProducts(@PathVariable("id") Long id) {
+    @GetMapping("/products/{id}")
+    public ResponseEntity<List<ProductResponse>> findAll(@PathVariable Long id) {
 
         try {
-            OrderDAO orderDAO = orderService.findById(id);
-            return new ResponseEntity<>(orderDAO.getProducts(), HttpStatus.OK);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Get order products - " + nsee.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.OK);
+            Order order = findOrderByIdUseCase.find(id);
+            return new ResponseEntity<>(order.getProducts().stream().map(Product::toResponse).toList(), HttpStatus.OK);
+        } catch (OrderNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
-
 }

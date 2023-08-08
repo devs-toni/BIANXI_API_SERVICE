@@ -4,7 +4,9 @@ import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.entity.ProductDAO;
 import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.repository.ProductRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FindProductByIdUseCase {
 
     private final ProductRepository productRepository;
