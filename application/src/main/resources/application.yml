@@ -1,0 +1,29 @@
+SERVER_PORT:
+  8080
+DB_HOST:
+  localhost
+DB_USER:
+  root
+DB_PASSWORD:
+  password
+DB_NAME:
+  bianxi
+DB_PORT:
+  3306
+
+server:
+  port: ${SERVER_PORT}
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    platform: mysql
+    initialization-mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
