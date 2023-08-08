@@ -1,14 +1,14 @@
 package com.ecommerce.bikes.ports;
 
 import com.ecommerce.bikes.domain.Product;
+import com.ecommerce.bikes.exception.ProductNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductRepositoryPort {
 
 
-    Optional<Product> findById(Long id);
+    Product findById(Long id) throws ProductNotFoundException;
 
     List<Product> findAllByType(String c);
 

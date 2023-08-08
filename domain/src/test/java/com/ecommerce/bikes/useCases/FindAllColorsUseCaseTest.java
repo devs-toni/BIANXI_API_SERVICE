@@ -1,9 +1,8 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.ColorMother;
-import com.ecommerce.bikes.ports.ColorRepositoryPort;
 import com.ecommerce.bikes.domain.Color;
-import com.ecommerce.bikes.repository.ColorRepository;
+import com.ecommerce.bikes.ports.ColorRepositoryPort;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class FindAllColorsUseCaseTest {
 
     @Test
     public void find_all_colors() {
-        when(colorRepositoryPort.findAll()).thenReturn(ColorMother.colorsDAO);
+        when(colorRepositoryPort.findAll()).thenReturn(ColorMother.colors);
 
         List<Color> colorList = findAllColorsUseCase.find();
 

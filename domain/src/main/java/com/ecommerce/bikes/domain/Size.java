@@ -1,6 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.BikeConfigurationEntity;
 import com.ecommerce.bikes.http.SizeResponse;
 
 import java.util.List;
@@ -10,8 +9,9 @@ public class Size {
 
     private Long id;
     private String size;
-    private List<BikeConfigurationEntity> configuration = null;
-    public Size (Long id, String size, List<BikeConfigurationEntity> configuration) {
+    private List<BikeConfiguration> configuration = null;
+
+    public Size(Long id, String size, List<BikeConfiguration> configuration) {
         this.id = id;
         this.size = size;
         this.configuration = configuration;
@@ -33,11 +33,11 @@ public class Size {
         this.size = size;
     }
 
-    public List<BikeConfigurationEntity> getConfiguration() {
+    public List<BikeConfiguration> getConfiguration() {
         return configuration;
     }
 
-    public void setConfiguration(List<BikeConfigurationEntity> configuration) {
+    public void setConfiguration(List<BikeConfiguration> configuration) {
         this.configuration = configuration;
     }
 

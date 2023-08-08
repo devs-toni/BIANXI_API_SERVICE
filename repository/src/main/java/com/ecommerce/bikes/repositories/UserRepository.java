@@ -1,9 +1,9 @@
-package com.ecommerce.bikes.repository;
+package com.ecommerce.bikes.repositories;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import com.ecommerce.bikes.entity.UserEntity;
+import com.ecommerce.bikes.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {

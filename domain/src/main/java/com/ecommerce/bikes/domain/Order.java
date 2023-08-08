@@ -1,6 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.OrderEntity;
 import com.ecommerce.bikes.http.OrderResponse;
 
 import java.util.List;
@@ -12,17 +11,21 @@ public class Order {
     private String address;
     private float price;
     private List<Product> products;
+    private User user;
 
-    public Order(String address, float price, List<Product> products) {
+    public Order(String address, float price, User user, List<Product> products) {
+        this.id = null;
         this.address = address;
         this.price = price;
+        this.user = user;
         this.products = products;
     }
 
-    public Order(Long id, String address, float price, List<Product> products) {
+    public Order(Long id, String address, float price, User user, List<Product> products) {
         this.id = id;
         this.address = address;
         this.price = price;
+        this.user = user;
         this.products = products;
     }
 
@@ -50,6 +53,13 @@ public class Order {
         this.price = price;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public List<Product> getProducts() {
         return products;
@@ -59,14 +69,6 @@ public class Order {
         this.products = products;
     }
 
-    public static OrderEntity toEntity(Order order) {
-        return new OrderEntity(
-                order.id,
-                order.address,
-                order.price,
-                order.products.stream().map(Product::toEntity).toList()
-        );
-    }
     public static OrderResponse toResponse(Order order) {
         return new OrderResponse(
                 order.id,
@@ -75,7 +77,6 @@ public class Order {
                 order.products.stream().map(Product::toResponse).toList()
         );
     }
-
 
 
     @Override

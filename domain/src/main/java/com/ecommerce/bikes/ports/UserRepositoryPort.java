@@ -1,13 +1,13 @@
 package com.ecommerce.bikes.ports;
 
 import com.ecommerce.bikes.domain.User;
-
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import com.ecommerce.bikes.exception.UserNotFoundException;
 
 public interface UserRepositoryPort {
 
-    Optional<User> findByEmail(String email) throws NoSuchElementException;
+    User findByEmail(String email) throws UserNotFoundException;
 
-    Optional<User> findById(long userId) throws NoSuchElementException;
+    User findById(Long userId) throws UserNotFoundException;
+
+    User save(User user);
 }

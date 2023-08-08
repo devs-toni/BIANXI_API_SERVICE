@@ -1,9 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.BikeConfigurationEntity;
-import com.ecommerce.bikes.entity.DatasheetEntity;
-import com.ecommerce.bikes.entity.LikeEntity;
-import com.ecommerce.bikes.entity.ProductEntity;
 import com.ecommerce.bikes.http.ProductResponse;
 
 import java.util.List;
@@ -26,13 +22,13 @@ public class Product {
 
     private String description;
 
-    private Set<DatasheetEntity> datasheet;
+    private Set<Datasheet> datasheet;
 
-    private List<BikeConfigurationEntity> configuration;
+    private List<BikeConfiguration> configuration;
 
-    private List<LikeEntity> likes;
+    private List<Like> likes;
 
-    public Product(Long id, String name, String type, float price, int offer, String sentence, String description, Set<DatasheetEntity> datasheet, List<BikeConfigurationEntity> configuration, List<LikeEntity> likes) {
+    public Product(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likes) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -101,43 +97,28 @@ public class Product {
         this.description = description;
     }
 
-    public Set<DatasheetEntity> getDatasheet() {
+    public Set<Datasheet> getDatasheet() {
         return datasheet;
     }
 
-    public void setDatasheet(Set<DatasheetEntity> datasheet) {
+    public void setDatasheet(Set<Datasheet> datasheet) {
         this.datasheet = datasheet;
     }
 
-    public List<BikeConfigurationEntity> getConfiguration() {
+    public List<BikeConfiguration> getConfiguration() {
         return configuration;
     }
 
-    public void setConfiguration(List<BikeConfigurationEntity> configuration) {
+    public void setConfiguration(List<BikeConfiguration> configuration) {
         this.configuration = configuration;
     }
 
-    public List<LikeEntity> getLikes() {
+    public List<Like> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<LikeEntity> likes) {
+    public void setLikes(List<Like> likes) {
         this.likes = likes;
-    }
-
-    public static ProductEntity toEntity(Product product) {
-        return new ProductEntity(
-                product.id,
-                product.name,
-                product.type,
-                product.price,
-                product.offer,
-                product.sentence,
-                product.description,
-                product.datasheet,
-                product.configuration,
-                product.likes
-        );
     }
 
     public static ProductResponse toResponse(Product product) {

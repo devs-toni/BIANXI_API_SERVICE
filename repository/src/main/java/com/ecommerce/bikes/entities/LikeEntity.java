@@ -1,6 +1,8 @@
-package com.ecommerce.bikes.entity;
+package com.ecommerce.bikes.entities;
 
 import com.ecommerce.bikes.domain.Like;
+import com.ecommerce.bikes.domain.Product;
+import com.ecommerce.bikes.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -76,6 +78,14 @@ public class LikeEntity {
 				like.id,
 				UserEntity.toDomain(like.user),
 				ProductEntity.toDomain(like.product)
+		);
+	}
+
+	public static LikeEntity toEntity(Like like) {
+		return new LikeEntity(
+				like.getId(),
+				UserEntity.toEntity(like.getUser()),
+				ProductEntity.toEntity(like.getProduct())
 		);
 	}
 }

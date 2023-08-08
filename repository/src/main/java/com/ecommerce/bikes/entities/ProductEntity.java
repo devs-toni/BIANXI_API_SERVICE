@@ -1,8 +1,9 @@
-package com.ecommerce.bikes.entity;
+package com.ecommerce.bikes.entities;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.ecommerce.bikes.domain.Product;
 import jakarta.persistence.CascadeType;
@@ -154,9 +155,24 @@ public class ProductEntity {
 				product.offer,
 				product.sentence,
 				product.description,
-				product.datasheet,
-				product.configuration,
-				product.likes
+				product.datasheet.stream().map(DatasheetEntity::toDomain).collect(Collectors.toSet()),
+				product.configuration.stream().map(BikeConfigurationEntity::toDomain).toList(),
+				product.likes.stream().map(LikeEntity::toDomain).toList()
+		);
+	}
+
+	public static ProductEntity toEntity(Product product) {
+		return new ProductEntity(
+				product.getId(),
+				product.getName(),
+				product.getType(),
+				product.getPrice(),
+				product.getOffer(),
+				product.getSentence(),
+				product.getDescription(),
+				product.getDatasheet().stream().map(DatasheetEntity::toEntity).collect(Collectors.toSet()),
+				product.getConfiguration().stream().map(BikeConfigurationEntity::toEntity).toList(),
+				product.getLikes().stream().map(LikeEntity::toEntity).toList()
 		);
 	}
 

@@ -1,21 +1,17 @@
 package com.ecommerce.bikes.useCases;
 
+import com.ecommerce.bikes.domain.Order;
 import com.ecommerce.bikes.domain.Product;
-import com.ecommerce.bikes.entity.OrderEntity;
-import com.ecommerce.bikes.entity.ProductEntity;
-import com.ecommerce.bikes.entity.UserEntity;
+import com.ecommerce.bikes.domain.User;
+import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.ports.OrderRepositoryPort;
 import com.ecommerce.bikes.ports.ProductRepositoryPort;
 import com.ecommerce.bikes.ports.UserRepositoryPort;
-import com.ecommerce.bikes.repository.OrderRepository;
-import com.ecommerce.bikes.repository.ProductRepository;
-import com.ecommerce.bikes.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class CreateOrderUseCase {
@@ -34,20 +30,25 @@ public class CreateOrderUseCase {
 
         List<Product> productsInOrder = new ArrayList<>();
         productsIds.forEach(productId -> {
-            Product product = ProductEntity.toDomain(Objects.requireNonNull(productRepositoryPort.findById(productId).orElse(null)));
+            Product product = null;
+            try {
+                product = productRepositoryPort.findById(productId);
+            } catch (ProductNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             productsInOrder.add(product);
         });
 
-        UserEntity user = userRepositoryPort.findById(userId).orElseThrow(() -> new UserNotFoundException("The user does not exist"));
+        User user = userRepositoryPort.findById(userId);
 
-        OrderEntity orderToSave = new OrderEntity(
+        Order orderToSave = new Order(
                 address,
                 amount,
                 user,
-                productsInOrder.stream().map(Product::toEntity).toList()
+                productsInOrder
         );
 
-        OrderEntity orderEntity = orderRepositoryPort.save(orderToSave);
-        return orderEntity.getId();
+        Order order = orderRepositoryPort.save(orderToSave);
+        return order.getId();
     }
 }

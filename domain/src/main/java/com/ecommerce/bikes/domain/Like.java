@@ -1,7 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.LikeEntity;
-
 import java.util.Objects;
 
 public class Like {
@@ -43,14 +41,6 @@ public class Like {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public static LikeEntity toEntity(Like like) {
-        return new LikeEntity(
-                like.id,
-                User.toEntity(like.user),
-                Product.toEntity(like.product)
-        );
     }
 
     @Override

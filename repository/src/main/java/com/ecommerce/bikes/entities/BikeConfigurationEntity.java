@@ -1,7 +1,10 @@
-package com.ecommerce.bikes.entity;
+package com.ecommerce.bikes.entities;
 
 import java.util.Objects;
 
+import com.ecommerce.bikes.domain.BikeConfiguration;
+import com.ecommerce.bikes.domain.Color;
+import com.ecommerce.bikes.domain.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -39,6 +42,14 @@ public class BikeConfigurationEntity {
 
 	@Column(name = "stock")
 	private Integer stock;
+
+	public BikeConfigurationEntity(Long id, ProductEntity product, ColorEntity color, SizeEntity size, Integer stock) {
+		this.id = id;
+		this.product = product;
+		this.color = color;
+		this.size = size;
+		this.stock = stock;
+	}
 
 	public Long getId() {
 		return id;
@@ -78,6 +89,26 @@ public class BikeConfigurationEntity {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	public static BikeConfiguration toDomain(BikeConfigurationEntity bikeConfigurationEntity) {
+		return new BikeConfiguration(
+				bikeConfigurationEntity.id,
+				ProductEntity.toDomain(bikeConfigurationEntity.product),
+				ColorEntity.toDomain(bikeConfigurationEntity.color),
+				SizeEntity.toDomain(bikeConfigurationEntity.size),
+				bikeConfigurationEntity.stock
+		);
+	}
+
+	public static BikeConfigurationEntity toEntity(BikeConfiguration bikeConfiguration) {
+		return new BikeConfigurationEntity(
+				bikeConfiguration.getId(),
+				ProductEntity.toEntity(bikeConfiguration.getProduct()),
+				ColorEntity.toEntity(bikeConfiguration.getColor()),
+				SizeEntity.toEntity(bikeConfiguration.getSize()),
+				bikeConfiguration.getStock()
+		);
 	}
 
 	@Override

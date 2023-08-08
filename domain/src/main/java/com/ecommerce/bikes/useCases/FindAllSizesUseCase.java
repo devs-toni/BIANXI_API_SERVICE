@@ -1,7 +1,6 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Size;
-import com.ecommerce.bikes.entity.SizeEntity;
 import com.ecommerce.bikes.ports.SizeRepositoryPort;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,6 @@ public class FindAllSizesUseCase {
     }
 
     public List<Size> find() {
-        return sizeRepositoryPort.findAll().stream().map(SizeEntity::toDomain).toList();
+        return sizeRepositoryPort.findAll();
     }
 }

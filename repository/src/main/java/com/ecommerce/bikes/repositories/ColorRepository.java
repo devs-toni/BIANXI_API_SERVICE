@@ -1,10 +1,10 @@
-package com.ecommerce.bikes.repository;
+package com.ecommerce.bikes.repositories;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ecommerce.bikes.entity.ColorEntity;
+import com.ecommerce.bikes.entities.ColorEntity;
 
 public interface ColorRepository extends JpaRepository<ColorEntity, Long>{
 

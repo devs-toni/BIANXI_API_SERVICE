@@ -1,9 +1,7 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Product;
-import com.ecommerce.bikes.entity.ProductEntity;
 import com.ecommerce.bikes.ports.ProductRepositoryPort;
-import com.ecommerce.bikes.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +16,6 @@ public class FindAllProductsUseCase {
     }
 
     public List<Product> find() {
-        return productRepositoryPort.findAll().stream().map(ProductEntity::toDomain).toList();
+        return productRepositoryPort.findAll();
     }
 }

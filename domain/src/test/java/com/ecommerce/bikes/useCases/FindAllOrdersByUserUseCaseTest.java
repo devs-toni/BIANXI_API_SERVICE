@@ -1,15 +1,13 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.Order;
-import com.ecommerce.bikes.entity.OrderEntity;
-import com.ecommerce.bikes.repository.OrderRepository;
+import com.ecommerce.bikes.ports.OrderRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
 
 import static com.ecommerce.bikes.OrderMother.order;
-import static com.ecommerce.bikes.OrderMother.orderEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -17,14 +15,15 @@ import static org.mockito.Mockito.when;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FindAllOrdersByUserUseCaseTest {
 
-    private final OrderRepository orderRepository = mock(OrderRepository.class);
-    private final FindAllOrdersByUserUseCase findAllOrdersByUserUseCase = new FindAllOrdersByUserUseCase(orderRepository);
+    private final OrderRepositoryPort orderRepositoryPort = mock(OrderRepositoryPort.class);
+    private final FindAllOrdersByUserUseCase findAllOrdersByUserUseCase = new FindAllOrdersByUserUseCase(orderRepositoryPort);
+
     @Test
     public void find_all_by_user() {
-        List<OrderEntity> expectedOrders = List.of(orderEntity);
+        List<Order> expectedOrders = List.of(order);
         Long userId = 1L;
 
-        when(orderRepository.findAllByUserId(userId)).thenReturn(expectedOrders);
+        when(orderRepositoryPort.findAllByUserId(userId)).thenReturn(expectedOrders);
 
         List<Order> orders = findAllOrdersByUserUseCase.find(userId);
 

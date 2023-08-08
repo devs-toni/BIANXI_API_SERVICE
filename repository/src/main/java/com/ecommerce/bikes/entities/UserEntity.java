@@ -1,4 +1,4 @@
-package com.ecommerce.bikes.entity;
+package com.ecommerce.bikes.entities;
 
 import com.ecommerce.bikes.domain.User;
 import jakarta.persistence.*;
@@ -87,8 +87,14 @@ public class UserEntity {
         this.likes = likes;
     }
 
-    public UserEntity() {
+    public UserEntity(String email, char role, String password, List<OrderEntity> orders, List<LikeEntity> likes) {
+        this.email = email;
+        this.role = role;
+        this.password = password;
+        this.orders = orders;
+        this.likes = likes;
     }
+    public UserEntity() {}
 
     public static User toDomain(UserEntity userEntity) {
         return new User(
@@ -98,6 +104,17 @@ public class UserEntity {
                 userEntity.password,
                 userEntity.orders.stream().map(OrderEntity::toDomain).toList(),
                 userEntity.likes.stream().map(LikeEntity::toDomain).toList()
+        );
+    }
+
+    public static UserEntity toEntity(User user) {
+        return new UserEntity(
+                user.getId(),
+                user.getEmail(),
+                user.getRole(),
+                user.getPassword(),
+                user.getOrders().stream().map(OrderEntity::toEntity).toList(),
+                user.getLikes().stream().map(LikeEntity::toEntity).toList()
         );
     }
 

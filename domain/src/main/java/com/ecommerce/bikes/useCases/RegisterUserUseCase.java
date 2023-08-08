@@ -1,10 +1,9 @@
 package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.User;
-import com.ecommerce.bikes.entity.UserEntity;
 import com.ecommerce.bikes.exception.UserAlreadyExistException;
+import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.ports.UserRepositoryPort;
-import com.ecommerce.bikes.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +20,14 @@ public class RegisterUserUseCase {
     }
 
     public User save(User user) throws UserAlreadyExistException {
-
-        if (userRepositoryPort.findByEmail(user.getEmail()).isPresent()) {
+        try {
+            userRepositoryPort.findByEmail(user.getEmail());
             throw new UserAlreadyExistException("This user already exists");
 
-        } else {
-            UserEntity userToSave = User.toEntity(user);
-            userToSave.setPassword(passwordEncoder.encode(userToSave.getPassword()));
-            UserEntity savedUser = userRepositoryPort.save(userToSave);
+        } catch (UserNotFoundException e) {
 
-            return UserEntity.toDomain(savedUser);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return userRepositoryPort.save(user);
         }
     }
 }

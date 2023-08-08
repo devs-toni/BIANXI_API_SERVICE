@@ -1,15 +1,15 @@
 package com.ecommerce.bikes.ports;
 
 import com.ecommerce.bikes.domain.Order;
+import com.ecommerce.bikes.exception.OrderNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface OrderRepositoryPort {
 
-    List<Order> findAllByUserId(long userId);
+    List<Order> findAllByUserId(Long userId);
 
-    Order save(Order orderEntity);
+    Order save(Order order);
 
-    Optional<Order> findById(Long id);
+    Order findById(Long id) throws OrderNotFoundException;
 }

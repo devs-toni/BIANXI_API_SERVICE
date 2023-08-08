@@ -1,8 +1,8 @@
 package com.ecommerce.bikes.http;
 
-import com.ecommerce.bikes.entity.BikeConfigurationEntity;
-import com.ecommerce.bikes.entity.DatasheetEntity;
-import com.ecommerce.bikes.entity.LikeEntity;
+import com.ecommerce.bikes.domain.BikeConfiguration;
+import com.ecommerce.bikes.domain.Datasheet;
+import com.ecommerce.bikes.domain.Like;
 
 import java.util.List;
 import java.util.Set;
@@ -23,13 +23,13 @@ public class ProductResponse {
 
     private String description;
 
-    private Set<DatasheetEntity> datasheet;
+    private Set<Datasheet> datasheet;
 
-    private List<BikeConfigurationEntity> configuration;
+    private List<BikeConfiguration> configuration;
 
-    private List<LikeEntity> likeEntities;
+    private List<Like> likeEntities;
 
-    public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<DatasheetEntity> datasheet, List<BikeConfigurationEntity> configuration, List<LikeEntity> likeEntities) {
+    public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likeEntities) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -98,27 +98,27 @@ public class ProductResponse {
         this.description = description;
     }
 
-    public Set<DatasheetEntity> getDatasheet() {
+    public Set<Datasheet> getDatasheet() {
         return datasheet;
     }
 
-    public void setDatasheet(Set<DatasheetEntity> datasheet) {
+    public void setDatasheet(Set<Datasheet> datasheet) {
         this.datasheet = datasheet;
     }
 
-    public List<BikeConfigurationEntity> getConfiguration() {
+    public List<BikeConfiguration> getConfiguration() {
         return configuration;
     }
 
-    public void setConfiguration(List<BikeConfigurationEntity> configuration) {
+    public void setConfiguration(List<BikeConfiguration> configuration) {
         this.configuration = configuration;
     }
 
-    public List<LikeEntity> getLikes() {
+    public List<Like> getLikes() {
         return likeEntities;
     }
 
-    public void setLikes(List<LikeEntity> likeEntities) {
+    public void setLikes(List<Like> likeEntities) {
         this.likeEntities = likeEntities;
     }
 }

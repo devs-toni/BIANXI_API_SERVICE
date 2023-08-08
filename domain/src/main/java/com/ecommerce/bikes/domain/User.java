@@ -1,6 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.entity.UserEntity;
 import com.ecommerce.bikes.http.UserRegisterResponse;
 
 import java.util.Collections;
@@ -31,6 +30,14 @@ public class User {
         this.password = password;
         this.orders = Collections.emptyList();
         this.likes = Collections.emptyList();
+    }
+
+    public User(String email, char role, String password, List<Order> orders, List<Like> likes) {
+        this.email = email;
+        this.role = role;
+        this.password = password;
+        this.orders = orders;
+        this.likes = likes;
     }
 
     public User(Long id, String email, char role, String password, List<Order> orders, List<Like> likes) {
@@ -88,17 +95,6 @@ public class User {
 
     public void setLikes(List<Like> likes) {
         this.likes = likes;
-    }
-
-    public static UserEntity toEntity(User user) {
-        return new UserEntity(
-                user.id,
-                user.email,
-                user.role,
-                user.password,
-                user.orders.stream().map(Order::toEntity).toList(),
-                user.likes.stream().map(Like::toEntity).toList()
-        );
     }
 
     public static UserRegisterResponse toUserRegisterResponse(User user) {
