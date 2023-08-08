@@ -2,6 +2,8 @@ package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.domain.User;
 import com.ecommerce.bikes.entity.UserDAO;
+import com.ecommerce.bikes.exception.UserIsNotValidException;
+import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,12 @@ public class VerifyUserUseCase {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User verify(String email, String password) throws NoSuchElementException {
-        User user = UserDAO.toDomain(userRepository.findByEmail(email).get());
+    public User verify(String email, String password) throws UserIsNotValidException, UserNotFoundException {
+        User user = UserDAO.toDomain(userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException("The user does not exist")));
         if (passwordEncoder.matches(password, user.getPassword())) {
             return user;
         }
 
-        throw new NoSuchElementException();
+        throw new UserIsNotValidException("The credentials are not valid");
     }
 }

@@ -10,12 +10,12 @@ import static org.mockito.Mockito.when;
 
 public class DeleteLikeUseCaseTest {
 
-    private EntityManager entityManager = mock(EntityManager.class);
+    private final EntityManager entityManager = mock(EntityManager.class);
 
-    private DeleteLikeUseCase deleteLikeUseCase = new DeleteLikeUseCase(entityManager);
+    private final DeleteLikeUseCase deleteLikeUseCase = new DeleteLikeUseCase(entityManager);
 
     @Test
-    public void doNotThrowExceptionWhenDeleteLike() {
+    public void do_not_throw_exception_when_delete_like() {
 
         Query query = mock(Query.class);
 

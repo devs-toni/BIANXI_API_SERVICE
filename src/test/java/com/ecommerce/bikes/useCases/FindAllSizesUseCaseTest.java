@@ -14,13 +14,13 @@ import static org.mockito.Mockito.when;
 public class FindAllSizesUseCaseTest {
 
 
-    private SizeRepository sizeRepository = mock(SizeRepository.class);
+    private final SizeRepository sizeRepository = mock(SizeRepository.class);
 
-    private FindAllSizesUseCase findAllSizesUseCase = new FindAllSizesUseCase(sizeRepository);
+    private final FindAllSizesUseCase findAllSizesUseCase = new FindAllSizesUseCase(sizeRepository);
 
 
     @Test
-    public void get_SizesDAO_and_Receive_Sizes_Domain() {
+    public void find_all_sizes() {
         when(sizeRepository.findAll()).thenReturn(SizeMother.sizesDAO);
 
         List<Size> sizeList = findAllSizesUseCase.find();

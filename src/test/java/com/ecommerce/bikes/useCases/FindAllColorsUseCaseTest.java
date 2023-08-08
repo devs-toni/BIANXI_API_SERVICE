@@ -13,13 +13,13 @@ import static org.mockito.Mockito.when;
 
 public class FindAllColorsUseCaseTest {
 
-    private ColorRepository colorRepository = mock(ColorRepository.class);
+    private final ColorRepository colorRepository = mock(ColorRepository.class);
 
-    private FindAllColorsUseCase findAllColorsUseCase = new FindAllColorsUseCase(colorRepository);
+    private final FindAllColorsUseCase findAllColorsUseCase = new FindAllColorsUseCase(colorRepository);
 
 
     @Test
-    public void getColors() {
+    public void find_all_colors() {
         when(colorRepository.findAll()).thenReturn(ColorMother.colorsDAO);
 
         List<Color> colorList = findAllColorsUseCase.find();

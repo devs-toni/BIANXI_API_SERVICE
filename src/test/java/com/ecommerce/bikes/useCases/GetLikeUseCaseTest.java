@@ -11,12 +11,11 @@ import static org.mockito.Mockito.when;
 
 public class GetLikeUseCaseTest {
 
-    private EntityManager entityManager = mock(EntityManager.class);
-
-    private GetLikeUseCase getLikeUseCase = new GetLikeUseCase(entityManager);
+    private final EntityManager entityManager = mock(EntityManager.class);
+    private final GetLikeUseCase getLikeUseCase = new GetLikeUseCase(entityManager);
 
     @Test
-    public void getLike() {
+    public void get_like() {
         Object dataExpected = new Object();
 
         Query query = mock(Query.class);

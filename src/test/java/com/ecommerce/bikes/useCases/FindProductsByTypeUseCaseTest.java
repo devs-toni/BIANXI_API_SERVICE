@@ -11,11 +11,11 @@ import static org.mockito.Mockito.when;
 
 public class FindProductsByTypeUseCaseTest {
 
-    private ProductRepository productRepository = mock(ProductRepository.class);
-    private FindAllProductsByTypeUseCase findAllProductsByTypeUseCase = new FindAllProductsByTypeUseCase(productRepository);
+    private final ProductRepository productRepository = mock(ProductRepository.class);
+    private final FindAllProductsByTypeUseCase findAllProductsByTypeUseCase = new FindAllProductsByTypeUseCase(productRepository);
 
     @Test
-    public void findAllProductsBySpecificType() {
+    public void find_all_products_by_type() {
         String type = "road";
 
         when(productRepository.findAllByType(type)).thenReturn(productsByType);

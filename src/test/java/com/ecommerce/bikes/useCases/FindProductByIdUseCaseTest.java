@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class FindProductByIdUseCaseTest {
-    private ProductRepository productRepository = mock(ProductRepository.class);
+    private final ProductRepository productRepository = mock(ProductRepository.class);
 
-    private FindProductByIdUseCase findProductByIdUseCase = new FindProductByIdUseCase(productRepository);
+    private final FindProductByIdUseCase findProductByIdUseCase = new FindProductByIdUseCase(productRepository);
 
     @AfterEach
     public void resetMocks() {
@@ -26,7 +26,7 @@ public class FindProductByIdUseCaseTest {
     }
 
     @Test
-    public void findCorrectProduct() throws ProductNotFoundException {
+    public void find_correct_product() throws ProductNotFoundException {
         Long productId = 1L;
 
         when(productRepository.findById(productId)).thenReturn(Optional.of(productDAO));
@@ -35,7 +35,7 @@ public class FindProductByIdUseCaseTest {
     }
 
     @Test
-    public void throwProductNotFoundException() {
+    public void throw_ProductNotFoundException() {
         assertThrows(ProductNotFoundException.class, () -> {
             findProductByIdUseCase.find(1L);
         });

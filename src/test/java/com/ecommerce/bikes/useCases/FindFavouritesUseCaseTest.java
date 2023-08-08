@@ -19,8 +19,8 @@ import static org.mockito.Mockito.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FindFavouritesUseCaseTest {
 
-    private UserRepository userRepository = mock(UserRepository.class);
-    private FindFavouritesUseCase findFavouritesUseCase = new FindFavouritesUseCase(userRepository);
+    private final UserRepository userRepository = mock(UserRepository.class);
+    private final FindFavouritesUseCase findFavouritesUseCase = new FindFavouritesUseCase(userRepository);
 
     @AfterEach
     public void resetMocks() {
@@ -28,7 +28,7 @@ public class FindFavouritesUseCaseTest {
     }
 
     @Test
-    public void findFavourites() throws UserNotFoundException {
+    public void find_favourites() throws UserNotFoundException {
 
         Long userId = 1L;
 
@@ -38,7 +38,7 @@ public class FindFavouritesUseCaseTest {
     }
 
     @Test
-    public void throwUserNotFoundExceptionIfUserDoesNotExist () {
+    public void throw_UserNotFoundException_if_user_does_not_exist () {
         assertThrows(UserNotFoundException.class, () -> {
             findFavouritesUseCase.find(1L);
         });

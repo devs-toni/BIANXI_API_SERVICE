@@ -13,12 +13,12 @@ import static org.mockito.Mockito.when;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FindAllProductsUseCaseTest {
 
-    private ProductRepository productRepository = mock(ProductRepository.class);
+    private final ProductRepository productRepository = mock(ProductRepository.class);
 
-    private FindAllProductsUseCase findAllProductsUseCase = new FindAllProductsUseCase(productRepository);
+    private final FindAllProductsUseCase findAllProductsUseCase = new FindAllProductsUseCase(productRepository);
 
     @Test
-    public void findAllProducts() {
+    public void find_all_products() {
         when(productRepository.findAll()).thenReturn(productsByType);
 
         assertEquals(productsByTypeDomain.get(0), findAllProductsUseCase.find().get(0));

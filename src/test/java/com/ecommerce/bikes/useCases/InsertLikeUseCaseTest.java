@@ -10,12 +10,11 @@ import static org.mockito.Mockito.when;
 
 public class InsertLikeUseCaseTest {
 
-    private EntityManager entityManager = mock(EntityManager.class);
-
-    private InsertLikeUseCase insertLikeUseCase = new InsertLikeUseCase(entityManager);
+    private final EntityManager entityManager = mock(EntityManager.class);
+    private final InsertLikeUseCase insertLikeUseCase = new InsertLikeUseCase(entityManager);
 
     @Test
-    public void insertLikeSuccesfully() {
+    public void add_like() {
         Query query = mock(Query.class);
 
         when(entityManager.createNativeQuery(anyString())).thenReturn(query);
