@@ -1,7 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.http.SizeResponse;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -39,13 +37,6 @@ public class Size {
 
     public void setConfiguration(List<BikeConfiguration> configuration) {
         this.configuration = configuration;
-    }
-
-    public static SizeResponse toResponse(Size size) {
-        return new SizeResponse(
-                size.id,
-                size.size
-        );
     }
 
     @Override

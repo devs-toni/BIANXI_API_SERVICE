@@ -1,7 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.http.OrderResponse;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -68,16 +66,6 @@ public class Order {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-
-    public static OrderResponse toResponse(Order order) {
-        return new OrderResponse(
-                order.id,
-                order.address,
-                order.price,
-                order.products.stream().map(Product::toResponse).toList()
-        );
-    }
-
 
     @Override
     public boolean equals(Object o) {

@@ -1,7 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.http.ProductResponse;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -119,21 +117,6 @@ public class Product {
 
     public void setLikes(List<Like> likes) {
         this.likes = likes;
-    }
-
-    public static ProductResponse toResponse(Product product) {
-        return new ProductResponse(
-                product.id,
-                product.name,
-                product.type,
-                product.price,
-                product.offer,
-                product.sentence,
-                product.description,
-                product.datasheet,
-                product.configuration,
-                product.likes
-        );
     }
 
     @Override

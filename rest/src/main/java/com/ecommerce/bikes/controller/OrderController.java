@@ -45,7 +45,7 @@ public class OrderController {
     public ResponseEntity<List<OrderResponse>> findAllByUser(@PathVariable Long userId) {
 
         List<Order> orders = findAllOrdersByUserUseCase.find(userId);
-        return new ResponseEntity<>(orders.stream().map(Order::toResponse).toList(), HttpStatus.OK);
+        return new ResponseEntity<>(orders.stream().map(OrderResponse::toOrderResponse).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/products/{id}")
@@ -53,7 +53,7 @@ public class OrderController {
 
         try {
             Order order = findOrderByIdUseCase.find(id);
-            return new ResponseEntity<>(order.getProducts().stream().map(Product::toResponse).toList(), HttpStatus.OK);
+            return new ResponseEntity<>(order.getProducts().stream().map(ProductResponse::toProductResponse).toList(), HttpStatus.OK);
         } catch (OrderNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

@@ -1,5 +1,7 @@
 package com.ecommerce.bikes.http;
 
+import com.ecommerce.bikes.domain.User;
+
 public class UserRegisterResponse {
 
     private Long id;
@@ -34,5 +36,13 @@ public class UserRegisterResponse {
 
     public void setRole(char role) {
         this.role = role;
+    }
+
+    public static UserRegisterResponse toUserRegisterResponse(User user) {
+        return new UserRegisterResponse(
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
     }
 }

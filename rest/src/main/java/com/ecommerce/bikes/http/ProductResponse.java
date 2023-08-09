@@ -3,6 +3,7 @@ package com.ecommerce.bikes.http;
 import com.ecommerce.bikes.domain.BikeConfiguration;
 import com.ecommerce.bikes.domain.Datasheet;
 import com.ecommerce.bikes.domain.Like;
+import com.ecommerce.bikes.domain.Product;
 
 import java.util.List;
 import java.util.Set;
@@ -120,5 +121,20 @@ public class ProductResponse {
 
     public void setLikes(List<Like> likeEntities) {
         this.likeEntities = likeEntities;
+    }
+
+    public static ProductResponse toProductResponse(Product product) {
+        return new ProductResponse(
+                product.getId(),
+                product.getName(),
+                product.getType(),
+                product.getPrice(),
+                product.getOffer(),
+                product.getSentence(),
+                product.getDescription(),
+                product.getDatasheet(),
+                product.getConfiguration(),
+                product.getLikes()
+        );
     }
 }

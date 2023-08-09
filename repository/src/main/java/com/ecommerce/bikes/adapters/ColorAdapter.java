@@ -4,9 +4,11 @@ import com.ecommerce.bikes.domain.Color;
 import com.ecommerce.bikes.entities.ColorEntity;
 import com.ecommerce.bikes.ports.ColorRepositoryPort;
 import com.ecommerce.bikes.repositories.ColorRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ColorAdapter implements ColorRepositoryPort {
 
     private final ColorRepository colorRepository;

@@ -4,9 +4,11 @@ import com.ecommerce.bikes.domain.Size;
 import com.ecommerce.bikes.entities.SizeEntity;
 import com.ecommerce.bikes.ports.SizeRepositoryPort;
 import com.ecommerce.bikes.repositories.SizeRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class SizeAdapter implements SizeRepositoryPort {
 
     private final SizeRepository sizeRepository;

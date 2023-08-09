@@ -5,9 +5,11 @@ import com.ecommerce.bikes.entities.OrderEntity;
 import com.ecommerce.bikes.exception.OrderNotFoundException;
 import com.ecommerce.bikes.ports.OrderRepositoryPort;
 import com.ecommerce.bikes.repositories.OrderRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class OrderAdapter implements OrderRepositoryPort {
 
     private final OrderRepository orderRepository;

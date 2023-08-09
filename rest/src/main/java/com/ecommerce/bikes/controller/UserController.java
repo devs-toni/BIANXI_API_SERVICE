@@ -32,7 +32,7 @@ public class UserController {
 
         try {
             User user = verifyUserUseCase.verify(userRegisterRequest.getEmail(), userRegisterRequest.getPassword());
-            UserRegisterResponse response = User.toUserRegisterResponse(user);
+            UserRegisterResponse response = UserRegisterResponse.toUserRegisterResponse(user);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (UserIsNotValidException | UserNotFoundException e) {
             return new ResponseEntity<>(null, HttpStatus.OK);
@@ -43,7 +43,7 @@ public class UserController {
     public ResponseEntity<UserRegisterResponse> save(@RequestBody UserRegisterRequest userRegisterRequest) {
 
         try {
-            UserRegisterResponse userSaved = User.toUserRegisterResponse(
+            UserRegisterResponse userSaved = UserRegisterResponse.toUserRegisterResponse(
                     registerUserUseCase.save(UserRegisterRequest.toDomain(userRegisterRequest))
             );
             return new ResponseEntity<>(userSaved, HttpStatus.OK);

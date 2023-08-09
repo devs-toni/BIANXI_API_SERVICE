@@ -1,5 +1,7 @@
 package com.ecommerce.bikes.http;
 
+import com.ecommerce.bikes.domain.Order;
+
 import java.util.List;
 
 public class OrderResponse {
@@ -46,5 +48,14 @@ public class OrderResponse {
 
     public void setProducts(List<ProductResponse> products) {
         this.products = products;
+    }
+
+    public static OrderResponse toOrderResponse(Order order) {
+        return new OrderResponse(
+                order.getId(),
+                order.getAddress(),
+                order.getPrice(),
+                order.getProducts().stream().map(ProductResponse::toProductResponse).toList()
+        );
     }
 }

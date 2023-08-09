@@ -49,7 +49,7 @@ public class ProductController {
     public ResponseEntity<ProductResponse> findProductById(@PathVariable Long id) {
         try {
             Product product = findProductByIdUseCase.find(id);
-            return new ResponseEntity<>(Product.toResponse(product), HttpStatus.OK);
+            return new ResponseEntity<>(ProductResponse.toProductResponse(product), HttpStatus.OK);
         } catch (ProductNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -59,21 +59,21 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> findAll() {
 
         List<Product> products = findAllProductsUseCase.find();
-        return new ResponseEntity<>(products.stream().map(Product::toResponse).toList(), HttpStatus.OK);
+        return new ResponseEntity<>(products.stream().map(ProductResponse::toProductResponse).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/type/{type}")
     public ResponseEntity<List<ProductResponse>> findAllByType(@PathVariable String type) {
 
         List<Product> products = findAllProductsByTypeUseCase.find(type);
-        return new ResponseEntity<>(products.stream().map(Product::toResponse).toList(), HttpStatus.OK);
+        return new ResponseEntity<>(products.stream().map(ProductResponse::toProductResponse).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/favourites/{userId}")
     public ResponseEntity<List<ProductResponse>> findFavourites(@PathVariable Long userId) {
         try {
             List<Product> favourites = findFavouritesUseCase.find(userId);
-            return new ResponseEntity<>(favourites.stream().map(Product::toResponse).toList(), HttpStatus.OK);
+            return new ResponseEntity<>(favourites.stream().map(ProductResponse::toProductResponse).toList(), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -83,7 +83,7 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> findByName(@PathVariable String name) {
 
         List<Product> products = findProductsByNameUseCase.find(name);
-        return new ResponseEntity<>(products.stream().map(Product::toResponse).toList(), HttpStatus.OK);
+        return new ResponseEntity<>(products.stream().map(ProductResponse::toProductResponse).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/likes/{productId}/{userId}")

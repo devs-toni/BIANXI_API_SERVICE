@@ -5,7 +5,9 @@ import com.ecommerce.bikes.entities.UserEntity;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.ports.UserRepositoryPort;
 import com.ecommerce.bikes.repositories.UserRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserAdapter implements UserRepositoryPort {
 
     private final UserRepository userRepository;

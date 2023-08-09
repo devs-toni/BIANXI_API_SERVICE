@@ -25,7 +25,7 @@ public class SizesController {
     @GetMapping
     public ResponseEntity<List<SizeResponse>> findAll() {
 
-        List<SizeResponse> sizes = findAllSizesUseCase.find().stream().map(Size::toResponse).toList();
+        List<SizeResponse> sizes = findAllSizesUseCase.find().stream().map(SizeResponse::toSizeResponse).toList();
         return new ResponseEntity<>(sizes, HttpStatus.OK);
     }
 }

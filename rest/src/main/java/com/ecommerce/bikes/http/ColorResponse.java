@@ -1,5 +1,7 @@
 package com.ecommerce.bikes.http;
 
+import com.ecommerce.bikes.domain.Color;
+
 public class ColorResponse {
 
     private Long id;
@@ -24,5 +26,12 @@ public class ColorResponse {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public static ColorResponse toColorResponse(Color color) {
+        return new ColorResponse(
+                color.getId(),
+                color.getColor()
+        );
     }
 }

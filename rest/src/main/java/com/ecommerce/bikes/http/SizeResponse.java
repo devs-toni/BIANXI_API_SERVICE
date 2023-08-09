@@ -1,5 +1,7 @@
 package com.ecommerce.bikes.http;
 
+import com.ecommerce.bikes.domain.Size;
+
 public class SizeResponse {
 
     private Long id;
@@ -26,5 +28,10 @@ public class SizeResponse {
         this.size = size;
     }
 
-
+    public static SizeResponse toSizeResponse(Size size) {
+        return new SizeResponse(
+                size.getId(),
+                size.getSize()
+        );
+    }
 }

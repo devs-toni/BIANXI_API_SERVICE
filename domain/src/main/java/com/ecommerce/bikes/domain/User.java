@@ -1,7 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.http.UserRegisterResponse;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -95,14 +93,6 @@ public class User {
 
     public void setLikes(List<Like> likes) {
         this.likes = likes;
-    }
-
-    public static UserRegisterResponse toUserRegisterResponse(User user) {
-        return new UserRegisterResponse(
-                user.id,
-                user.email,
-                user.role
-        );
     }
 
     @Override

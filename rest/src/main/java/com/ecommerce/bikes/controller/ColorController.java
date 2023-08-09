@@ -1,6 +1,5 @@
 package com.ecommerce.bikes.controller;
 
-import com.ecommerce.bikes.domain.Color;
 import com.ecommerce.bikes.http.ColorResponse;
 import com.ecommerce.bikes.useCases.FindAllColorsUseCase;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ public class ColorController {
     @GetMapping
     public ResponseEntity<List<ColorResponse>> findAll() {
 
-        List<ColorResponse> colors = findAllColorsUseCase.find().stream().map(Color::toResponse).toList();
+        List<ColorResponse> colors = findAllColorsUseCase.find().stream().map(ColorResponse::toColorResponse).toList();
         return new ResponseEntity<>(colors, HttpStatus.OK);
     }
 }

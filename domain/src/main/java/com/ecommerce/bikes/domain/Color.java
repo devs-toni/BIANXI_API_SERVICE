@@ -1,7 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.ecommerce.bikes.http.ColorResponse;
-
 import java.util.Objects;
 
 
@@ -29,13 +27,6 @@ public class Color {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public static ColorResponse toResponse(Color color) {
-        return new ColorResponse(
-                color.id,
-                color.color
-        );
     }
 
     @Override
