@@ -1,8 +1,5 @@
 package com.ecommerce.bikes.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
 public class BikeConfiguration {
 
     private Long id;

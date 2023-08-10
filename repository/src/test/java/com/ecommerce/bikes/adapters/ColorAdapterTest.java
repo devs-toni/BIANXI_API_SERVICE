@@ -17,10 +17,10 @@ public class ColorAdapterTest {
 
     private final ColorRepository colorRepository = mock(ColorRepository.class);
 
-    private ColorAdapter colorAdapter = new ColorAdapter(colorRepository);
+    private final ColorAdapter colorAdapter = new ColorAdapter(colorRepository);
 
     @Test
-    public void find_all() {
+    public void should_return_all_colors() {
         when(colorRepository.findAll()).thenReturn(colorsEntity);
 
         List<Color> colorsObtained = colorAdapter.findAll();
@@ -28,11 +28,11 @@ public class ColorAdapterTest {
         assertEquals(colors, colorsObtained);
     }
 
-    public static List<ColorEntity> colorsEntity = List.of(
+    private static final List<ColorEntity> colorsEntity = List.of(
             new ColorEntity(1L, "rojo")
     );
 
-    public static List<Color> colors = List.of(
+    private static final List<Color> colors = List.of(
             new Color(1L, "rojo")
     );
 }
