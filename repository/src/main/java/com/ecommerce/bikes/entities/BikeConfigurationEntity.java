@@ -51,6 +51,9 @@ public class BikeConfigurationEntity {
 		this.stock = stock;
 	}
 
+	public BikeConfigurationEntity() {
+	}
+
 	public Long getId() {
 		return id;
 	}

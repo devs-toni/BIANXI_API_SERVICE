@@ -32,6 +32,8 @@ public class DatasheetEntity {
         this.product = product;
     }
 
+    public DatasheetEntity() {}
+
     public Long getId() {
         return id;
     }

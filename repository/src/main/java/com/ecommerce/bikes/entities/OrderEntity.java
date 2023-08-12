@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -105,5 +106,17 @@ public class OrderEntity {
                 order.getPrice(),
                 UserEntity.toEntity(order.getUser()),
                 order.getProducts().stream().map(ProductEntity::toEntity).toList());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderEntity that)) return false;
+        return Float.compare(that.price, price) == 0 && Objects.equals(id, that.id) && Objects.equals(address, that.address) && Objects.equals(user, that.user) && Objects.equals(products, that.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, address, price, user, products);
     }
 }
