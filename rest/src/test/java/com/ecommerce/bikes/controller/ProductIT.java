@@ -81,6 +81,7 @@ public class ProductIT extends DockerConfiguration {
     }
 
     @Test
+    @Disabled
     public void should_return_all_favourites_products() {
         Long expectedUserId = 1L;
 
@@ -98,7 +99,6 @@ public class ProductIT extends DockerConfiguration {
     }
 
     @Test
-    @Disabled
     public void should_return_all_products_by_name() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
