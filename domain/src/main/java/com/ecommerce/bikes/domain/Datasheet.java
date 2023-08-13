@@ -5,13 +5,11 @@ public class Datasheet {
     private Long id;
     private String featureName;
     private String feature;
-    private Product product;
 
-    public Datasheet(Long id, String featureName, String feature, Product product) {
+    public Datasheet(Long id, String featureName, String feature) {
         this.id = id;
         this.featureName = featureName;
         this.feature = feature;
-        this.product = product;
     }
 
     public Long getId() {
@@ -38,11 +36,4 @@ public class Datasheet {
         this.feature = feature;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }

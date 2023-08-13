@@ -9,10 +9,9 @@ public class Size {
     private String size;
     private List<BikeConfiguration> configuration = null;
 
-    public Size(Long id, String size, List<BikeConfiguration> configuration) {
+    public Size(Long id, String size) {
         this.id = id;
         this.size = size;
-        this.configuration = configuration;
     }
 
     public Long getId() {
@@ -43,11 +42,11 @@ public class Size {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Size size1)) return false;
-        return Objects.equals(id, size1.id) && Objects.equals(size, size1.size) && Objects.equals(configuration, size1.configuration);
+        return Objects.equals(id, size1.id) && Objects.equals(size, size1.size);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, size, configuration);
+        return Objects.hash(id, size);
     }
 }

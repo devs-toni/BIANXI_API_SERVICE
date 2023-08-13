@@ -1,6 +1,5 @@
 package com.ecommerce.bikes.controller;
 
-import com.ecommerce.bikes.domain.Size;
 import com.ecommerce.bikes.http.SizeResponse;
 import com.ecommerce.bikes.useCases.FindAllSizesUseCase;
 import org.springframework.http.HttpStatus;
@@ -14,11 +13,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/sizes")
-public class SizesController {
+public class SizeController {
 
     private final FindAllSizesUseCase findAllSizesUseCase;
 
-    public SizesController(FindAllSizesUseCase findAllSizesUseCase) {
+    public SizeController(FindAllSizesUseCase findAllSizesUseCase) {
         this.findAllSizesUseCase = findAllSizesUseCase;
     }
 

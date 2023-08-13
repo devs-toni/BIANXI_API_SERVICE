@@ -1,4 +1,4 @@
-package com.ecommerce.bikes.repositories;
+package com.ecommerce.bikes;
 
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;

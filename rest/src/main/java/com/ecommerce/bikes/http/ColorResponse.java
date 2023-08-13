@@ -2,6 +2,8 @@ package com.ecommerce.bikes.http;
 
 import com.ecommerce.bikes.domain.Color;
 
+import java.util.Objects;
+
 public class ColorResponse {
 
     private Long id;
@@ -33,5 +35,17 @@ public class ColorResponse {
                 color.getId(),
                 color.getColor()
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ColorResponse that)) return false;
+        return Objects.equals(id, that.id) && Objects.equals(color, that.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, color);
     }
 }

@@ -30,10 +30,10 @@ public class SizeAdapterTest {
     }
 
     private static final List<SizeEntity> sizesEntity = List.of(
-            new SizeEntity(1L, "L", emptyList())
+            new SizeEntity(1L, "L")
     );
 
     public static final List<Size> sizes = List.of(
-            new Size(1L, "L", emptyList())
+            new Size(1L, "L")
     );
 }

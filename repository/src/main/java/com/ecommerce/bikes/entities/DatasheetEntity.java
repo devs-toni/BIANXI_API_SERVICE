@@ -25,11 +25,10 @@ public class DatasheetEntity {
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
-    public DatasheetEntity(Long id, String featureName, String feature, ProductEntity product) {
+    public DatasheetEntity(Long id, String featureName, String feature) {
         this.id = id;
         this.featureName = featureName;
         this.feature = feature;
-        this.product = product;
     }
 
     public DatasheetEntity() {}
@@ -70,8 +69,7 @@ public class DatasheetEntity {
         return new Datasheet(
                 datasheet.id,
                 datasheet.featureName,
-                datasheet.feature,
-                ProductEntity.toDomain(datasheet.product)
+                datasheet.feature
         );
     }
 
@@ -79,8 +77,7 @@ public class DatasheetEntity {
         return new DatasheetEntity(
                 datasheet.getId(),
                 datasheet.getFeatureName(),
-                datasheet.getFeature(),
-                ProductEntity.toEntity(datasheet.getProduct())
+                datasheet.getFeature()
         );
     }
 

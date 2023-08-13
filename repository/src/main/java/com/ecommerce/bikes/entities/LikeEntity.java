@@ -35,11 +35,9 @@ public class LikeEntity {
 	@JoinColumn(name = "product_id", nullable = false)
 	private ProductEntity product;
 
-	public LikeEntity(Long id, UserEntity user, ProductEntity product) {
+	public LikeEntity(Long id, UserEntity user) {
 		this.id = id;
 		this.user = user;
-		this.product = product;
-
 	}
 
 	public LikeEntity() {}
@@ -84,8 +82,7 @@ public class LikeEntity {
 	public static LikeEntity toEntity(Like like) {
 		return new LikeEntity(
 				like.getId(),
-				UserEntity.toEntity(like.getUser()),
-				ProductEntity.toEntity(like.getProduct())
+				UserEntity.toEntity(like.getUser())
 		);
 	}
 }

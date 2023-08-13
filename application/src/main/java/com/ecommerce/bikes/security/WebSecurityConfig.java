@@ -3,6 +3,9 @@ package com.ecommerce.bikes.security;
 
 //import com.ecommerce.bikes.adapters.*;
 //import com.ecommerce.bikes.ports.*;
+
+import com.ecommerce.bikes.adapters.*;
+import com.ecommerce.bikes.ports.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -46,7 +49,7 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-/*    @Bean
+    @Bean
     public OrderRepositoryPort orderRepositoryPort(OrderAdapter orderAdapter) {
         return orderAdapter;
     }
@@ -69,5 +72,6 @@ public class WebSecurityConfig {
     @Bean
     public SizeRepositoryPort sizeRepositoryPort(SizeAdapter sizeAdapter) {
         return sizeAdapter;
-    }*/
+    }
 }
+

@@ -43,9 +43,8 @@ public class BikeConfigurationEntity {
 	@Column(name = "stock")
 	private Integer stock;
 
-	public BikeConfigurationEntity(Long id, ProductEntity product, ColorEntity color, SizeEntity size, Integer stock) {
+	public BikeConfigurationEntity(Long id, ColorEntity color, SizeEntity size, Integer stock) {
 		this.id = id;
-		this.product = product;
 		this.color = color;
 		this.size = size;
 		this.stock = stock;
@@ -97,7 +96,6 @@ public class BikeConfigurationEntity {
 	public static BikeConfiguration toDomain(BikeConfigurationEntity bikeConfigurationEntity) {
 		return new BikeConfiguration(
 				bikeConfigurationEntity.id,
-				ProductEntity.toDomain(bikeConfigurationEntity.product),
 				ColorEntity.toDomain(bikeConfigurationEntity.color),
 				SizeEntity.toDomain(bikeConfigurationEntity.size),
 				bikeConfigurationEntity.stock
@@ -107,7 +105,6 @@ public class BikeConfigurationEntity {
 	public static BikeConfigurationEntity toEntity(BikeConfiguration bikeConfiguration) {
 		return new BikeConfigurationEntity(
 				bikeConfiguration.getId(),
-				ProductEntity.toEntity(bikeConfiguration.getProduct()),
 				ColorEntity.toEntity(bikeConfiguration.getColor()),
 				SizeEntity.toEntity(bikeConfiguration.getSize()),
 				bikeConfiguration.getStock()

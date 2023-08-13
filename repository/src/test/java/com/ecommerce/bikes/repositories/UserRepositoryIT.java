@@ -1,5 +1,6 @@
 package com.ecommerce.bikes.repositories;
 
+import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.entities.UserEntity;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
@@ -10,6 +11,9 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// We already have the End-to-End tests in the rest layer
+
+@Disabled
 public class UserRepositoryIT extends DockerConfiguration {
 
     @Autowired
@@ -21,7 +25,6 @@ public class UserRepositoryIT extends DockerConfiguration {
     }
 
     @Test
-    @Disabled
     public void should_return_user_by_id() {
         UserEntity user = userRepository.findById(1L).get();
 

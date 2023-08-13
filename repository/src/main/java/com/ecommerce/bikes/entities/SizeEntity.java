@@ -23,12 +23,6 @@ public class SizeEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "size")
     private List<BikeConfigurationEntity> configuration;
 
-    public SizeEntity(Long id, String size, List<BikeConfigurationEntity> configuration) {
-        this.id = id;
-        this.size = size;
-        this.configuration = configuration;
-    }
-
     public SizeEntity(Long id, String size) {
         this.id = id;
         this.size = size;
@@ -63,11 +57,11 @@ public class SizeEntity {
     }
 
     public static Size toDomain(SizeEntity size) {
-        return new Size(size.id, size.size, size.configuration.stream().map(BikeConfigurationEntity::toDomain).toList());
+        return new Size(size.id, size.size);
     }
 
     public static SizeEntity toEntity(Size size) {
-        return new SizeEntity(size.getId(), size.getSize(), size.getConfiguration().stream().map(BikeConfigurationEntity::toEntity).toList());
+        return new SizeEntity(size.getId(), size.getSize());
     }
 
     @Override

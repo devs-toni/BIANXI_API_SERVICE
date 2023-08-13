@@ -1,5 +1,6 @@
 package com.ecommerce.bikes.repositories;
 
+import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.entities.OrderEntity;
 import com.ecommerce.bikes.entities.UserEntity;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,6 +14,9 @@ import java.util.List;
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// We already have the End-to-End tests in the rest layer
+
+@Disabled
 public class OrderRepositoryIT extends DockerConfiguration {
 
     @Autowired
@@ -25,7 +29,6 @@ public class OrderRepositoryIT extends DockerConfiguration {
     }
 
     @Test
-    @Disabled
     public void should_return_order_by_id() {
         OrderEntity order = orderRepository.findById(1L).get();
 
@@ -33,7 +36,6 @@ public class OrderRepositoryIT extends DockerConfiguration {
     }
 
     @Test
-    @Disabled
     public void should_return_all_orders_by_user_id() {
         List<OrderEntity> orders = orderRepository.findAllByUserId(2L);
 

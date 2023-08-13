@@ -1,5 +1,6 @@
 package com.ecommerce.bikes.repositories;
 
+import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.entities.ProductEntity;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
@@ -12,6 +13,9 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// We already have the End-to-End tests in the rest layer
+
+@Disabled
 public class ProductRepositoryIT extends DockerConfiguration {
 
     @Autowired
@@ -25,7 +29,6 @@ public class ProductRepositoryIT extends DockerConfiguration {
     }
 
     @Test
-    @Disabled
     public void should_return_product_by_id() {
         ProductEntity product = productRepository.findById(1L).get();
 

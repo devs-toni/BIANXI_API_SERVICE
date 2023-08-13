@@ -10,7 +10,7 @@ import java.util.List;
 public class SizeMother {
 
     public static List<Size> sizes = new ArrayList<>(Arrays.asList(
-            new Size(1L, "M", Collections.emptyList()),
-            new Size(2L, "S", Collections.emptyList())
+            new Size(1L, "M"),
+            new Size(2L, "S")
     ));
 }

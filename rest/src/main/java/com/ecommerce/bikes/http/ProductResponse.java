@@ -6,6 +6,7 @@ import com.ecommerce.bikes.domain.Like;
 import com.ecommerce.bikes.domain.Product;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class ProductResponse {
@@ -41,6 +42,9 @@ public class ProductResponse {
         this.datasheet = datasheet;
         this.configuration = configuration;
         this.likeEntities = likeEntities;
+    }
+
+    public ProductResponse() {
     }
 
     public Long getId() {
@@ -115,11 +119,11 @@ public class ProductResponse {
         this.configuration = configuration;
     }
 
-    public List<Like> getLikes() {
+    public List<Like> getLikeEntities() {
         return likeEntities;
     }
 
-    public void setLikes(List<Like> likeEntities) {
+    public void setLikeEntities(List<Like> likeEntities) {
         this.likeEntities = likeEntities;
     }
 
@@ -136,5 +140,33 @@ public class ProductResponse {
                 product.getConfiguration(),
                 product.getLikes()
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductResponse that)) return false;
+        return Float.compare(that.price, price) == 0 && offer == that.offer && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(type, that.type) && Objects.equals(sentence, that.sentence) && Objects.equals(description, that.description) && Objects.equals(datasheet, that.datasheet) && Objects.equals(configuration, that.configuration) && Objects.equals(likeEntities, that.likeEntities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type, price, offer, sentence, description, datasheet, configuration, likeEntities);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductResponse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", price=" + price +
+                ", offer=" + offer +
+                ", sentence='" + sentence + '\'' +
+                ", description='" + description + '\'' +
+                ", datasheet=" + datasheet +
+                ", configuration=" + configuration +
+                ", likeEntities=" + likeEntities +
+                '}';
     }
 }
