@@ -3,6 +3,7 @@ package com.ecommerce.bikes.http;
 import com.ecommerce.bikes.domain.Order;
 
 import java.util.List;
+import java.util.Objects;
 
 public class OrderResponse {
 
@@ -57,5 +58,17 @@ public class OrderResponse {
                 order.getPrice(),
                 order.getProducts().stream().map(ProductResponse::toProductResponse).toList()
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderResponse that)) return false;
+        return Float.compare(that.price, price) == 0 && Objects.equals(id, that.id) && Objects.equals(address, that.address) && Objects.equals(products, that.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, address, price, products);
     }
 }

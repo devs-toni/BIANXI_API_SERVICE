@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class FindOrderByIdUseCaseTest {
+public class FindOrderProductsByOrderIdUseCaseTest {
 
     private final OrderRepositoryPort orderRepositoryPort = mock(OrderRepositoryPort.class);
-    private final FindOrderByIdUseCase findOrderByIdUseCase = new FindOrderByIdUseCase(orderRepositoryPort);
+    private final FindOrderProductsByOrderIdUseCase findOrderProductsByOrderIdUseCase = new FindOrderProductsByOrderIdUseCase(orderRepositoryPort);
 
     @AfterEach
     public void resetMocks() {
@@ -31,7 +31,7 @@ public class FindOrderByIdUseCaseTest {
 
         when(orderRepositoryPort.findById(1L)).thenReturn(order);
 
-        Order order = findOrderByIdUseCase.find(orderId);
+        Order order = findOrderProductsByOrderIdUseCase.find(orderId);
 
         assertEquals(OrderMother.order, order);
     }
@@ -41,7 +41,7 @@ public class FindOrderByIdUseCaseTest {
         when(orderRepositoryPort.findById(1L)).thenThrow(OrderNotFoundException.class);
 
         assertThrows(OrderNotFoundException.class, () -> {
-            findOrderByIdUseCase.find(1L);
+            findOrderProductsByOrderIdUseCase.find(1L);
         });
     }
 }

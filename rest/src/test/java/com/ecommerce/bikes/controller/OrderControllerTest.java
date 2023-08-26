@@ -4,9 +4,11 @@ import com.ecommerce.bikes.domain.Like;
 import com.ecommerce.bikes.domain.Order;
 import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.domain.User;
+import com.ecommerce.bikes.http.OrderResponse;
+import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.useCases.CreateOrderUseCase;
 import com.ecommerce.bikes.useCases.FindAllOrdersByUserUseCase;
-import com.ecommerce.bikes.useCases.FindOrderByIdUseCase;
+import com.ecommerce.bikes.useCases.FindOrderProductsByOrderIdUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,19 +28,19 @@ public class OrderControllerTest {
 
     @InjectMocks
     private OrderController orderController;
-    private final FindOrderByIdUseCase findOrderByIdUseCase = mock(FindOrderByIdUseCase.class);
+    private final FindOrderProductsByOrderIdUseCase findOrderProductsByOrderIdUseCase = mock(FindOrderProductsByOrderIdUseCase.class);
     private final FindAllOrdersByUserUseCase findAllOrdersByUserUseCase = mock(FindAllOrdersByUserUseCase.class);
     private final CreateOrderUseCase createOrderUseCase = mock(CreateOrderUseCase.class);
 
     @Test
-    public void should_return_order_by_id() {
+    public void should_return_all_order_products() {
         long orderId = 1L;
 
-        when(findOrderByIdUseCase.find(orderId)).thenReturn(orderTest);
+        when(findOrderProductsByOrderIdUseCase.find(orderId)).thenReturn(orderTest);
 
-        Order order = findOrderByIdUseCase.find(orderId);
+        List<ProductResponse> products = orderController.findAllOrderProducts(orderId).getBody();
 
-        assertEquals(orderTest, order);
+        assertEquals(orderTest.getProducts().stream().map(ProductResponse::toProductResponse).toList(), products);
     }
 
     @Test
@@ -47,9 +49,9 @@ public class OrderControllerTest {
 
         when(findAllOrdersByUserUseCase.find(userId)).thenReturn(List.of(orderTest));
 
-        List<Order> orders = findAllOrdersByUserUseCase.find(userId);
+        List<OrderResponse> orders = orderController.findAllUserOrders(userId).getBody();
 
-        assertEquals(List.of(orderTest), orders);
+        assertEquals(List.of(OrderResponse.toOrderResponse(orderTest)), orders);
     }
 
     @Test
@@ -61,7 +63,7 @@ public class OrderControllerTest {
 
         when(createOrderUseCase.create(productIds, userId, address, amount)).thenReturn(createdOrder.getId());
 
-        Long orderId = createOrderUseCase.create(productIds, userId, address, amount);
+        Long orderId = orderController.create(productIds, userId, address, amount).getBody();
 
         assertEquals(2L, orderId);
     }

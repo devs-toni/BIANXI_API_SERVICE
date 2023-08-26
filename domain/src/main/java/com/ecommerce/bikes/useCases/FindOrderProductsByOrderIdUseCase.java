@@ -6,11 +6,11 @@ import com.ecommerce.bikes.ports.OrderRepositoryPort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FindOrderByIdUseCase {
+public class FindOrderProductsByOrderIdUseCase {
 
     private final OrderRepositoryPort orderRepositoryPort;
 
-    public FindOrderByIdUseCase(OrderRepositoryPort orderRepositoryPort) {
+    public FindOrderProductsByOrderIdUseCase(OrderRepositoryPort orderRepositoryPort) {
         this.orderRepositoryPort = orderRepositoryPort;
     }
 

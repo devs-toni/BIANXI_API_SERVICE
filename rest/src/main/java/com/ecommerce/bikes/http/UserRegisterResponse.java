@@ -2,6 +2,8 @@ package com.ecommerce.bikes.http;
 
 import com.ecommerce.bikes.domain.User;
 
+import java.util.Objects;
+
 public class UserRegisterResponse {
 
     private Long id;
@@ -44,5 +46,17 @@ public class UserRegisterResponse {
                 user.getEmail(),
                 user.getRole()
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserRegisterResponse that)) return false;
+        return role == that.role && Objects.equals(id, that.id) && Objects.equals(email, that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, role);
     }
 }
