@@ -5,6 +5,7 @@ import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.useCases.*;
+import jakarta.persistence.NoResultException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -88,10 +89,13 @@ public class ProductController {
 
     @GetMapping("/likes/{productId}/{userId}")
     @ResponseBody
-    public ResponseEntity<Integer> getLike(@PathVariable Long productId, @PathVariable Long userId) {
-
-        getLikeUseCase.get(productId, userId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Object> getLike(@PathVariable Long productId, @PathVariable Long userId) {
+        try {
+            Object result = getLikeUseCase.get(productId, userId);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (NoResultException nre) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/likes/{productId}/{userId}")

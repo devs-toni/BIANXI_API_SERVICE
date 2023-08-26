@@ -108,7 +108,7 @@ public class ProductControllerTest {
     public void should_get_like() {
         when(getLikeUseCase.get(1L, 1L)).thenReturn(10);
 
-        ResponseEntity<Integer> response = productController.getLike(1L, 1L);
+        ResponseEntity<Object> response = productController.getLike(1L, 1L);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNull(response.getBody());
@@ -126,7 +126,7 @@ public class ProductControllerTest {
 
     protected static final ProductEntity productEntity =
             new ProductEntity(
-                    1L,
+                    2L,
                     "Methanol XH",
                     "road",
                     34f,

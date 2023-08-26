@@ -6,8 +6,7 @@ import com.ecommerce.bikes.entities.LikeEntity;
 import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.repositories.LikeRepository;
 import com.ecommerce.bikes.repositories.ProductRepository;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
@@ -16,10 +15,11 @@ import org.springframework.http.*;
 import java.util.List;
 
 import static com.ecommerce.bikes.controller.ProductControllerTest.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProductIT extends DockerConfiguration {
+
     @Autowired
     private TestRestTemplate rest;
     @Autowired
@@ -41,6 +41,7 @@ public class ProductIT extends DockerConfiguration {
     }
 
     @Test
+    @Order(1)
     public void should_return_product_by_id() {
         HttpEntity<Product> request = new HttpEntity<>(null, headers);
 
@@ -52,6 +53,7 @@ public class ProductIT extends DockerConfiguration {
     }
 
     @Test
+    @Order(2)
     public void should_return_all_products() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -67,6 +69,7 @@ public class ProductIT extends DockerConfiguration {
     }
 
     @Test
+    @Order(3)
     public void should_return_all_products_by_type() {
         String expectedType = "road";
 
@@ -84,6 +87,7 @@ public class ProductIT extends DockerConfiguration {
     }
 
     @Test
+    @Order(4)
     public void should_return_all_favourites_products() {
         long expectedUserId = 1L;
 
@@ -101,6 +105,7 @@ public class ProductIT extends DockerConfiguration {
     }
 
     @Test
+    @Order(5)
     public void should_return_all_products_by_name() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -118,17 +123,62 @@ public class ProductIT extends DockerConfiguration {
     }
 
     @Test
+    @Order(6)
     public void should_add_like() {
+        productRepository.save(productEntity);
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
 
+        ResponseEntity<List<ProductResponse>> response = rest.exchange(
+                createUrl() + "api/products/likes/2/1", HttpMethod.POST, request, new ParameterizedTypeReference<>() {
+                });
+
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
+    @Order(7)
     public void should_get_like() {
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
 
+        ResponseEntity<Object> response = rest.exchange(
+                createUrl() + "api/products/likes/2/1", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+                });
+
+        Object result = response.getBody();
+
+        assertNotNull(result);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        System.out.println(result);
     }
 
     @Test
-    public void should_delete_like() {
+    @Order(9)
+    public void return_null_when_get_not_existent_like() {
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
 
+        ResponseEntity<Object> response = rest.exchange(
+                createUrl() + "api/products/likes/2/1", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+                });
+
+        Object result = response.getBody();
+
+        assertNull(result);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        System.out.println(result);
+    }
+
+    @Test
+    @Order(8)
+    public void should_delete_like() {
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+
+        ResponseEntity<List<ProductResponse>> response = rest.exchange(
+                createUrl() + "api/products/likes/2/1", HttpMethod.DELETE, request, new ParameterizedTypeReference<>() {
+                });
+
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }
