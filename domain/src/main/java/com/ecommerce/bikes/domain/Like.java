@@ -5,18 +5,17 @@ import java.util.Objects;
 public class Like {
 
     private Long id;
-    private User user;
-    private Product product;
+    private Long user;
+    private Long product;
 
-    public Like(Long id, User user, Product product) {
+    public Like(Long id, Long user, Long product) {
         this.id = id;
         this.user = user;
         this.product = product;
     }
 
-    public Like(Long id, Product product) {
+    public Like(Long id) {
         this.id = id;
-        this.product = product;
     }
 
     public Long getId() {
@@ -27,19 +26,19 @@ public class Like {
         this.id = id;
     }
 
-    public User getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 
-    public Product getProduct() {
+    public long getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Long product) {
         this.product = product;
     }
 

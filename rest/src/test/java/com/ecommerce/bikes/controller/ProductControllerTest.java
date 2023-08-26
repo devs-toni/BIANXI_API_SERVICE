@@ -1,6 +1,5 @@
 package com.ecommerce.bikes.controller;
 
-import com.ecommerce.bikes.domain.Like;
 import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.entities.LikeEntity;
 import com.ecommerce.bikes.entities.ProductEntity;
@@ -15,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.emptyList;
@@ -135,9 +135,49 @@ public class ProductControllerTest {
                     "fds",
                     emptySet(),
                     emptyList(),
-                    emptyList());
+                    emptyList()
+            );
+
+    protected static final ProductEntity productEntityWithLikes =
+            new ProductEntity(
+                    1L,
+                    "Methanol XH",
+                    "road",
+                    34f,
+                    34,
+                    "dsf",
+                    "fds",
+                    emptySet(),
+                    emptyList(),
+                    List.of(new LikeEntity(
+                            1L,
+                            new UserEntity(
+                                    1L,
+                                    "johndoe@doe.com",
+                                    'U',
+                                    "pepe",
+                                    Collections.emptyList(),
+                                    Collections.emptyList()
+                            ),
+                            new ProductEntity(
+                                    1L,
+                                    "Methanol XH",
+                                    "road",
+                                    34f,
+                                    34,
+                                    "dsf",
+                                    "fds",
+                                    emptySet(),
+                                    emptyList(),
+                                    Collections.emptyList()
+                            )
+                    ))
+            );
     protected static final Product product = ProductEntity.toDomain(productEntity);
+    protected static final Product productWithLikes = ProductEntity.toDomain(productEntityWithLikes);
     protected static final List<Product> products = List.of(product);
     protected static final ProductResponse productResponse = ProductResponse.toProductResponse(product);
+    protected static final ProductResponse productResponseWithLikes = ProductResponse.toProductResponse(productWithLikes);
     protected static final List<ProductResponse> productsResponses = List.of(productResponse);
+    protected static final List<ProductResponse> productsResponsesWithLikes = List.of(productResponseWithLikes);
 }

@@ -3,6 +3,7 @@ package com.ecommerce.bikes.entities;
 import com.ecommerce.bikes.domain.User;
 import jakarta.persistence.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -114,7 +115,7 @@ public class UserEntity {
                 user.getRole(),
                 user.getPassword(),
                 user.getOrders().stream().map(OrderEntity::toEntity).toList(),
-                user.getLikes().stream().map(LikeEntity::toEntity).toList()
+                Collections.emptyList()
         );
     }
 

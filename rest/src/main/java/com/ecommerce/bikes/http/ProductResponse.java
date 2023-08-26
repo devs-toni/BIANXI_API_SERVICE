@@ -29,9 +29,9 @@ public class ProductResponse {
 
     private List<BikeConfiguration> configuration;
 
-    private List<Like> likeEntities;
+    private List<Like> likes;
 
-    public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likeEntities) {
+    public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likes) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -41,7 +41,7 @@ public class ProductResponse {
         this.description = description;
         this.datasheet = datasheet;
         this.configuration = configuration;
-        this.likeEntities = likeEntities;
+        this.likes = likes;
     }
 
     public ProductResponse() {
@@ -119,12 +119,12 @@ public class ProductResponse {
         this.configuration = configuration;
     }
 
-    public List<Like> getLikeEntities() {
-        return likeEntities;
+    public List<Like> getLikes() {
+        return likes;
     }
 
-    public void setLikeEntities(List<Like> likeEntities) {
-        this.likeEntities = likeEntities;
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
     }
 
     public static ProductResponse toProductResponse(Product product) {
@@ -146,12 +146,12 @@ public class ProductResponse {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ProductResponse that)) return false;
-        return Float.compare(that.price, price) == 0 && offer == that.offer && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(type, that.type) && Objects.equals(sentence, that.sentence) && Objects.equals(description, that.description) && Objects.equals(datasheet, that.datasheet) && Objects.equals(configuration, that.configuration) && Objects.equals(likeEntities, that.likeEntities);
+        return Float.compare(that.price, price) == 0 && offer == that.offer && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(type, that.type) && Objects.equals(sentence, that.sentence) && Objects.equals(description, that.description) && Objects.equals(datasheet, that.datasheet) && Objects.equals(configuration, that.configuration) && Objects.equals(likes, that.likes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, price, offer, sentence, description, datasheet, configuration, likeEntities);
+        return Objects.hash(id, name, type, price, offer, sentence, description, datasheet, configuration, likes);
     }
 
     @Override
@@ -166,7 +166,7 @@ public class ProductResponse {
                 ", description='" + description + '\'' +
                 ", datasheet=" + datasheet +
                 ", configuration=" + configuration +
-                ", likeEntities=" + likeEntities +
+                ", likeEntities=" + likes +
                 '}';
     }
 }

@@ -105,7 +105,7 @@ public class OrderEntity {
                 order.getAddress(),
                 order.getPrice(),
                 UserEntity.toEntity(order.getUser()),
-                order.getProducts().stream().map(ProductEntity::toEntity).toList());
+                order.getProducts().stream().map(p -> ProductEntity.toEntity(p, order.getUser())).toList());
     }
 
     @Override

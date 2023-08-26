@@ -2,10 +2,11 @@ package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.domain.Product;
+import com.ecommerce.bikes.entities.LikeEntity;
 import com.ecommerce.bikes.http.ProductResponse;
+import com.ecommerce.bikes.repositories.LikeRepository;
 import com.ecommerce.bikes.repositories.ProductRepository;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -23,7 +24,8 @@ public class ProductIT extends DockerConfiguration {
     private TestRestTemplate rest;
     @Autowired
     private ProductRepository productRepository;
-
+    @Autowired
+    private LikeRepository likeRepository;
     private static HttpHeaders headers;
 
     @BeforeAll
@@ -34,7 +36,8 @@ public class ProductIT extends DockerConfiguration {
 
     @BeforeAll
     public void prepareTests() {
-        productRepository.save(productEntity);
+        LikeEntity like = productEntityWithLikes.getLikes().get(0);
+        likeRepository.save(like);
     }
 
     @Test
@@ -45,7 +48,7 @@ public class ProductIT extends DockerConfiguration {
 
         assert result.getBody() != null;
         assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(productResponse, result.getBody());
+        assertEquals(productResponseWithLikes, result.getBody());
     }
 
     @Test
@@ -60,7 +63,7 @@ public class ProductIT extends DockerConfiguration {
 
         assert products != null;
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(productsResponses, products);
+        assertEquals(productsResponsesWithLikes, products);
     }
 
     @Test
@@ -77,13 +80,12 @@ public class ProductIT extends DockerConfiguration {
 
         assert products != null;
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(productsResponses, products);
+        assertEquals(productsResponsesWithLikes, products);
     }
 
     @Test
-    @Disabled
     public void should_return_all_favourites_products() {
-        Long expectedUserId = 1L;
+        long expectedUserId = 1L;
 
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -95,7 +97,7 @@ public class ProductIT extends DockerConfiguration {
 
         assert products != null;
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(productsResponses, products);
+        assertEquals(productsResponsesWithLikes, products);
     }
 
     @Test
@@ -112,7 +114,7 @@ public class ProductIT extends DockerConfiguration {
 
         assert products != null;
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(productsResponses, products);
+        assertEquals(productsResponsesWithLikes, products);
     }
 
     @Test
