@@ -7,20 +7,19 @@ import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.ports.OrderRepositoryPort;
 import com.ecommerce.bikes.ports.ProductRepositoryPort;
 import com.ecommerce.bikes.ports.UserRepositoryPort;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.util.Collections;
 import java.util.List;
 
-import static com.ecommerce.bikes.OrderMother.order;
+import static com.ecommerce.bikes.OrderMother.createdOrder;
 import static com.ecommerce.bikes.TestDataHelpers.createUser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreateOrderUseCaseTest {
@@ -34,16 +33,22 @@ public class CreateOrderUseCaseTest {
             productRepositoryPort
     );
 
+    @AfterEach
+    public void resetMocks() {
+        reset(orderRepositoryPort);
+        reset(userRepositoryPort);
+        reset(productRepositoryPort);
+    }
+
     @Test
-    @Disabled
     public void create_order() throws UserNotFoundException, ProductNotFoundException {
         Long expectedOrderId = 1L;
         User user = createUser();
 
         when(productRepositoryPort.findById(1L)).thenReturn(products.get(0));
         when(productRepositoryPort.findById(2L)).thenReturn(products.get(1));
-        when(userRepositoryPort.findById(user.getId())).thenReturn(user);
-        when(orderRepositoryPort.save(any())).thenReturn(order);
+        when(userRepositoryPort.findById(1L)).thenReturn(user);
+        when(orderRepositoryPort.save(any())).thenReturn(createdOrder);
 
         Long orderId = createOrderUseCase.create(productsIds, user.getId(), "address", 5f);
 

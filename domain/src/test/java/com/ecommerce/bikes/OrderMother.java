@@ -13,4 +13,12 @@ public class OrderMother {
             createUser(),
             productsByTypeDomain
     );
+
+    public static Order createdOrder = new Order(
+            1L,
+            "direction",
+            5f,
+            createUser(),
+            productsByTypeDomain
+    );
 }

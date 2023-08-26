@@ -1,8 +1,6 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.DockerConfiguration;
-import com.ecommerce.bikes.domain.Color;
-import com.ecommerce.bikes.entities.ColorEntity;
 import com.ecommerce.bikes.http.ColorResponse;
 import com.ecommerce.bikes.repositories.ColorRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -43,7 +41,8 @@ public class ColorIT extends DockerConfiguration {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<List<ColorResponse>> response = rest.exchange(
-                createUrl() + "api/colors", HttpMethod.GET, request, new ParameterizedTypeReference<>() {});
+                createUrl() + "api/colors", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+                });
 
         List<ColorResponse> colors = response.getBody();
 
