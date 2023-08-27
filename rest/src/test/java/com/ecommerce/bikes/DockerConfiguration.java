@@ -3,6 +3,7 @@ package com.ecommerce.bikes;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -15,10 +16,12 @@ public abstract class DockerConfiguration {
     protected Integer randomServerPort;
 
     static {
-        MySQLContainer mysql = new MySQLContainer("mysql:latest")
+        MySQLContainer<?> mysql = new MySQLContainer<>("mysql:latest")
+                .withInitScript("test.sql")
                 .withDatabaseName("name")
                 .withUsername("user")
                 .withPassword("pass");
+
         mysql.start();
         System.setProperty("spring.datasource.url", mysql.getJdbcUrl());
         System.setProperty("spring.datasource.username", mysql.getUsername());

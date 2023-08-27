@@ -1,11 +1,13 @@
 package com.ecommerce.bikes.http;
 
 import com.ecommerce.bikes.domain.Order;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class OrderResponse {
+public class OrderResponse implements Serializable {
 
     private Long id;
     private String address;
