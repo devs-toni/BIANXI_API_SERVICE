@@ -9,25 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// We already have the End-to-End tests in the rest layer
-
-@Disabled
 public class SizeRepositoryIT extends DockerConfiguration {
 
     @Autowired
     private SizeRepository sizeRepository;
 
-    @BeforeAll
-    public void prepareTests() {
-        sizeRepository.save(new SizeEntity(1L, "XL"));
-        sizeRepository.save(new SizeEntity(2L, "L"));
-        sizeRepository.save(new SizeEntity(3L, "S"));
-        sizeRepository.save(new SizeEntity(4L, "M"));
-    }
-
     @Test
     public void should_return_all_sizes_size() {
-        int expectedSize = 4;
+        int expectedSize = 3;
 
         assertEquals(expectedSize, sizeRepository.findAll().size());
     }

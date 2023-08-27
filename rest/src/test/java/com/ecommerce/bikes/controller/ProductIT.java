@@ -2,7 +2,6 @@ package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.domain.Like;
-import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.http.ProductResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class ProductIT extends DockerConfiguration {
     @Test
     @Order(1)
     public void should_return_product_by_id() {
-        HttpEntity<Product> request = new HttpEntity<>(null, headers);
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<ProductResponse> result = this.rest.getForEntity(createUrl() + "api/products/1", ProductResponse.class, request);
 
@@ -46,7 +45,7 @@ public class ProductIT extends DockerConfiguration {
     public void should_return_all_products() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<ProductResponse>> response = rest.exchange(
+        ResponseEntity<List<ProductResponse>> response = this.rest.exchange(
                 createUrl() + "api/products", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
@@ -64,7 +63,7 @@ public class ProductIT extends DockerConfiguration {
 
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<ProductResponse>> response = rest.exchange(
+        ResponseEntity<List<ProductResponse>> response = this.rest.exchange(
                 createUrl() + "api/products/type/" + expectedType, HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
@@ -82,7 +81,7 @@ public class ProductIT extends DockerConfiguration {
 
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<ProductResponse>> response = rest.exchange(
+        ResponseEntity<List<ProductResponse>> response = this.rest.exchange(
                 createUrl() + "api/products/favourites/" + expectedUserId, HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
@@ -100,7 +99,7 @@ public class ProductIT extends DockerConfiguration {
 
         String expectedSearch = "Meth";
 
-        ResponseEntity<List<ProductResponse>> response = rest.exchange(
+        ResponseEntity<List<ProductResponse>> response = this.rest.exchange(
                 createUrl() + "api/products/search/" + expectedSearch, HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
@@ -116,7 +115,7 @@ public class ProductIT extends DockerConfiguration {
     public void should_add_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<ProductResponse>> response = rest.exchange(
+        ResponseEntity<List<ProductResponse>> response = this.rest.exchange(
                 createUrl() + "api/products/likes/2/1", HttpMethod.POST, request, new ParameterizedTypeReference<>() {
                 });
 
@@ -129,7 +128,7 @@ public class ProductIT extends DockerConfiguration {
     public void should_get_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<Object> response = rest.exchange(
+        ResponseEntity<Object> response = this.rest.exchange(
                 createUrl() + "api/products/likes/3/2", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
@@ -144,7 +143,7 @@ public class ProductIT extends DockerConfiguration {
     public void return_null_when_get_not_existent_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<Object> response = rest.exchange(
+        ResponseEntity<Object> response = this.rest.exchange(
                 createUrl() + "api/products/likes/3/3", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
@@ -159,7 +158,7 @@ public class ProductIT extends DockerConfiguration {
     public void should_delete_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<ProductResponse>> response = rest.exchange(
+        ResponseEntity<List<ProductResponse>> response = this.rest.exchange(
                 createUrl() + "api/products/likes/2/1", HttpMethod.DELETE, request, new ParameterizedTypeReference<>() {
                 });
 

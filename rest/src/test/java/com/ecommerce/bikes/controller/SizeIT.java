@@ -30,7 +30,7 @@ public class SizeIT extends DockerConfiguration {
     public void should_return_all_sizes_when_find_all() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<SizeResponse>> response = rest.exchange(createUrl() + "api/sizes", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+        ResponseEntity<List<SizeResponse>> response = this.rest.exchange(createUrl() + "api/sizes", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
         });
 
         List<SizeResponse> sizes = response.getBody();

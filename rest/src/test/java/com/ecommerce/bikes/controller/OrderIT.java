@@ -1,10 +1,10 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.DockerConfiguration;
+import com.ecommerce.bikes.domain.Like;
 import com.ecommerce.bikes.http.OrderResponse;
-import com.ecommerce.bikes.repositories.OrderRepository;
+import com.ecommerce.bikes.http.ProductResponse;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,14 +14,13 @@ import org.springframework.http.*;
 import java.util.List;
 
 import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OrderIT extends DockerConfiguration {
 
     @Autowired
     private TestRestTemplate rest;
-    @Autowired
-    private OrderRepository orderRepository;
     private static HttpHeaders headers;
 
     @BeforeAll
@@ -31,11 +30,10 @@ public class OrderIT extends DockerConfiguration {
     }
 
     @Test
-    @Disabled
     public void should_return_all_user_orders() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<OrderResponse>> response = rest.exchange(
+        ResponseEntity<List<OrderResponse>> response = this.rest.exchange(
                 createUrl() + "api/orders/1", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
@@ -43,7 +41,22 @@ public class OrderIT extends DockerConfiguration {
 
         assert orders != null;
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(ordersResponses, orders);
+        assertEquals(List.of(ordersResponses.get(0)), orders);
+    }
+
+    @Test
+    public void should_return_all_order_by_id_products() {
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+
+        ResponseEntity<List<ProductResponse>> response = this.rest.exchange(
+                createUrl() + "api/orders/products/1", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+                });
+
+        List<ProductResponse> products = response.getBody();
+
+        assert products != null;
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(ordersResponses.get(0).getProducts(), products);
     }
 
     public static List<OrderResponse> ordersResponses = List.of(
@@ -51,7 +64,20 @@ public class OrderIT extends DockerConfiguration {
                     1L,
                     "C/Muro n3",
                     563.25f,
-                    emptyList()
+                    List.of(
+                            new ProductResponse(
+                                    1L,
+                                    "Methanol CV FS 9.3 XT",
+                                    "road",
+                                    4707,
+                                    0,
+                                    "ULTIMATE CROSS-COUNTRY RACE BIKE",
+                                    "Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.",
+                                    emptySet(),
+                                    emptyList(),
+                                    List.of(new Like(1L, 1L, 1L))
+                            )
+                    )
             ),
             new OrderResponse(
                     2L,
@@ -66,5 +92,4 @@ public class OrderIT extends DockerConfiguration {
                     emptyList()
             )
     );
-
 }

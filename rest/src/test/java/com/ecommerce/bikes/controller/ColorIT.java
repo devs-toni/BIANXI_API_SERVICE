@@ -2,7 +2,6 @@ package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.http.ColorResponse;
-import com.ecommerce.bikes.repositories.ColorRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class ColorIT extends DockerConfiguration {
     public void should_return_all_colors() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<ColorResponse>> response = rest.exchange(
+        ResponseEntity<List<ColorResponse>> response = this.rest.exchange(
                 createUrl() + "api/colors", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 

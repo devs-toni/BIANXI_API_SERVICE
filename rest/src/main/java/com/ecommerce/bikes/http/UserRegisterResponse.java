@@ -59,4 +59,13 @@ public class UserRegisterResponse {
     public int hashCode() {
         return Objects.hash(id, email, role);
     }
+
+    @Override
+    public String toString() {
+        return "UserRegisterResponse{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

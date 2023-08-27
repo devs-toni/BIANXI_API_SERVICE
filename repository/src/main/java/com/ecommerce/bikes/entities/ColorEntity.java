@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "colors")
@@ -60,6 +61,18 @@ public class ColorEntity {
 
     public static ColorEntity toEntity(Color color) {
         return new ColorEntity(color.getId(), color.getColor());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ColorEntity that)) return false;
+        return Objects.equals(id, that.id) && Objects.equals(color, that.color) && Objects.equals(configuration, that.configuration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, color, configuration);
     }
 
     @Override

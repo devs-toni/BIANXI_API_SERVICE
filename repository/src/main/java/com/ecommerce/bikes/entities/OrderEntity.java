@@ -113,11 +113,11 @@ public class OrderEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof OrderEntity that)) return false;
-        return Float.compare(that.price, price) == 0 && Objects.equals(id, that.id) && Objects.equals(address, that.address) && Objects.equals(user, that.user) && Objects.equals(products, that.products);
+        return Float.compare(that.price, price) == 0 && Objects.equals(id, that.id) && Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, address, price, user, products);
+        return Objects.hash(id, address, price);
     }
 }

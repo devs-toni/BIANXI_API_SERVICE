@@ -2,8 +2,6 @@ package com.ecommerce.bikes.repositories;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.entities.ProductEntity;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,27 +10,20 @@ import java.util.List;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-// We already have the End-to-End tests in the rest layer
-
-@Disabled
 public class ProductRepositoryIT extends DockerConfiguration {
 
     @Autowired
     private ProductRepository productRepository;
 
-    @BeforeAll
-    public void prepareTests() {
-        productRepository.save(product1);
-        productRepository.save(product2);
-        productRepository.save(product3);
-    }
-
     @Test
     public void should_return_product_by_id() {
         ProductEntity product = productRepository.findById(1L).get();
 
-        assertEquals(product1, product);
+        assertNotNull(product);
+        assertEquals(productsEntities.get(0).getId(), product.getId());
+        assertEquals(productsEntities.get(0).getName(), product.getName());
     }
 
     @Test
@@ -48,7 +39,7 @@ public class ProductRepositoryIT extends DockerConfiguration {
     public void should_return_all_products_by_type() {
         int expectedSize = 2;
 
-        List<ProductEntity> products = productRepository.findAllByType("road");
+        List<ProductEntity> products = productRepository.findAllByType("mtb");
 
         assertEquals(expectedSize, products.size());
     }
@@ -57,12 +48,47 @@ public class ProductRepositoryIT extends DockerConfiguration {
     public void should_return_all_products_by_name() {
         int expectedSize = 3;
 
-        List<ProductEntity> products = productRepository.findByNameContainingIgnoreCase("dum");
+        List<ProductEntity> products = productRepository.findByNameContainingIgnoreCase("Meth");
 
         assertEquals(expectedSize, products.size());
     }
 
-    public static ProductEntity product1 = new ProductEntity(1L, "dummy1", "road", 234f, 10, "sentence1", "desc1", emptySet(), emptyList(), emptyList());
-    public static ProductEntity product2 = new ProductEntity(2L, "dummy2", "road", 456f, 20, "sentence2", "desc2", emptySet(), emptyList(), emptyList());
-    public static ProductEntity product3 = new ProductEntity(3L, "dummy3", "mtb", 678f, 30, "sentence3", "desc3", emptySet(), emptyList(), emptyList());
+    private static List<ProductEntity> productsEntities = List.of(
+            new ProductEntity(
+                    1L,
+                    "Methanol CV FS 9.3 XT",
+                    "road",
+                    4707,
+                    0,
+                    "ULTIMATE CROSS-COUNTRY RACE BIKE",
+                    "Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.",
+                    emptySet(),
+                    emptyList(),
+                    emptyList()
+            ),
+            new ProductEntity(
+                    2L,
+                    "Methanol CV FS 9.2 XTR",
+                    "mtb",
+                    6195,
+                    0,
+                    "ULTIMATE CROSS-COUNTRY RACE BIKE",
+                    "Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.",
+                    emptySet(),
+                    emptyList(),
+                    emptyList()
+            ),
+            new ProductEntity(
+                    3L,
+                    "Methanol CV FS 9.1 XX1",
+                    "mtb",
+                    9932,
+                    0,
+                    "ULTIMATE CROS-COUNTRY RACE BIKE",
+                    "Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.",
+                    emptySet(),
+                    emptyList(),
+                    emptyList()
+            )
+    );
 }
