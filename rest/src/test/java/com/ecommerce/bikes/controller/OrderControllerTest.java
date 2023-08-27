@@ -86,14 +86,14 @@ public class OrderControllerTest {
     public static Order orderTest = new Order(
             "direction",
             5f,
-            user,
+            user.getId(),
             products
     );
     public static Order createdOrder = new Order(
             2L,
             "direction",
             5f,
-            user,
+            user.getId(),
             products
     );
 }

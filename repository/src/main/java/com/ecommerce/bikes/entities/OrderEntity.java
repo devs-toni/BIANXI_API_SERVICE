@@ -1,6 +1,7 @@
 package com.ecommerce.bikes.entities;
 
 import com.ecommerce.bikes.domain.Order;
+import com.ecommerce.bikes.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -94,18 +95,18 @@ public class OrderEntity {
                 orderEntity.id,
                 orderEntity.address,
                 orderEntity.price,
-                UserEntity.toDomain(orderEntity.user),
+                orderEntity.user.getId(),
                 orderEntity.products.stream().map(ProductEntity::toDomain).toList()
         );
     }
 
-    public static OrderEntity toEntity(Order order) {
+    public static OrderEntity toEntity(Order order, User user) {
         return new OrderEntity(
                 order.getId(),
                 order.getAddress(),
                 order.getPrice(),
-                UserEntity.toEntity(order.getUser()),
-                order.getProducts().stream().map(p -> ProductEntity.toEntity(p, order.getUser())).toList());
+                UserEntity.toEntity(user),
+                order.getProducts().stream().map(p -> ProductEntity.toEntity(p, user)).toList());
     }
 
     @Override

@@ -44,7 +44,7 @@ public class CreateOrderUseCase {
         Order orderToSave = new Order(
                 address,
                 amount,
-                user,
+                user.getId(),
                 productsInOrder
         );
 

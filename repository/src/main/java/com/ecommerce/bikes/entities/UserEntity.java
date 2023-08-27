@@ -95,7 +95,9 @@ public class UserEntity {
         this.orders = orders;
         this.likes = likes;
     }
-    public UserEntity() {}
+
+    public UserEntity() {
+    }
 
     public static User toDomain(UserEntity userEntity) {
         return new User(
@@ -114,7 +116,7 @@ public class UserEntity {
                 user.getEmail(),
                 user.getRole(),
                 user.getPassword(),
-                user.getOrders().stream().map(OrderEntity::toEntity).toList(),
+                user.getOrders().stream().map(o -> OrderEntity.toEntity(o, null)).toList(),
                 Collections.emptyList()
         );
     }

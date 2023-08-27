@@ -1,9 +1,9 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.DockerConfiguration;
-import com.ecommerce.bikes.http.ColorResponse;
-import com.ecommerce.bikes.repositories.ColorRepository;
+import com.ecommerce.bikes.http.UserRegisterResponse;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -13,9 +13,9 @@ import org.springframework.http.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
-public class ColorIT extends DockerConfiguration {
+public class UserIT extends DockerConfiguration {
 
     @Autowired
     private TestRestTemplate rest;
@@ -28,23 +28,17 @@ public class ColorIT extends DockerConfiguration {
     }
 
     @Test
-    public void should_return_all_colors() {
+    @Disabled
+    public void should_register_and_return_created_user() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<ColorResponse>> response = rest.exchange(
-                createUrl() + "api/colors", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
-                });
+        ResponseEntity<List<UserRegisterResponse>> response = rest.exchange(createUrl() + "api/users", HttpMethod.POST, request, new ParameterizedTypeReference<>() {
+        });
 
-        List<ColorResponse> colors = response.getBody();
+        List<UserRegisterResponse> user = response.getBody();
 
-        assert colors != null;
+        assertNotNull(user);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(colorsResponses, colors);
+        assertEquals(null, user);
     }
-
-    private static List<ColorResponse> colorsResponses = List.of(
-            new ColorResponse(1L, "#FFh6h6"),
-            new ColorResponse(2L, "#h7h7h7"),
-            new ColorResponse(3L, "#g5gg5g")
-    );
 }

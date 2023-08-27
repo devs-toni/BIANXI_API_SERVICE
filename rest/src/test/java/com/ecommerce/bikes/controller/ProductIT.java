@@ -1,11 +1,9 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.DockerConfiguration;
+import com.ecommerce.bikes.domain.Like;
 import com.ecommerce.bikes.domain.Product;
-import com.ecommerce.bikes.entities.LikeEntity;
 import com.ecommerce.bikes.http.ProductResponse;
-import com.ecommerce.bikes.repositories.LikeRepository;
-import com.ecommerce.bikes.repositories.ProductRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,7 +12,8 @@ import org.springframework.http.*;
 
 import java.util.List;
 
-import static com.ecommerce.bikes.controller.ProductControllerTest.*;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -22,10 +21,6 @@ public class ProductIT extends DockerConfiguration {
 
     @Autowired
     private TestRestTemplate rest;
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private LikeRepository likeRepository;
     private static HttpHeaders headers;
 
     @BeforeAll
@@ -43,7 +38,7 @@ public class ProductIT extends DockerConfiguration {
 
         assert result.getBody() != null;
         assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(null, result.getBody());
+        assertEquals(productsResponses.get(0), result.getBody());
     }
 
     @Test
@@ -59,7 +54,7 @@ public class ProductIT extends DockerConfiguration {
 
         assert products != null;
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(null, products);
+        assertEquals(productsResponses, products);
     }
 
     @Test
@@ -77,7 +72,7 @@ public class ProductIT extends DockerConfiguration {
 
         assert products != null;
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(null, products);
+        assertEquals(List.of(productsResponses.get(0)), products);
     }
 
     @Test
@@ -95,7 +90,7 @@ public class ProductIT extends DockerConfiguration {
 
         assert products != null;
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(null,products);
+        assertEquals(List.of(productsResponses.get(0), productsResponses.get(1)), products);
     }
 
     @Test
@@ -113,13 +108,12 @@ public class ProductIT extends DockerConfiguration {
 
         assert products != null;
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(null, products);
+        assertEquals(productsResponses, products);
     }
 
     @Test
     @Order(6)
     public void should_add_like() {
-        productRepository.save(productEntity);
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<List<ProductResponse>> response = rest.exchange(
@@ -136,7 +130,7 @@ public class ProductIT extends DockerConfiguration {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<Object> response = rest.exchange(
-                createUrl() + "api/products/likes/2/1", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+                createUrl() + "api/products/likes/3/2", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
         Object result = response.getBody();
@@ -151,7 +145,7 @@ public class ProductIT extends DockerConfiguration {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<Object> response = rest.exchange(
-                createUrl() + "api/products/likes/2/1", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+                createUrl() + "api/products/likes/3/3", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
         Object result = response.getBody();
@@ -172,4 +166,48 @@ public class ProductIT extends DockerConfiguration {
         assertNull(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
+
+    private static List<ProductResponse> productsResponses = List.of(
+            new ProductResponse(
+                    1L,
+                    "Methanol CV FS 9.3 XT",
+                    "road",
+                    4707,
+                    0,
+                    "ULTIMATE CROSS-COUNTRY RACE BIKE",
+                    "Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.",
+                    emptySet(),
+                    emptyList(),
+                    List.of(
+                            new Like(1L, 1L, 1L)
+                    )),
+            new ProductResponse(
+                    2L,
+                    "Methanol CV FS 9.2 XTR",
+                    "mtb",
+                    6195,
+                    0,
+                    "ULTIMATE CROSS-COUNTRY RACE BIKE",
+                    "Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.",
+                    emptySet(),
+                    emptyList(),
+                    List.of(
+                            new Like(2L, 1L, 2L)
+                    )
+            ),
+            new ProductResponse(
+                    3L,
+                    "Methanol CV FS 9.1 XX1",
+                    "mtb",
+                    9932,
+                    0,
+                    "ULTIMATE CROS-COUNTRY RACE BIKE",
+                    "Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.",
+                    emptySet(),
+                    emptyList(),
+                    List.of(
+                            new Like(3L, 2L, 3L)
+                    )
+            )
+    );
 }

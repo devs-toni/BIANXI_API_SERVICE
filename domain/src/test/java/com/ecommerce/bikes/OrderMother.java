@@ -10,7 +10,7 @@ public class OrderMother {
     public static Order order = new Order(
             "direction",
             5f,
-            createUser(),
+            createUser().getId(),
             productsByTypeDomain
     );
 
@@ -18,7 +18,7 @@ public class OrderMother {
             1L,
             "direction",
             5f,
-            createUser(),
+            createUser().getId(),
             productsByTypeDomain
     );
 }

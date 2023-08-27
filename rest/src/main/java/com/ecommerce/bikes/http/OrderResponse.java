@@ -2,12 +2,13 @@ package com.ecommerce.bikes.http;
 
 import com.ecommerce.bikes.domain.Order;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class OrderResponse implements Serializable {
+public class OrderResponse {
 
     private Long id;
     private String address;
@@ -19,6 +20,9 @@ public class OrderResponse implements Serializable {
         this.address = address;
         this.price = price;
         this.products = products;
+    }
+
+    public OrderResponse() {
     }
 
     public Long getId() {

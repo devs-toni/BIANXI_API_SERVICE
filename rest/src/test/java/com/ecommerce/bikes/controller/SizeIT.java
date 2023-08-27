@@ -12,28 +12,18 @@ import org.springframework.http.*;
 
 import java.util.List;
 
-import static com.ecommerce.bikes.controller.SizeControllerTest.sizeEntity;
-import static com.ecommerce.bikes.controller.SizeControllerTest.sizesResponses;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SizeIT extends DockerConfiguration {
 
     @Autowired
     private TestRestTemplate rest;
-    @Autowired
-    private SizeRepository sizeRepository;
-
     private static HttpHeaders headers;
 
     @BeforeAll
     public static void init() {
         headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-    }
-
-    @BeforeAll
-    public void prepareTests() {
-        sizeRepository.save(sizeEntity);
     }
 
     @Test
@@ -49,5 +39,11 @@ public class SizeIT extends DockerConfiguration {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(sizesResponses, sizes);
     }
+
+    private static List<SizeResponse> sizesResponses = List.of(
+            new SizeResponse(1L, "47"),
+            new SizeResponse(2L, "48"),
+            new SizeResponse(3L, "49")
+    );
 
 }

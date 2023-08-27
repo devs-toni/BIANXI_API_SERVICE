@@ -9,9 +9,9 @@ public class Order {
     private String address;
     private float price;
     private List<Product> products;
-    private User user;
+    private Long user;
 
-    public Order(String address, float price, User user, List<Product> products) {
+    public Order(String address, float price, Long user, List<Product> products) {
         this.id = null;
         this.address = address;
         this.price = price;
@@ -19,7 +19,7 @@ public class Order {
         this.products = products;
     }
 
-    public Order(Long id, String address, float price, User user, List<Product> products) {
+    public Order(Long id, String address, float price, Long user, List<Product> products) {
         this.id = id;
         this.address = address;
         this.price = price;
@@ -51,11 +51,11 @@ public class Order {
         this.price = price;
     }
 
-    public User getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 

@@ -4,6 +4,7 @@ import com.ecommerce.bikes.domain.BikeConfiguration;
 import com.ecommerce.bikes.domain.Datasheet;
 import com.ecommerce.bikes.domain.Like;
 import com.ecommerce.bikes.domain.Product;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,23 +13,14 @@ import java.util.Set;
 public class ProductResponse {
 
     private Long id;
-
     private String name;
-
     private String type;
-
     private float price;
-
     private int offer;
-
     private String sentence;
-
     private String description;
-
     private Set<Datasheet> datasheet;
-
     private List<BikeConfiguration> configuration;
-
     private List<Like> likes;
 
     public ProductResponse(Long id, String name, String type, float price, int offer, String sentence, String description, Set<Datasheet> datasheet, List<BikeConfiguration> configuration, List<Like> likes) {

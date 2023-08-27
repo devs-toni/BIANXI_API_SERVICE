@@ -4,6 +4,7 @@ import com.ecommerce.bikes.domain.Order;
 import com.ecommerce.bikes.entities.OrderEntity;
 import com.ecommerce.bikes.exception.OrderNotFoundException;
 import com.ecommerce.bikes.repositories.OrderRepository;
+import com.ecommerce.bikes.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -23,7 +24,8 @@ import static org.mockito.Mockito.*;
 public class OrderAdapterTest {
 
     private final OrderRepository orderRepository = mock(OrderRepository.class);
-    private final OrderAdapter orderAdapter = new OrderAdapter(orderRepository);
+    private final UserRepository userRepository = mock(UserRepository.class);
+    private final OrderAdapter orderAdapter = new OrderAdapter(orderRepository, userRepository);
 
     @AfterEach
     public void resetMocks() {
@@ -56,6 +58,7 @@ public class OrderAdapterTest {
     @Test
     public void should_store_order_when_save() {
         when(orderRepository.save(any())).thenReturn(orderEntity);
+        when(userRepository.findById(any())).thenReturn(Optional.of(userEntity));
 
         assertEquals(order, orderAdapter.save(orderWithoutId));
     }
@@ -72,7 +75,7 @@ public class OrderAdapterTest {
             1L,
             "address",
             5f,
-            user,
+            user.getId(),
             Collections.emptyList()
     );
 
@@ -87,7 +90,7 @@ public class OrderAdapterTest {
     public static final Order orderWithoutId = new Order(
             "address",
             5f,
-            user,
+            user.getId(),
             Collections.emptyList()
     );
 }
