@@ -4,6 +4,7 @@ import com.ecommerce.bikes.domain.Like;
 import com.ecommerce.bikes.domain.Order;
 import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.domain.User;
+import com.ecommerce.bikes.http.OrderRequest;
 import com.ecommerce.bikes.http.OrderResponse;
 import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.useCases.CreateOrderUseCase;
@@ -60,10 +61,11 @@ public class OrderControllerTest {
         long userId = 1L;
         String address = "address";
         float amount = 24.5f;
+        OrderRequest orderRequest = new OrderRequest(productIds, userId, address, amount);
 
         when(createOrderUseCase.create(productIds, userId, address, amount)).thenReturn(createdOrder.getId());
 
-        Long orderId = orderController.create(productIds, userId, address, amount).getBody();
+        Long orderId = orderController.create(orderRequest).getBody();
 
         assertEquals(2L, orderId);
     }

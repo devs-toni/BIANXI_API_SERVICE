@@ -3,6 +3,7 @@ package com.ecommerce.bikes.controller;
 import com.ecommerce.bikes.domain.Order;
 import com.ecommerce.bikes.exception.OrderNotFoundException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
+import com.ecommerce.bikes.http.OrderRequest;
 import com.ecommerce.bikes.http.OrderResponse;
 import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.useCases.CreateOrderUseCase;
@@ -31,12 +32,14 @@ public class OrderController {
     @PostMapping
     @ResponseBody
     public ResponseEntity<Long> create(
-            @RequestBody List<Long> productsIds,
-            @RequestBody Long userId,
-            @RequestBody String orderAddress,
-            @RequestBody Float orderAmount
+            @RequestBody OrderRequest orderRequest
     ) throws UserNotFoundException {
-        Long orderId = createOrderUseCase.create(productsIds, userId, orderAddress, orderAmount);
+        Long orderId = createOrderUseCase.create(
+                orderRequest.getProductsIds(),
+                orderRequest.getUserId(),
+                orderRequest.getOrderAddress(),
+                orderRequest.getOrderAmount()
+        );
         return new ResponseEntity<>(orderId, HttpStatus.OK);
     }
 
