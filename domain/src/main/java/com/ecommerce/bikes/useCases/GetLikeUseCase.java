@@ -1,5 +1,6 @@
 package com.ecommerce.bikes.useCases;
 
+import com.ecommerce.bikes.exception.LikeDoesNotExistResultException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.transaction.Transactional;
@@ -15,10 +16,14 @@ public class GetLikeUseCase {
     }
 
     @Transactional
-    public Object get(Long productId, Long userId) throws NoResultException {
-        return entityManager.createNativeQuery("SELECT * FROM likes WHERE product_id=? AND user_id=?")
-                .setParameter(1, productId)
-                .setParameter(2, userId)
-                .getSingleResult();
+    public Object get(Long productId, Long userId) throws LikeDoesNotExistResultException {
+        try {
+            return entityManager.createNativeQuery("SELECT * FROM likes WHERE product_id=? AND user_id=?")
+                    .setParameter(1, productId)
+                    .setParameter(2, userId)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            throw new LikeDoesNotExistResultException("Does not exist a result with this specifications");
+        }
     }
 }

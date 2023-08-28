@@ -4,6 +4,7 @@ import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.entities.LikeEntity;
 import com.ecommerce.bikes.entities.ProductEntity;
 import com.ecommerce.bikes.entities.UserEntity;
+import com.ecommerce.bikes.exception.LikeDoesNotExistResultException;
 import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.useCases.*;
 import jakarta.persistence.NoResultException;
@@ -106,7 +107,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void should_get_like() {
+    public void should_get_like() throws LikeDoesNotExistResultException {
         when(getLikeUseCase.get(1L, 1L)).thenThrow(NoResultException.class);
 
         ResponseEntity<Object> response = productController.getLike(1L, 1L);

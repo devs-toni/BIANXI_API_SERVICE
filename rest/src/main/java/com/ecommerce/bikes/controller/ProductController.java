@@ -1,11 +1,11 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.domain.Product;
+import com.ecommerce.bikes.exception.LikeDoesNotExistResultException;
 import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.useCases.*;
-import jakarta.persistence.NoResultException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,12 +48,8 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> findProductById(@PathVariable Long id) {
-        try {
-            Product product = findProductByIdUseCase.find(id);
-            return new ResponseEntity<>(ProductResponse.toProductResponse(product), HttpStatus.OK);
-        } catch (ProductNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        Product product = findProductByIdUseCase.find(id);
+        return new ResponseEntity<>(ProductResponse.toProductResponse(product), HttpStatus.OK);
     }
 
     @GetMapping
@@ -72,12 +68,8 @@ public class ProductController {
 
     @GetMapping("/favourites/{userId}")
     public ResponseEntity<List<ProductResponse>> findFavourites(@PathVariable Long userId) {
-        try {
-            List<Product> favourites = findFavouritesUseCase.find(userId);
-            return new ResponseEntity<>(favourites.stream().map(ProductResponse::toProductResponse).toList(), HttpStatus.OK);
-        } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        List<Product> favourites = findFavouritesUseCase.find(userId);
+        return new ResponseEntity<>(favourites.stream().map(ProductResponse::toProductResponse).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/search/{name}")
@@ -89,13 +81,9 @@ public class ProductController {
 
     @GetMapping("/likes/{productId}/{userId}")
     @ResponseBody
-    public ResponseEntity<Object> getLike(@PathVariable Long productId, @PathVariable Long userId) {
-        try {
-            Object result = getLikeUseCase.get(productId, userId);
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (NoResultException nre) {
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        }
+    public ResponseEntity<Object> getLike(@PathVariable Long productId, @PathVariable Long userId) throws LikeDoesNotExistResultException {
+        Object result = getLikeUseCase.get(productId, userId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/likes/{productId}/{userId}")
@@ -112,5 +100,32 @@ public class ProductController {
 
         deleteLikeUseCase.delete(productId, userId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<String> handleProductNotFoundException(
+            ProductNotFoundException pnfe
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(pnfe.getMessage());
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleUserNotFoundException(
+            UserNotFoundException unfe
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(unfe.getMessage());
+    }
+
+    @ExceptionHandler(LikeDoesNotExistResultException.class)
+    public ResponseEntity<String> handleLikeDoesNotExistResultException(
+            LikeDoesNotExistResultException ldnere
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ldnere.getMessage());
     }
 }
