@@ -1,5 +1,6 @@
 package com.ecommerce.bikes.useCases;
 
+import com.ecommerce.bikes.exception.LikeDoesNotExistResultException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class GetLikeUseCaseTest {
     private final GetLikeUseCase getLikeUseCase = new GetLikeUseCase(entityManager);
 
     @Test
-    public void get_like() {
+    public void get_like() throws LikeDoesNotExistResultException {
         Object dataExpected = new Object();
 
         Query query = mock(Query.class);
