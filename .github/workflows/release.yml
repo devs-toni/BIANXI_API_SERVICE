@@ -63,8 +63,11 @@ jobs:
       - name: Grant Permissions
         run: chmod +x mvnw
 
+      - name: Build
+        run: ./mvnw --batch-mode package
+
       - name: Copy Jar File
-        run: mv ${{ github.workspace }}/application/target/application-*.jar bianxi-api-${{ github.ref_name }}.jar
+        run: mv ${{ github.workspace }}/application/target/application-${{ github.ref_name }}.jar bianxi-api-${{ github.ref_name }}.jar
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
