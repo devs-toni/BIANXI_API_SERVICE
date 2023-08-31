@@ -29,6 +29,7 @@ jobs:
 
       - name: Prepare Maven Release
         run: |
+          chmod +x ./mvnw |
           ./mvnw --batch-mode release:prepare
           NEXT_RELEASE=$(grep -r 'scm.tag=' release.properties | sed 's/scm.tag=//')
           echo "NEXT_RELEASE=$NEXT_RELEASE" >> $GITHUB_ENV
