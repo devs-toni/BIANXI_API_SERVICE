@@ -82,9 +82,3 @@ jobs:
         with:
           tag: ${{ env.NEXT_RELEASE }}
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build & Deploy
-        run: ./mvnw --batch-mode clean deploy
-        continue-on-error: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

@@ -22,6 +22,6 @@ jobs:
         run: chmod +x mvnw
 
       - name: Build & Deploy
-        run: ./mvnw --batch-mode clean deploy
+        run: ./mvnw --batch-mode clean install
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
