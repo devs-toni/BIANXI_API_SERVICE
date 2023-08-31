@@ -66,7 +66,7 @@ jobs:
         run: ./mvnw --batch-mode clean deploy
         continue-on-error: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
 
       - name: Login to Docker Hub
@@ -81,7 +81,7 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/bianxi-api:${{ env.NEXT_RELEASE }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/bianxi-api:release-${{ env.NEXT_RELEASE }}
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1.12.0
