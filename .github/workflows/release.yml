@@ -1,4 +1,4 @@
-name: Docker CI with Maven
+name: Release
 
 on:
   workflow_dispatch:
