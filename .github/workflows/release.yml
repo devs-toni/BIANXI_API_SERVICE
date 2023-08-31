@@ -10,7 +10,6 @@ jobs:
   build-deploy:
     name: Build & Deploy
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -30,8 +29,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
-            username: ${{ secrets.DOCKER_USERNAME }}
-            password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build & push
         uses: docker/build-push-action@v3
@@ -39,4 +38,4 @@ jobs:
           context: .
           dockerfile: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bianxi-api:${{ github.ref_name }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/bianxi-api:${{ github.ref_name }}
