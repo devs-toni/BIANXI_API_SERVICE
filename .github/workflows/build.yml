@@ -18,6 +18,9 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: Grant Permissions
+        run: chmod +x mvnw
+
       - name: Build & Deploy
         run: ./mvnw --batch-mode clean deploy
         env:
