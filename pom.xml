@@ -95,6 +95,10 @@
                 <configuration>
                     <tagNameFormat>@{project.version}</tagNameFormat>
                     <projectVersionPolicyId>SemVerVersionPolicy</projectVersionPolicyId>
+                    <checkModificationExcludes>
+                        <checkModificationExclude>pom.xml</checkModificationExclude>
+                        <checkModificationExclude>**</checkModificationExclude>
+                    </checkModificationExcludes>
                 </configuration>
             </plugin>
             <plugin>
