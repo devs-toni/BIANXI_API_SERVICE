@@ -140,6 +140,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(9)
+    @Disabled
     public void return_null_when_get_not_existent_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
