@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.ecommerce</groupId>
         <artifactId>bikes</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>application</artifactId>
@@ -17,17 +17,17 @@
         <dependency>
             <groupId>com.ecommerce</groupId>
             <artifactId>domain</artifactId>
-            <version>0.3.0</version>
+            <version>0.4.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.ecommerce</groupId>
             <artifactId>repository</artifactId>
-            <version>0.3.0</version>
+            <version>0.4.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.ecommerce</groupId>
             <artifactId>rest</artifactId>
-            <version>0.3.0</version>
+            <version>0.4.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
