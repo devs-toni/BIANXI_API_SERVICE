@@ -79,6 +79,14 @@
 
 	</dependencies>
 
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub</name>
+			<url>https://maven.pkg.github.com/devs-toni/bianxi-api</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 
