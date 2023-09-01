@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       NEXT_RELEASE: ${{ env.NEXT_RELEASE }}
-      CURRENT_RELEASE: ${{ env.VERSION }}
+      VERSION: ${{ env.VERSION }}
 
     steps:
       - uses: actions/checkout@v3
