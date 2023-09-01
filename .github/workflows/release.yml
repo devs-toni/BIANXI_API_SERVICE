@@ -88,7 +88,7 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.NEXT_RELEASE }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/bianxi-api:${{ env.NEXT_RELEASE }}
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1.12.0
