@@ -23,6 +23,12 @@ jobs:
           cache: "maven"
           server-id: "github"
 
+      - name: Get Version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo $VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Configure Git User
         run: |
           git config user.email "actions@github.com"
@@ -35,12 +41,6 @@ jobs:
           ./mvnw --batch-mode release:prepare
           NEXT_RELEASE=$(grep -r 'scm.tag=' release.properties | sed 's/scm.tag=//')
           echo "NEXT_RELEASE=$NEXT_RELEASE" >> $GITHUB_ENV
-
-      - name: Get Version
-        run: |
-          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo $VERSION
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
   upload-artifacts:
     runs-on: ubuntu-latest
