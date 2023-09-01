@@ -39,7 +39,7 @@ jobs:
       - name: Get Version
         run: |
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
-          echo "::set-output name=version::$VERSION" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
   upload-artifacts:
     runs-on: ubuntu-latest
