@@ -38,7 +38,8 @@ jobs:
 
       - name: Get Version
         run: |
-          VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo $VERSION
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
   upload-artifacts:
