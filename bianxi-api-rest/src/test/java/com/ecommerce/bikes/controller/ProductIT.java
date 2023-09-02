@@ -2,6 +2,7 @@ package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.domain.Like;
+import com.ecommerce.bikes.exception.ErrorResponse;
 import com.ecommerce.bikes.http.ProductResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,21 @@ public class ProductIT extends DockerConfiguration {
         assert result.getBody() != null;
         assertEquals(HttpStatus.OK, result.getStatusCode());
         assertEquals(productsResponses.get(0), result.getBody());
+    }
+
+    @Test
+    @Order(9)
+    public void should_throw_ProductNotFoundException_when_get_product_by_id() {
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ErrorResponse expectedResponse = new ErrorResponse(404, "The product does not exist");
+
+        ResponseEntity<ErrorResponse> result = this.rest.getForEntity(createUrl() + "api/products/167", ErrorResponse.class, request);
+
+        ErrorResponse errorResponse = result.getBody();
+
+        assertNotNull(errorResponse);
+        assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+        assertEquals(expectedResponse, errorResponse);
     }
 
     @Test
@@ -93,6 +109,25 @@ public class ProductIT extends DockerConfiguration {
     }
 
     @Test
+    @Order(10)
+    public void should_throw_UserNotFoundException_when_get_all_favourites_products() {
+        long userId = 198L;
+
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ErrorResponse expectedResponse = new ErrorResponse(404, "The user does not exist");
+
+        ResponseEntity<ErrorResponse> response = this.rest.exchange(
+                createUrl() + "api/products/favourites/" + userId, HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+                });
+
+        ErrorResponse errorResponse = response.getBody();
+
+        assertNotNull(errorResponse);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(expectedResponse, errorResponse);
+    }
+
+    @Test
     @Order(5)
     public void should_return_all_products_by_name() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
@@ -140,18 +175,19 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(9)
-    @Disabled
-    public void return_null_when_get_not_existent_like() {
+    public void should_throw_LikeDoesNotExistException_when_get_not_existent_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
+        ErrorResponse expectedResponse = new ErrorResponse(404, "Does not exist a result with this specifications");
 
-        ResponseEntity<Object> response = this.rest.exchange(
+        ResponseEntity<ErrorResponse> response = this.rest.exchange(
                 createUrl() + "api/products/likes/3/3", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
                 });
 
-        Object result = response.getBody();
+        ErrorResponse errorResponse = response.getBody();
 
-        assertNull(result);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(errorResponse);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(expectedResponse, errorResponse);
     }
 
     @Test

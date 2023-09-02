@@ -1,7 +1,9 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.domain.Order;
+import com.ecommerce.bikes.exception.ErrorResponse;
 import com.ecommerce.bikes.exception.OrderNotFoundException;
+import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.http.OrderRequest;
 import com.ecommerce.bikes.http.OrderResponse;
@@ -33,7 +35,7 @@ public class OrderController {
     @ResponseBody
     public ResponseEntity<Long> create(
             @RequestBody OrderRequest orderRequest
-    ) throws UserNotFoundException {
+    ) {
         Long orderId = createOrderUseCase.create(
                 orderRequest.getProductsIds(),
                 orderRequest.getUserId(),
@@ -53,11 +55,34 @@ public class OrderController {
     @GetMapping("/products/{orderId}")
     public ResponseEntity<List<ProductResponse>> findAllOrderProducts(@PathVariable Long orderId) {
 
-        try {
             Order order = findOrderProductsByOrderId.find(orderId);
             return new ResponseEntity<>(order.getProducts().stream().map(ProductResponse::toProductResponse).toList(), HttpStatus.OK);
-        } catch (OrderNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+    }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleOrderNotFound(
+            OrderNotFoundException onfe
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), onfe.getMessage()));
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFound(
+            UserNotFoundException unfe
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), unfe.getMessage()));
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleProductNotFound(
+            ProductNotFoundException pnfe
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), pnfe.getMessage()));
     }
 }

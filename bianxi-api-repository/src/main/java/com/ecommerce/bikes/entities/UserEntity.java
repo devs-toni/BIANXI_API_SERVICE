@@ -1,11 +1,13 @@
 package com.ecommerce.bikes.entities;
 
 import com.ecommerce.bikes.domain.User;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -105,7 +107,7 @@ public class UserEntity {
                 userEntity.email,
                 userEntity.role,
                 userEntity.password,
-                userEntity.orders.stream().map(OrderEntity::toDomain).toList(),
+                userEntity.orders.stream().map(OrderEntity::toDomain).collect(Collectors.toList()),
                 userEntity.likes.stream().map(LikeEntity::toDomain).toList()
         );
     }
@@ -116,7 +118,7 @@ public class UserEntity {
                 user.getEmail(),
                 user.getRole(),
                 user.getPassword(),
-                user.getOrders().stream().map(o -> OrderEntity.toEntity(o, null)).toList(),
+                user.getOrders().stream().map(o -> OrderEntity.toEntity(o, user)).collect(Collectors.toList()),
                 Collections.emptyList()
         );
     }

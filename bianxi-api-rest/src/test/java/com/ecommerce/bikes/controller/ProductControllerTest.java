@@ -5,9 +5,11 @@ import com.ecommerce.bikes.entities.LikeEntity;
 import com.ecommerce.bikes.entities.ProductEntity;
 import com.ecommerce.bikes.entities.UserEntity;
 import com.ecommerce.bikes.exception.LikeDoesNotExistResultException;
+import com.ecommerce.bikes.exception.ProductNotFoundException;
+import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.useCases.*;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,8 +24,7 @@ import java.util.List;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -40,6 +41,19 @@ public class ProductControllerTest {
     private final GetLikeUseCase getLikeUseCase = mock(GetLikeUseCase.class);
     private final DeleteLikeUseCase deleteLikeUseCase = mock(DeleteLikeUseCase.class);
 
+    @AfterEach
+    public void resetMocks() {
+        reset(findProductByIdUseCase);
+        reset(findProductByIdUseCase);
+        reset(findAllProductsByTypeUseCase);
+        reset(findAllProductsUseCase);
+        reset(findFavouritesUseCase);
+        reset(findProductsByNameUseCase);
+        reset(insertLikeUseCase);
+        reset(getLikeUseCase);
+        reset(deleteLikeUseCase);
+    }
+
     @Test
     public void should_return_product_by_id() {
         when(findProductByIdUseCase.find(1L)).thenReturn(product);
@@ -48,6 +62,15 @@ public class ProductControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(productResponse, response.getBody());
+    }
+
+    @Test
+    public void should_throw_ProductNotFoundException_when_get_product_by_id() {
+        when(findProductByIdUseCase.find(1L)).thenThrow(ProductNotFoundException.class);
+
+        assertThrows(ProductNotFoundException.class, () -> {
+            productController.findProductById(1L);
+        });
     }
 
     @Test
@@ -84,6 +107,16 @@ public class ProductControllerTest {
     }
 
     @Test
+    public void should_throw_UserNotFoundException_when_get_all_favourite_products() {
+
+        when(findFavouritesUseCase.find(1L)).thenThrow(UserNotFoundException.class);
+
+        assertThrows(UserNotFoundException.class, () -> {
+            productController.findFavourites(1L);
+        });
+    }
+
+    @Test
     public void should_return_all_products_by_name() {
         String name = "Meth";
 
@@ -106,14 +139,12 @@ public class ProductControllerTest {
     }
 
     @Test
-    @Disabled
     public void should_get_like() throws LikeDoesNotExistResultException {
         when(getLikeUseCase.get(1L, 1L)).thenThrow(LikeDoesNotExistResultException.class);
 
-        ResponseEntity<Object> response = productController.getLike(1L, 1L);
-
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertNull(response.getBody());
+        assertThrows(LikeDoesNotExistResultException.class, () -> {
+            productController.getLike(1L, 1L);
+        });
     }
 
     @Test

@@ -12,7 +12,6 @@ public class ErrorResponse {
     private int status;
     private String message;
     private String stackTrace = null;
-    private List<ValidationError> errors = new ArrayList<>();
 
     public ErrorResponse(int status, String message) {
         this.status = status;
@@ -43,44 +42,25 @@ public class ErrorResponse {
         this.stackTrace = stackTrace;
     }
 
-    public List<ValidationError> getErrors() {
-        return errors;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ErrorResponse that)) return false;
+        return status == that.status && Objects.equals(message, that.message) && Objects.equals(stackTrace, that.stackTrace);
     }
 
-    public void setErrors(List<ValidationError> errors) {
-        this.errors = errors;
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, message, stackTrace);
     }
 
-    private static class ValidationError {
-        private String field;
-        private String message;
-
-        public ValidationError(String field, String message) {
-            this.field = field;
-            this.message = message;
-        }
-
-        public String getField() {
-            return field;
-        }
-
-        public void setField(String field) {
-            this.field = field;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-    }
-
-    public void addValidationError(String field, String message) {
-        if (Objects.isNull(errors)) {
-            errors = new ArrayList<>();
-        }
-        errors.add(new ValidationError(field, message));
+    @Override
+    public String toString() {
+        return "ErrorResponse{" +
+                "status=" + status +
+                ", message='" + message + '\'' +
+                ", stackTrace='" + stackTrace + '\'' +
+                '}';
     }
 }

@@ -19,7 +19,7 @@ public class VerifyUserUseCase {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User verify(String email, String password) throws UserIsNotValidException, UserNotFoundException {
+    public User verify(String email, String password) throws UserNotFoundException, UserIsNotValidException {
         User user = userRepositoryPort.findByEmail(email);
         if (passwordEncoder.matches(password, user.getPassword())) {
             return user;
