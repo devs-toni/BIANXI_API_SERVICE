@@ -1,19 +1,14 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.domain.User;
-import com.ecommerce.bikes.exception.UserAlreadyExistException;
-import com.ecommerce.bikes.exception.UserIsNotValidException;
-import com.ecommerce.bikes.exception.UserNotFoundException;
+import com.ecommerce.bikes.exception.*;
 import com.ecommerce.bikes.http.UserRegisterRequest;
 import com.ecommerce.bikes.http.UserRegisterResponse;
 import com.ecommerce.bikes.useCases.RegisterUserUseCase;
 import com.ecommerce.bikes.useCases.VerifyUserUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -30,25 +25,43 @@ public class UserController {
     @PostMapping(value = "/verify", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserRegisterResponse> verify(@RequestBody UserRegisterRequest userRegisterRequest) {
 
-        try {
             User user = verifyUserUseCase.verify(userRegisterRequest.getEmail(), userRegisterRequest.getPassword());
             UserRegisterResponse response = UserRegisterResponse.toUserRegisterResponse(user);
             return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (UserIsNotValidException | UserNotFoundException e) {
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        }
     }
 
     @PostMapping
     public ResponseEntity<UserRegisterResponse> save(@RequestBody UserRegisterRequest userRegisterRequest) {
+        UserRegisterResponse userSaved = UserRegisterResponse.toUserRegisterResponse(
+                registerUserUseCase.save(UserRegisterRequest.toDomain(userRegisterRequest))
+        );
+        return new ResponseEntity<>(userSaved, HttpStatus.OK);
+    }
 
-        try {
-            UserRegisterResponse userSaved = UserRegisterResponse.toUserRegisterResponse(
-                    registerUserUseCase.save(UserRegisterRequest.toDomain(userRegisterRequest))
-            );
-            return new ResponseEntity<>(userSaved, HttpStatus.OK);
-        } catch (UserAlreadyExistException e) {
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        }
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<ErrorResponse> handleUserAlreadyExist(
+            UserAlreadyExistException uae
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), uae.getMessage()));
+    }
+
+    @ExceptionHandler(UserIsNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleUserIsNotValid(
+            UserIsNotValidException uinve
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), uinve.getMessage()));
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFound(
+            UserNotFoundException unfe
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), unfe.getMessage()));
     }
 }

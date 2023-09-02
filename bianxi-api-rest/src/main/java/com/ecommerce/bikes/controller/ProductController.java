@@ -1,6 +1,7 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.domain.Product;
+import com.ecommerce.bikes.exception.ErrorResponse;
 import com.ecommerce.bikes.exception.LikeDoesNotExistResultException;
 import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
@@ -81,7 +82,7 @@ public class ProductController {
 
     @GetMapping("/likes/{productId}/{userId}")
     @ResponseBody
-    public ResponseEntity<Object> getLike(@PathVariable Long productId, @PathVariable Long userId) throws LikeDoesNotExistResultException {
+    public ResponseEntity<Object> getLike(@PathVariable Long productId, @PathVariable Long userId) {
         Object result = getLikeUseCase.get(productId, userId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -103,29 +104,29 @@ public class ProductController {
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<String> handleProductNotFoundException(
+    public ResponseEntity<ErrorResponse> handleProductNotFoundException(
             ProductNotFoundException pnfe
     ) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(pnfe.getMessage());
+                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), pnfe.getMessage()));
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<String> handleUserNotFoundException(
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(
             UserNotFoundException unfe
     ) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(unfe.getMessage());
+                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), unfe.getMessage()));
     }
 
     @ExceptionHandler(LikeDoesNotExistResultException.class)
-    public ResponseEntity<String> handleLikeDoesNotExistResultException(
+    public ResponseEntity<ErrorResponse> handleLikeDoesNotExistResultException(
             LikeDoesNotExistResultException ldnere
     ) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(ldnere.getMessage());
+                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), ldnere.getMessage()));
     }
 }
