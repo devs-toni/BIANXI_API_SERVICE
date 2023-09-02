@@ -5,10 +5,7 @@ import com.ecommerce.bikes.domain.User;
 import com.ecommerce.bikes.exception.UserAlreadyExistException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.ports.UserRepositoryPort;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,6 +25,7 @@ public class RegisterUserUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user register a new user THEN user is registered successfully")
     public void user_is_saved_successfully() {
 
         User user = UserMother.userToSave;
@@ -44,6 +42,7 @@ public class RegisterUserUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user register a new user THEN throw exception because user already exist in system")
     public void throws_UserAlreadyExistsException_when_user_is_present() {
         User user = UserMother.userToSave;
 

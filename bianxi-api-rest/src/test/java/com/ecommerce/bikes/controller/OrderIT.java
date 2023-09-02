@@ -8,6 +8,7 @@ import com.ecommerce.bikes.http.OrderResponse;
 import com.ecommerce.bikes.http.ProductResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -35,6 +36,7 @@ public class OrderIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("GIVEN a specific user id WHEN user tries to get user orders THEN these are returned")
     public void should_return_all_user_orders() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -50,6 +52,7 @@ public class OrderIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN user tries to get all products THEN these are returned")
     public void should_return_all_order_products() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -65,6 +68,7 @@ public class OrderIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN user tries to get all products THEN throw exception because order doesn't exist")
     public void should_throw_OrderNotFoundException_when_get_all_order_products() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
         ErrorResponse expectedResponse = new ErrorResponse(404, "The order does not exist");
@@ -80,6 +84,7 @@ public class OrderIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("GIVEN a new order WHEN user saves THEN new order is created")
     @Disabled
     public void should_create_new_order() {
         List<Long> productIds = List.of(1L, 2L, 3L);
@@ -101,6 +106,7 @@ public class OrderIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("GIVEN a new order WHEN user saves THEN throw exception because at least one product in the order doesn't exist")
     public void should_throw_ProductNotFoundException_when_create_new_order() {
         List<Long> productIds = List.of(1L, 2L, 365L);
         long userId = 1L;
@@ -121,6 +127,7 @@ public class OrderIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("GIVEN a new order WHEN user saves THEN throw exception because user doesn't exist")
     public void should_throw_UserNotFoundException_when_create_new_order() {
         List<Long> productIds = List.of(1L, 2L, 3L);
         long userId = 37L;

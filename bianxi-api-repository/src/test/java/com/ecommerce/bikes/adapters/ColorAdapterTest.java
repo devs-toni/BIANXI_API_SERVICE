@@ -3,6 +3,7 @@ package com.ecommerce.bikes.adapters;
 import com.ecommerce.bikes.domain.Color;
 import com.ecommerce.bikes.entities.ColorEntity;
 import com.ecommerce.bikes.repositories.ColorRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -20,6 +21,7 @@ public class ColorAdapterTest {
     private final ColorAdapter colorAdapter = new ColorAdapter(colorRepository);
 
     @Test
+    @DisplayName("WHEN color adapter call find all colors THEN all colors are returned")
     public void should_return_all_colors() {
         when(colorRepository.findAll()).thenReturn(colorsEntity);
 

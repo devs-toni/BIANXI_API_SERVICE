@@ -3,6 +3,7 @@ package com.ecommerce.bikes.useCases;
 import com.ecommerce.bikes.exception.LikeDoesNotExistResultException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -19,6 +20,7 @@ public class GetLikeUseCaseTest {
     private final GetLikeUseCase getLikeUseCase = new GetLikeUseCase(entityManager);
 
     @Test
+    @DisplayName("WHEN user tries to get a new like THEN this is returned successfully")
     public void get_like() {
         Object dataExpected = new Object();
 
@@ -35,6 +37,7 @@ public class GetLikeUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user tries to get a new like THEN throw exception because like diesn't exist")
     public void should_throw_LikeDoesNotExistException_when_get_like() {
         Object dataExpected = new Object();
 

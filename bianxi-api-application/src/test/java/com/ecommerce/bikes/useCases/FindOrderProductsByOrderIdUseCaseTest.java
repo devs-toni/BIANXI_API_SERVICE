@@ -4,10 +4,7 @@ import com.ecommerce.bikes.OrderMother;
 import com.ecommerce.bikes.domain.Order;
 import com.ecommerce.bikes.exception.OrderNotFoundException;
 import com.ecommerce.bikes.ports.OrderRepositoryPort;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -24,6 +21,7 @@ public class FindOrderProductsByOrderIdUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user wants specific order THEN this is returned successfully")
     public void find_order() {
 
         Long orderId = 1L;
@@ -36,6 +34,7 @@ public class FindOrderProductsByOrderIdUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user wants specific order THEN throw exception because order doesn't exist")
     public void throw_OrderNotFoundException_when_order_does_not_exist() {
         when(orderRepositoryPort.findById(1L)).thenThrow(OrderNotFoundException.class);
 

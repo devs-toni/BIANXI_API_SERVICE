@@ -14,6 +14,7 @@ import com.ecommerce.bikes.useCases.CreateOrderUseCase;
 import com.ecommerce.bikes.useCases.FindAllOrdersByUserUseCase;
 import com.ecommerce.bikes.useCases.FindOrderProductsByOrderIdUseCase;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,6 +46,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN user tries to get all products THEN these are returned")
     public void should_return_all_order_products() {
         long orderId = 1L;
 
@@ -56,6 +58,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN user tries to get all products THEN throw exception because order doesn't exist")
     public void should_throw_OrderNotFoundException_when_get_all_order_products() {
         long orderId = 1L;
 
@@ -67,6 +70,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific user id WHEN user tries to get user orders THEN these are returned")
     public void should_return_all_user_orders() {
         long userId = 2L;
 
@@ -78,6 +82,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a new order WHEN user saves THEN new order is created")
     public void should_create_a_new_order() {
         List<Long> productIds = List.of(1L, 2L, 3L);
         long userId = 1L;
@@ -93,6 +98,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a new order WHEN user saves THEN throw exception because user doesn't exist")
     public void should_throw_UserNotFoundException_when_create_a_new_order() {
         List<Long> productIds = List.of(1L, 2L, 3L);
         long userId = 1L;
@@ -109,6 +115,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a new order WHEN user saves THEN throw exception because at least one product in the order doesn't exist")
     public void should_throw_ProductNotFoundException_when_create_a_new_order() {
         List<Long> productIds = List.of(1L, 2L, 3L);
         long userId = 1L;

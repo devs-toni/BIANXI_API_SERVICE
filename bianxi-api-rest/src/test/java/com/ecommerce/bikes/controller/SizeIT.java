@@ -3,6 +3,7 @@ package com.ecommerce.bikes.controller;
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.http.SizeResponse;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -27,6 +28,7 @@ public class SizeIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("WHEN user tries to get all sizes THEN these are returned")
     public void should_return_all_sizes_when_find_all() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 

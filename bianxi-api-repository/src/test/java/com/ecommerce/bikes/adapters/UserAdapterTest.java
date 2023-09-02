@@ -5,6 +5,7 @@ import com.ecommerce.bikes.entities.UserEntity;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -27,13 +28,15 @@ public class UserAdapterTest {
     }
 
     @Test
-    public void should_return_user_when_find_one_that_exist() throws UserNotFoundException {
+    @DisplayName("GIVEN a specific user id WHEN user adapter call find user THEN this is returned")
+    public void should_return_user_when_find_one_that_exist() {
         when(userRepository.findById(userEntity.getId())).thenReturn(Optional.ofNullable(userEntity));
 
         assertEquals(user, userAdapter.findById(userEntity.getId()));
     }
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN user adapter call find user THEN throw exception because user doesn't exist")
     public void should_throw_exception_user_when_find_one_that_does_not_exist() {
         when(userRepository.findById(userEntity.getId())).thenThrow(UserNotFoundException.class);
 
@@ -43,13 +46,15 @@ public class UserAdapterTest {
     }
 
     @Test
-    public void should_return_user_when_find_one_by_email() throws UserNotFoundException {
+    @DisplayName("GIVEN a specific email WHEN user adapter call find user THEN this is returned")
+    public void should_return_user_when_find_one_by_email() {
         when(userRepository.findByEmail(userEntity.getEmail())).thenReturn(Optional.ofNullable(userEntity));
 
         assertEquals(user, userAdapter.findByEmail(userEntity.getEmail()));
     }
 
     @Test
+    @DisplayName("GIVEN a specific email WHEN user adapter call find user THEN throw exception because user doesn't exist")
     public void should_throw_exception_user_when_find_one_by_email_that_does_not_exist() {
         when(userRepository.findByEmail(userEntity.getEmail())).thenThrow(UserNotFoundException.class);
 
@@ -59,6 +64,7 @@ public class UserAdapterTest {
     }
 
     @Test
+    @DisplayName("GIVEN a new user WHEN user adapter call save THEN new user is created")
     public void should_store_user_when_save() {
         when(userRepository.save(userEntityWithoutId)).thenReturn(userEntity);
 

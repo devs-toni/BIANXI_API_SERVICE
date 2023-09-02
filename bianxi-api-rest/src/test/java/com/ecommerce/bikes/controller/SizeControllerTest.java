@@ -4,6 +4,7 @@ import com.ecommerce.bikes.domain.Size;
 import com.ecommerce.bikes.entities.SizeEntity;
 import com.ecommerce.bikes.http.SizeResponse;
 import com.ecommerce.bikes.useCases.FindAllSizesUseCase;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,7 @@ public class SizeControllerTest {
     private FindAllSizesUseCase findAllSizesUseCase = mock(FindAllSizesUseCase.class);
 
     @Test
+    @DisplayName("WHEN user tries to get all sizes THEN these are returned")
     public void should_return_all_sizes_when_find_all() {
         when(findAllSizesUseCase.find()).thenReturn(sizes);
 

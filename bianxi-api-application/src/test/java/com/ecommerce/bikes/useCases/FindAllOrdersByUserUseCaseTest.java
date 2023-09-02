@@ -4,6 +4,7 @@ import com.ecommerce.bikes.OrderMother;
 import com.ecommerce.bikes.domain.Order;
 import com.ecommerce.bikes.ports.OrderRepositoryPort;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -19,6 +20,7 @@ public class FindAllOrdersByUserUseCaseTest {
     private final FindAllOrdersByUserUseCase findAllOrdersByUserUseCase = new FindAllOrdersByUserUseCase(orderRepositoryPort);
 
     @Test
+    @DisplayName("WHEN user wants all user orders THEN these are returned successfully")
     public void find_all_by_user() {
         List<Order> expectedOrders = List.of(OrderMother.order);
         Long userId = 1L;

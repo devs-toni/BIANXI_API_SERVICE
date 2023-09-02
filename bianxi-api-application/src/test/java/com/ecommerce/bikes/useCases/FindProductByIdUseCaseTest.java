@@ -5,6 +5,7 @@ import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.ports.ProductRepositoryPort;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -24,6 +25,7 @@ public class FindProductByIdUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user wants specific product THEN this is returned successfully")
     public void find_correct_product() {
         Long productId = 1L;
 
@@ -33,6 +35,7 @@ public class FindProductByIdUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user wants specific order THEN throw exception because product doesn't exist")
     public void throw_ProductNotFoundException() {
         when(productRepositoryPort.findById(1L)).thenThrow(ProductNotFoundException.class);
 

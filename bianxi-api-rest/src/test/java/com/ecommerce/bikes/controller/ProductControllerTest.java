@@ -10,6 +10,7 @@ import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.http.ProductResponse;
 import com.ecommerce.bikes.useCases.*;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -55,6 +57,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN user find product THEN existent product is returned")
     public void should_return_product_by_id() {
         when(findProductByIdUseCase.find(1L)).thenReturn(product);
 
@@ -65,6 +68,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN user find product THEN throw exception because product doesn't exist")
     public void should_throw_ProductNotFoundException_when_get_product_by_id() {
         when(findProductByIdUseCase.find(1L)).thenThrow(ProductNotFoundException.class);
 
@@ -74,6 +78,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("WHEN user find all products THEN these are returned")
     public void should_return_all_products() {
         when(findAllProductsUseCase.find()).thenReturn(products);
 
@@ -84,6 +89,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific type WHEN user find all products THEN these are returned")
     public void should_return_all_products_by_type() {
         String type = "road";
 
@@ -96,6 +102,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific user id WHEN user find all favourite user products THEN these are returned")
     public void should_return_all_favourite_products() {
 
         when(findFavouritesUseCase.find(1L)).thenReturn(products);
@@ -107,6 +114,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific user id WHEN user find all favourites user products THEN throw exception because user doesn't exist")
     public void should_throw_UserNotFoundException_when_get_all_favourite_products() {
 
         when(findFavouritesUseCase.find(1L)).thenThrow(UserNotFoundException.class);
@@ -117,6 +125,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific name chain WHEN user find all products THEN these are returned")
     public void should_return_all_products_by_name() {
         String name = "Meth";
 
@@ -129,6 +138,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific user product WHEN user adds like to a new product THEN this is applied successfully")
     public void should_add_like() {
         when(insertLikeUseCase.add(1L, 1L)).thenReturn(10);
 
@@ -139,7 +149,22 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void should_get_like() throws LikeDoesNotExistResultException {
+    @DisplayName("GIVEN a specific user product WHEN user tries to find like THEN this is returned")
+    public void should_get_like() {
+        when(getLikeUseCase.get(1L, 1L)).thenReturn(1);
+
+        ResponseEntity<Object> response = productController.getLike(1L, 1L);
+
+        Object result = response.getBody();
+
+        assertNotNull(result);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertThat(Integer.parseInt(result.toString())).isGreaterThan(0);
+    }
+
+    @Test
+    @DisplayName("GIVEN a specific user product WHEN user tries to find like THEN throw exception because like doesn't exist")
+    public void should_throw_LikeDoesNotExistResultException_when_get_like() {
         when(getLikeUseCase.get(1L, 1L)).thenThrow(LikeDoesNotExistResultException.class);
 
         assertThrows(LikeDoesNotExistResultException.class, () -> {
@@ -148,6 +173,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific user product WHEN user deletes like to a new product THEN this is removed successfully")
     public void should_delete_like() {
         when(deleteLikeUseCase.delete(1L, 1L)).thenReturn(10);
 

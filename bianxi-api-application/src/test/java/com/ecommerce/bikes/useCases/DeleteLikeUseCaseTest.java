@@ -2,6 +2,7 @@ package com.ecommerce.bikes.useCases;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -17,6 +18,7 @@ public class DeleteLikeUseCaseTest {
     private final DeleteLikeUseCase deleteLikeUseCase = new DeleteLikeUseCase(entityManager);
 
     @Test
+    @DisplayName("WHEN user delete a like THEN this is removed successfully")
     public void do_not_throw_exception_when_delete_like() {
 
         Query query = mock(Query.class);

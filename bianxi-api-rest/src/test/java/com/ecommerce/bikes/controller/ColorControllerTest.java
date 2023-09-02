@@ -4,6 +4,7 @@ import com.ecommerce.bikes.domain.Color;
 import com.ecommerce.bikes.entities.ColorEntity;
 import com.ecommerce.bikes.http.ColorResponse;
 import com.ecommerce.bikes.useCases.FindAllColorsUseCase;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,7 @@ public class ColorControllerTest {
     private final FindAllColorsUseCase findAllColorsUseCase = mock(FindAllColorsUseCase.class);
 
     @Test
+    @DisplayName("WHEN user tries to get all colors THEN these are returned")
     public void should_return_all_colors_when_find_all() {
         when(findAllColorsUseCase.find()).thenReturn(colors);
 

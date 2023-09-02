@@ -3,6 +3,7 @@ package com.ecommerce.bikes.adapters;
 import com.ecommerce.bikes.domain.Size;
 import com.ecommerce.bikes.entities.SizeEntity;
 import com.ecommerce.bikes.repositories.SizeRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -20,6 +21,7 @@ public class SizeAdapterTest {
     private final SizeAdapter sizeAdapter = new SizeAdapter(sizeRepository);
 
     @Test
+    @DisplayName("WHEN size adapter call find all sizes THEN all sizes are returned")
     public void should_return_all_sizes() {
         when(sizeRepository.findAll()).thenReturn(sizesEntity);
 

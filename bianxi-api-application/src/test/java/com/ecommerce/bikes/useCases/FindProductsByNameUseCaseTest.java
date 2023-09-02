@@ -2,6 +2,7 @@ package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.ProductMother;
 import com.ecommerce.bikes.ports.ProductRepositoryPort;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -16,6 +17,7 @@ public class FindProductsByNameUseCaseTest {
     private final FindProductsByNameUseCase findProductsByNameUseCase = new FindProductsByNameUseCase(productRepositoryPort);
 
     @Test
+    @DisplayName("WHEN user wants all products within a specific name value THEN these are returned successfully")
     public void search_products_by_name() {
 
         String name = "Bike";

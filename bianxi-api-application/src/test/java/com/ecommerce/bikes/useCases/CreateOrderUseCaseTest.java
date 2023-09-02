@@ -9,6 +9,7 @@ import com.ecommerce.bikes.ports.OrderRepositoryPort;
 import com.ecommerce.bikes.ports.ProductRepositoryPort;
 import com.ecommerce.bikes.ports.UserRepositoryPort;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -40,6 +41,7 @@ public class CreateOrderUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user creates a new order THEN this is created successfully")
     public void create_order() {
         Long expectedOrderId = 1L;
         User user = TestDataHelpers.createUser();
@@ -55,6 +57,7 @@ public class CreateOrderUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user creates a new order THEN throw exception because the user doesn't exist")
     public void throw_UserNotFoundException_when_user_does_not_exist() {
 
         when(productRepositoryPort.findById(1L)).thenReturn(products.get(0));

@@ -2,6 +2,7 @@ package com.ecommerce.bikes.repositories;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.entities.OrderEntity;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +18,7 @@ public class OrderRepositoryIT extends DockerConfiguration {
     private OrderRepository orderRepository;
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN order repository call find order THEN existent order is returned")
     public void should_return_order_by_id() {
         OrderEntity order = orderRepository.findById(1L).get();
 
@@ -27,6 +29,7 @@ public class OrderRepositoryIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("GIVEN a specific user id WHEN order repository call find all orders THEN these are returned")
     public void should_return_all_orders_by_user_id() {
         List<OrderEntity> orders = orderRepository.findAllByUserId(2L);
 

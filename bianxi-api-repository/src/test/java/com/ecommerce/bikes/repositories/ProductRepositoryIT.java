@@ -2,6 +2,7 @@ package com.ecommerce.bikes.repositories;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.entities.ProductEntity;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,6 +19,7 @@ public class ProductRepositoryIT extends DockerConfiguration {
     private ProductRepository productRepository;
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN product repository call find product THEN existent product is returned")
     public void should_return_product_by_id() {
         ProductEntity product = productRepository.findById(1L).get();
 
@@ -27,6 +29,7 @@ public class ProductRepositoryIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("WHEN product repository call find all products THEN these are returned")
     public void should_return_all_products_when_find_all() {
         int expectedSize = 3;
 
@@ -36,6 +39,7 @@ public class ProductRepositoryIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("GIVEN a specific type WHEN product repository call find products THEN these are returned")
     public void should_return_all_products_by_type() {
         int expectedSize = 2;
 
@@ -45,6 +49,7 @@ public class ProductRepositoryIT extends DockerConfiguration {
     }
 
     @Test
+    @DisplayName("GIVEN a specific name WHEN product repository call find products THEN these are returned")
     public void should_return_all_products_by_name() {
         int expectedSize = 3;
 

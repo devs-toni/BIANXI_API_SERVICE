@@ -31,6 +31,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(1)
+    @DisplayName("GIVEN a specific id WHEN user find product THEN existent product is returned")
     public void should_return_product_by_id() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -45,6 +46,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(9)
+    @DisplayName("GIVEN a specific id WHEN user find product THEN throw exception because product doesn't exist")
     public void should_throw_ProductNotFoundException_when_get_product_by_id() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
         ErrorResponse expectedResponse = new ErrorResponse(404, "The product does not exist");
@@ -60,6 +62,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(2)
+    @DisplayName("WHEN user find all products THEN these are returned")
     public void should_return_all_products() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -76,6 +79,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(3)
+    @DisplayName("GIVEN a specific type WHEN user find all products THEN these are returned")
     public void should_return_all_products_by_type() {
         String expectedType = "road";
 
@@ -94,6 +98,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(4)
+    @DisplayName("GIVEN a specific user id WHEN user find all favourite user products THEN these are returned")
     public void should_return_all_favourites_products() {
         long expectedUserId = 1L;
 
@@ -112,6 +117,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(10)
+    @DisplayName("GIVEN a specific user id WHEN user find all favourites user products THEN throw exception because user doesn't exist")
     public void should_throw_UserNotFoundException_when_get_all_favourites_products() {
         long userId = 198L;
 
@@ -130,6 +136,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(5)
+    @DisplayName("GIVEN a specific name chain WHEN user find all products THEN these are returned")
     public void should_return_all_products_by_name() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -148,6 +155,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(6)
+    @DisplayName("GIVEN a specific user product WHEN user adds like to a new product THEN this is applied successfully")
     public void should_add_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -161,6 +169,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(7)
+    @DisplayName("GIVEN a specific user product WHEN user tries to find like THEN this is returned")
     public void should_get_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
@@ -175,7 +184,8 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(9)
-    public void should_throw_LikeDoesNotExistException_when_get_not_existent_like() {
+    @DisplayName("GIVEN a specific user product WHEN user tries to find like THEN throw exepction because like doesn't exist")
+    public void should_throw_LikeDoesNotExistResultException_when_get_not_existent_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
         ErrorResponse expectedResponse = new ErrorResponse(404, "Does not exist a result with this specifications");
 
@@ -191,6 +201,7 @@ public class ProductIT extends DockerConfiguration {
 
     @Test
     @Order(8)
+    @DisplayName("GIVEN a specific user product WHEN user deletes like to a new product THEN this is removed successfully")
     public void should_delete_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 

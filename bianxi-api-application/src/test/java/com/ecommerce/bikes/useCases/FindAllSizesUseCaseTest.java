@@ -4,6 +4,7 @@ import com.ecommerce.bikes.SizeMother;
 import com.ecommerce.bikes.domain.Size;
 import com.ecommerce.bikes.ports.SizeRepositoryPort;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -22,6 +23,7 @@ public class FindAllSizesUseCaseTest {
 
 
     @Test
+    @DisplayName("WHEN user wants all sizes THEN these are returned successfully")
     public void find_all_sizes() {
         when(sizeRepositoryPort.findAll()).thenReturn(SizeMother.sizes);
 

@@ -9,6 +9,7 @@ import com.ecommerce.bikes.http.UserRegisterResponse;
 import com.ecommerce.bikes.useCases.RegisterUserUseCase;
 import com.ecommerce.bikes.useCases.VerifyUserUseCase;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,6 +38,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a new user WHEN user saves THEN new user is saved")
     public void should_register_new_user() {
         when(registerUserUseCase.save(userToSave)).thenReturn(savedUser);
 
@@ -46,6 +48,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN a new user WHEN user saves THEN throw exception because the user already exist in system")
     public void should_throw_UserAlreadyExistException_when_register_new_user() {
         when(registerUserUseCase.save(userToSave)).thenThrow(UserAlreadyExistException.class);
 
@@ -55,6 +58,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN user data WHEN user login THEN user is verified successfully")
     public void should_verify_user() {
         when(verifyUserUseCase.verify(userToSave.getEmail(), userToSave.getPassword())).thenReturn(savedUser);
 
@@ -64,6 +68,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN user data WHEN user login THEN throw exception because password is not correct")
     public void should_throw_UserIsNotValidException_when_verify_user() {
         when(verifyUserUseCase.verify(userToSave.getEmail(), userToSave.getPassword())).thenThrow(UserIsNotValidException.class);
 
@@ -73,6 +78,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("GIVEN user data WHEN user login THEN throw exception because user doesn't exist")
     public void should_throw_UserNotFoundException_when_verify_user() {
         when(verifyUserUseCase.verify(userToSave.getEmail(), userToSave.getPassword())).thenThrow(UserNotFoundException.class);
 

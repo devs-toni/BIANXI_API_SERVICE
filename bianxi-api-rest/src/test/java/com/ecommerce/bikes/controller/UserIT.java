@@ -27,6 +27,7 @@ public class UserIT extends DockerConfiguration {
 
     @Test
     @Order(1)
+    @DisplayName("GIVEN user data WHEN user login THEN throw exception because user doesn't exist")
     @Disabled
     public void should_throw_UserNotFoundException_when_verify_user() {
         UserRegisterRequest userToVerify = new UserRegisterRequest("admin", "adm");
@@ -45,6 +46,7 @@ public class UserIT extends DockerConfiguration {
 
     @Test
     @Order(2)
+    @DisplayName("GIVEN a new user WHEN user saves THEN new user is saved")
     public void should_register_and_return_created_user() {
         UserRegisterRequest userToCreate = new UserRegisterRequest("devs@devs.es", "$2a$12$sNsZMHtAarUIvVkQEEXsi.3bQ0sJlhV09X3SlOJ1Egx1JGrCOdK0e");
         UserRegisterResponse userCreated = new UserRegisterResponse(15L, "devs@devs.es", 'U');
@@ -62,6 +64,7 @@ public class UserIT extends DockerConfiguration {
 
     @Test
     @Order(4)
+    @DisplayName("GIVEN a new user WHEN user saves THEN throw exception because the user already exist in system")
     public void should_throw_UserAlreadyExistException_when_register_new_user() {
         UserRegisterRequest userToCreate = new UserRegisterRequest("admin", "admin");
         ErrorResponse expectedResponse = new ErrorResponse(400, "This user already exists");
@@ -79,6 +82,7 @@ public class UserIT extends DockerConfiguration {
 
     @Test
     @Order(3)
+    @DisplayName("GIVEN user data WHEN user login THEN user is verified successfully")
     public void should_verify_and_return_verified_user() {
         UserRegisterRequest userToVerify = new UserRegisterRequest("admin", "admin");
         UserRegisterResponse verifiedUser = new UserRegisterResponse(2L, "admin", 'A');
@@ -96,6 +100,7 @@ public class UserIT extends DockerConfiguration {
 
     @Test
     @Order(5)
+    @DisplayName("GIVEN user data WHEN user login THEN throw exception because password is not correct")
     @Disabled
     public void should_throw_UserIsNotValidException_when_verify_user() {
         UserRegisterRequest userToVerify = new UserRegisterRequest("admin", "adm");

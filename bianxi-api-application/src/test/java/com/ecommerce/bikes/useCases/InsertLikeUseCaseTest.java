@@ -2,6 +2,7 @@ package com.ecommerce.bikes.useCases;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -16,6 +17,7 @@ public class InsertLikeUseCaseTest {
     private final InsertLikeUseCase insertLikeUseCase = new InsertLikeUseCase(entityManager);
 
     @Test
+    @DisplayName("WHEN user tries to add a new like THEN this is applied successfully")
     public void add_like() {
         Query query = mock(Query.class);
 

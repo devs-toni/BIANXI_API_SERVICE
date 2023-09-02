@@ -6,6 +6,7 @@ import com.ecommerce.bikes.exception.OrderNotFoundException;
 import com.ecommerce.bikes.repositories.OrderRepository;
 import com.ecommerce.bikes.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -33,6 +34,7 @@ public class OrderAdapterTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN order adapter call find order THEN existent order is returned")
     public void should_return_order_when_find_order_that_exists() {
         when(orderRepository.findById(1L)).thenReturn(Optional.ofNullable(orderEntity));
 
@@ -40,6 +42,7 @@ public class OrderAdapterTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific id WHEN order adapter call find order THEN throw exception because order doesn't exist")
     public void should_throw_exception_when_find_order_that_does_not_exist() throws OrderNotFoundException {
         when(orderRepository.findById(1L)).thenThrow(OrderNotFoundException.class);
 
@@ -49,6 +52,7 @@ public class OrderAdapterTest {
     }
 
     @Test
+    @DisplayName("GIVEN a specific user id WHEN order adapter call find all orders THEN these are returned")
     public void should_return_orders_list_when_find_by_user_id() {
         when(orderRepository.findAllByUserId(1L)).thenReturn(List.of(orderEntity));
 
@@ -56,6 +60,7 @@ public class OrderAdapterTest {
     }
 
     @Test
+    @DisplayName("GIVEN a new order WHEN order adapter call save THEN new order is created")
     public void should_store_order_when_save() {
         when(orderRepository.save(any())).thenReturn(orderEntity);
         when(userRepository.findById(any())).thenReturn(Optional.of(userEntity));

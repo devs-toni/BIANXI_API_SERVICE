@@ -5,10 +5,7 @@ import com.ecommerce.bikes.UserMother;
 import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.ports.UserRepositoryPort;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
@@ -31,6 +28,7 @@ public class FindFavouritesUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user wants all user favourite products THEN these are returned successfully")
     public void find_favourites() {
 
         Long userId = 1L;
@@ -44,6 +42,7 @@ public class FindFavouritesUseCaseTest {
     }
 
     @Test
+    @DisplayName("WHEN user wants all user orders THEN throw exception because user doesn't exist")
     public void throw_UserNotFoundException_if_user_does_not_exist() {
         when(userRepositoryPort.findById(1L)).thenThrow(UserNotFoundException.class);
 
