@@ -1,4 +1,4 @@
-package com.ecommerce.bikes.controller;
+package com.ecommerce.bikes.integration;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.domain.Like;
@@ -85,7 +85,6 @@ public class OrderIT extends DockerConfiguration {
 
     @Test
     @DisplayName("GIVEN a new order WHEN user saves THEN new order is created")
-    @Disabled
     public void should_create_new_order() {
         List<Long> productIds = List.of(1L, 2L, 3L);
         long userId = 1L;

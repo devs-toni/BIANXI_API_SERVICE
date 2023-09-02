@@ -118,7 +118,7 @@ public class UserEntity {
                 user.getEmail(),
                 user.getRole(),
                 user.getPassword(),
-                user.getOrders().stream().map(o -> OrderEntity.toEntity(o, user)).collect(Collectors.toList()),
+                user.getOrders().stream().map(o -> OrderEntity.toEntity(o, null)).collect(Collectors.toList()),
                 Collections.emptyList()
         );
     }

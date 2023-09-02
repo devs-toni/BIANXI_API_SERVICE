@@ -25,7 +25,7 @@ public class OrderEntity {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @JsonIgnore
@@ -101,12 +101,22 @@ public class OrderEntity {
     }
 
     public static OrderEntity toEntity(Order order, User user) {
-        return new OrderEntity(
-                order.getId(),
-                order.getAddress(),
-                order.getPrice(),
-                UserEntity.toEntity(user),
-                order.getProducts().stream().map(p -> ProductEntity.toEntity(p, user)).toList());
+        if (user != null) {
+            return new OrderEntity(
+                    order.getId(),
+                    order.getAddress(),
+                    order.getPrice(),
+                    UserEntity.toEntity(user),
+                    order.getProducts().stream().map(p -> ProductEntity.toEntity(p, user)).toList()
+            );
+        } else {
+            return new OrderEntity(
+                    order.getId(),
+                    order.getAddress(),
+                    order.getPrice(),
+                    order.getProducts().stream().map(p -> ProductEntity.toEntity(p, user)).toList()
+            );
+        }
     }
 
     @Override

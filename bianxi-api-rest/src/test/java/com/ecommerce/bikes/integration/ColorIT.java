@@ -1,4 +1,4 @@
-package com.ecommerce.bikes.controller;
+package com.ecommerce.bikes.integration;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.http.ColorResponse;
