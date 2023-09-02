@@ -4,7 +4,6 @@ import com.ecommerce.bikes.OrderMother;
 import com.ecommerce.bikes.TestDataHelpers;
 import com.ecommerce.bikes.domain.Product;
 import com.ecommerce.bikes.domain.User;
-import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.ports.OrderRepositoryPort;
 import com.ecommerce.bikes.ports.ProductRepositoryPort;
@@ -16,8 +15,6 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.Collections;
 import java.util.List;
 
-import static com.ecommerce.bikes.OrderMother.createdOrder;
-import static com.ecommerce.bikes.TestDataHelpers.createUser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -43,7 +40,7 @@ public class CreateOrderUseCaseTest {
     }
 
     @Test
-    public void create_order() throws UserNotFoundException, ProductNotFoundException {
+    public void create_order() {
         Long expectedOrderId = 1L;
         User user = TestDataHelpers.createUser();
 
@@ -58,7 +55,7 @@ public class CreateOrderUseCaseTest {
     }
 
     @Test
-    public void throw_UserNotFoundException_when_user_does_not_exist() throws UserNotFoundException, ProductNotFoundException {
+    public void throw_UserNotFoundException_when_user_does_not_exist() {
 
         when(productRepositoryPort.findById(1L)).thenReturn(products.get(0));
         when(productRepositoryPort.findById(2L)).thenReturn(products.get(1));

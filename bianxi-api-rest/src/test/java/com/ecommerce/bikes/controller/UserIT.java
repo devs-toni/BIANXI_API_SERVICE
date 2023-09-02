@@ -7,7 +7,6 @@ import com.ecommerce.bikes.http.UserRegisterResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,8 +34,7 @@ public class UserIT extends DockerConfiguration {
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToVerify, headers);
 
-        ResponseEntity<ErrorResponse> response = this.rest.exchange(createUrl() + "api/users/verify", HttpMethod.POST, request, new ParameterizedTypeReference<>() {
-        });
+        ResponseEntity<ErrorResponse> response = this.rest.postForEntity(createUrl() + "api/users/verify", request, ErrorResponse.class);
 
         ErrorResponse errorResponse = response.getBody();
 
@@ -53,8 +51,7 @@ public class UserIT extends DockerConfiguration {
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToCreate, headers);
 
-        ResponseEntity<UserRegisterResponse> response = this.rest.exchange(createUrl() + "api/users", HttpMethod.POST, request, new ParameterizedTypeReference<>() {
-        });
+        ResponseEntity<UserRegisterResponse> response = this.rest.postForEntity(createUrl() + "api/users", request, UserRegisterResponse.class);
 
         UserRegisterResponse user = response.getBody();
 
@@ -71,8 +68,7 @@ public class UserIT extends DockerConfiguration {
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToCreate, headers);
 
-        ResponseEntity<ErrorResponse> response = this.rest.exchange(createUrl() + "api/users", HttpMethod.POST, request, new ParameterizedTypeReference<>() {
-        });
+        ResponseEntity<ErrorResponse> response = this.rest.postForEntity(createUrl() + "api/users", request, ErrorResponse.class);
 
         ErrorResponse errorResponse = response.getBody();
 
@@ -89,8 +85,7 @@ public class UserIT extends DockerConfiguration {
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToVerify, headers);
 
-        ResponseEntity<UserRegisterResponse> response = this.rest.exchange(createUrl() + "api/users/verify", HttpMethod.POST, request, new ParameterizedTypeReference<>() {
-        });
+        ResponseEntity<UserRegisterResponse> response = this.rest.postForEntity(createUrl() + "api/users/verify", request, UserRegisterResponse.class);
 
         UserRegisterResponse user = response.getBody();
 
@@ -108,8 +103,7 @@ public class UserIT extends DockerConfiguration {
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToVerify, headers);
 
-        ResponseEntity<ErrorResponse> response = this.rest.exchange(createUrl() + "api/users/verify", HttpMethod.POST, request, new ParameterizedTypeReference<>() {
-        });
+        ResponseEntity<ErrorResponse> response = this.rest.postForEntity(createUrl() + "api/users/verify", request, ErrorResponse.class);
 
         ErrorResponse errorResponse = response.getBody();
 

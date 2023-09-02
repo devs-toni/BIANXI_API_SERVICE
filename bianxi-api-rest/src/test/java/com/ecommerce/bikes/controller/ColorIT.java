@@ -12,7 +12,7 @@ import org.springframework.http.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ColorIT extends DockerConfiguration {
 
@@ -36,7 +36,7 @@ public class ColorIT extends DockerConfiguration {
 
         List<ColorResponse> colors = response.getBody();
 
-        assert colors != null;
+        assertNotNull(colors);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(colorsResponses, colors);
     }

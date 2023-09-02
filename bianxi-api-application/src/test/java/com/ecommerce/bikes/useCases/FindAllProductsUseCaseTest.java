@@ -5,7 +5,6 @@ import com.ecommerce.bikes.ports.ProductRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import static com.ecommerce.bikes.ProductMother.productsByTypeDomain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

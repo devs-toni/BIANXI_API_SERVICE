@@ -5,7 +5,6 @@ import com.ecommerce.bikes.entities.UserEntity;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 

@@ -12,9 +12,6 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
 
-import static com.ecommerce.bikes.ProductMother.favouritesProductsDomain;
-import static com.ecommerce.bikes.UserMother.savedUserWithLikes;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -34,7 +31,7 @@ public class FindFavouritesUseCaseTest {
     }
 
     @Test
-    public void find_favourites() throws UserNotFoundException {
+    public void find_favourites() {
 
         Long userId = 1L;
         Long productId = 1L;
@@ -47,7 +44,7 @@ public class FindFavouritesUseCaseTest {
     }
 
     @Test
-    public void throw_UserNotFoundException_if_user_does_not_exist() throws UserNotFoundException {
+    public void throw_UserNotFoundException_if_user_does_not_exist() {
         when(userRepositoryPort.findById(1L)).thenThrow(UserNotFoundException.class);
 
         assertThrows(UserNotFoundException.class, () -> {

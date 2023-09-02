@@ -5,13 +5,14 @@ import com.ecommerce.bikes.domain.Color;
 import com.ecommerce.bikes.ports.ColorRepositoryPort;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FindAllColorsUseCaseTest {
 
     private final ColorRepositoryPort colorRepositoryPort = mock(ColorRepositoryPort.class);

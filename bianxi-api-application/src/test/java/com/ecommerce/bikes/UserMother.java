@@ -6,9 +6,6 @@ import com.ecommerce.bikes.domain.User;
 import java.util.Collections;
 import java.util.List;
 
-import static com.ecommerce.bikes.TestDataHelpers.createProduct;
-import static com.ecommerce.bikes.TestDataHelpers.createUser;
-
 public class UserMother {
 
     public static User userToSave = new User("name@example.com", "pass");

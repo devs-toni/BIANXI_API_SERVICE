@@ -9,8 +9,6 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
 
-import static com.ecommerce.bikes.OrderMother.order;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

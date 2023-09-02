@@ -34,11 +34,13 @@ public class ProductIT extends DockerConfiguration {
     public void should_return_product_by_id() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<ProductResponse> result = this.rest.getForEntity(createUrl() + "api/products/1", ProductResponse.class, request);
+        ResponseEntity<ProductResponse> response = this.rest.getForEntity(createUrl() + "api/products/1", ProductResponse.class, request);
 
-        assert result.getBody() != null;
-        assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(productsResponses.get(0), result.getBody());
+        ProductResponse productResponse = response.getBody();
+
+        assertNotNull(productResponse);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(productsResponses.get(0), productResponse);
     }
 
     @Test
@@ -47,12 +49,12 @@ public class ProductIT extends DockerConfiguration {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
         ErrorResponse expectedResponse = new ErrorResponse(404, "The product does not exist");
 
-        ResponseEntity<ErrorResponse> result = this.rest.getForEntity(createUrl() + "api/products/167", ErrorResponse.class, request);
+        ResponseEntity<ErrorResponse> response = this.rest.getForEntity(createUrl() + "api/products/167", ErrorResponse.class, request);
 
-        ErrorResponse errorResponse = result.getBody();
+        ErrorResponse errorResponse = response.getBody();
 
         assertNotNull(errorResponse);
-        assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals(expectedResponse, errorResponse);
     }
 
@@ -67,7 +69,7 @@ public class ProductIT extends DockerConfiguration {
 
         List<ProductResponse> products = response.getBody();
 
-        assert products != null;
+        assertNotNull(products);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(productsResponses, products);
     }
@@ -85,7 +87,7 @@ public class ProductIT extends DockerConfiguration {
 
         List<ProductResponse> products = response.getBody();
 
-        assert products != null;
+        assertNotNull(products);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(List.of(productsResponses.get(0)), products);
     }
@@ -103,7 +105,7 @@ public class ProductIT extends DockerConfiguration {
 
         List<ProductResponse> products = response.getBody();
 
-        assert products != null;
+        assertNotNull(products);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(List.of(productsResponses.get(0), productsResponses.get(1)), products);
     }
@@ -116,9 +118,8 @@ public class ProductIT extends DockerConfiguration {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
         ErrorResponse expectedResponse = new ErrorResponse(404, "The user does not exist");
 
-        ResponseEntity<ErrorResponse> response = this.rest.exchange(
-                createUrl() + "api/products/favourites/" + userId, HttpMethod.GET, request, new ParameterizedTypeReference<>() {
-                });
+        ResponseEntity<ErrorResponse> response = this.rest.getForEntity(
+                createUrl() + "api/products/favourites/" + userId, ErrorResponse.class, request);
 
         ErrorResponse errorResponse = response.getBody();
 
@@ -140,7 +141,7 @@ public class ProductIT extends DockerConfiguration {
 
         List<ProductResponse> products = response.getBody();
 
-        assert products != null;
+        assertNotNull(products);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(productsResponses, products);
     }
@@ -163,9 +164,8 @@ public class ProductIT extends DockerConfiguration {
     public void should_get_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<Object> response = this.rest.exchange(
-                createUrl() + "api/products/likes/3/2", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
-                });
+        ResponseEntity<Object> response = this.rest.getForEntity(
+                createUrl() + "api/products/likes/3/2", Object.class, request);
 
         Object result = response.getBody();
 
@@ -179,9 +179,8 @@ public class ProductIT extends DockerConfiguration {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
         ErrorResponse expectedResponse = new ErrorResponse(404, "Does not exist a result with this specifications");
 
-        ResponseEntity<ErrorResponse> response = this.rest.exchange(
-                createUrl() + "api/products/likes/3/3", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
-                });
+        ResponseEntity<ErrorResponse> response = this.rest.getForEntity(
+                createUrl() + "api/products/likes/3/3", ErrorResponse.class, request);
 
         ErrorResponse errorResponse = response.getBody();
 

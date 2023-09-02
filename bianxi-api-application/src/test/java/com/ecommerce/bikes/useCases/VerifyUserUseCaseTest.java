@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static com.ecommerce.bikes.UserMother.savedUser;
-import static com.ecommerce.bikes.UserMother.userToSave;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -29,7 +27,7 @@ public class VerifyUserUseCaseTest {
     }
 
     @Test
-    public void user_is_verified_successfully() throws UserIsNotValidException, UserNotFoundException {
+    public void user_is_verified_successfully() {
         String expectedEmail = UserMother.savedUser.getEmail();
         String expectedPass = UserMother.userToSave.getPassword();
 
@@ -41,7 +39,7 @@ public class VerifyUserUseCaseTest {
     }
 
     @Test
-    public void throw_UserNotFoundException_when_user_does_not_exist() throws UserNotFoundException {
+    public void throw_UserNotFoundException_when_user_does_not_exist() {
         String expectedEmail = UserMother.savedUser.getEmail();
         String expectedPass = UserMother.userToSave.getPassword();
 
@@ -53,7 +51,7 @@ public class VerifyUserUseCaseTest {
     }
 
     @Test
-    public void throw_UserIsNotValidException_when_password_is_not_correct() throws UserNotFoundException {
+    public void throw_UserIsNotValidException_when_password_is_not_correct() {
         String expectedEmail = UserMother.savedUser.getEmail();
         String expectedPass = UserMother.userToSave.getPassword();
 

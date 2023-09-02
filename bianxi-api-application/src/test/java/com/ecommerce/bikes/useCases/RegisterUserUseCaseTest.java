@@ -5,24 +5,30 @@ import com.ecommerce.bikes.domain.User;
 import com.ecommerce.bikes.exception.UserAlreadyExistException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.ports.UserRepositoryPort;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static com.ecommerce.bikes.UserMother.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class RegisterUserUseCaseTest {
 
     private final UserRepositoryPort userRepositoryPort = mock(UserRepositoryPort.class);
     private final PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
     private final RegisterUserUseCase registerUserUseCase = new RegisterUserUseCase(userRepositoryPort, passwordEncoder);
 
+    @AfterEach
+    public void resetMocks() {
+        reset(userRepositoryPort);
+        reset(passwordEncoder);
+    }
+
     @Test
-    public void user_is_saved_successfully() throws UserAlreadyExistException, UserNotFoundException {
+    public void user_is_saved_successfully() {
 
         User user = UserMother.userToSave;
 
@@ -38,7 +44,7 @@ public class RegisterUserUseCaseTest {
     }
 
     @Test
-    public void throws_UserAlreadyExistsException_when_user_is_present() throws UserNotFoundException {
+    public void throws_UserAlreadyExistsException_when_user_is_present() {
         User user = UserMother.userToSave;
 
         when(userRepositoryPort.findByEmail(user.getEmail())).thenReturn(UserMother.savedUser);

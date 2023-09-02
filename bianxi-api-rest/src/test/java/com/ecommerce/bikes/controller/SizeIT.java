@@ -2,7 +2,6 @@ package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.http.SizeResponse;
-import com.ecommerce.bikes.repositories.SizeRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.http.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SizeIT extends DockerConfiguration {
 
@@ -35,7 +35,7 @@ public class SizeIT extends DockerConfiguration {
 
         List<SizeResponse> sizes = response.getBody();
 
-        assert sizes != null;
+        assertNotNull(sizes);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(sizesResponses, sizes);
     }

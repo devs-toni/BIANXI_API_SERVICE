@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import static com.ecommerce.bikes.OrderMother.order;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -26,7 +24,7 @@ public class FindOrderProductsByOrderIdUseCaseTest {
     }
 
     @Test
-    public void find_order() throws OrderNotFoundException {
+    public void find_order() {
 
         Long orderId = 1L;
 
@@ -38,7 +36,7 @@ public class FindOrderProductsByOrderIdUseCaseTest {
     }
 
     @Test
-    public void throw_OrderNotFoundException_when_order_does_not_exist() throws OrderNotFoundException {
+    public void throw_OrderNotFoundException_when_order_does_not_exist() {
         when(orderRepositoryPort.findById(1L)).thenThrow(OrderNotFoundException.class);
 
         assertThrows(OrderNotFoundException.class, () -> {

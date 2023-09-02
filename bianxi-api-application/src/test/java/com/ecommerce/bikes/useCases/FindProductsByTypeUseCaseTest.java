@@ -3,12 +3,13 @@ package com.ecommerce.bikes.useCases;
 import com.ecommerce.bikes.ProductMother;
 import com.ecommerce.bikes.ports.ProductRepositoryPort;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
-import static com.ecommerce.bikes.ProductMother.productsByTypeDomain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FindProductsByTypeUseCaseTest {
 
     private final ProductRepositoryPort productRepositoryPort = mock(ProductRepositoryPort.class);

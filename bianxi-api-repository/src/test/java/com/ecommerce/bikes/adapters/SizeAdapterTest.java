@@ -8,7 +8,6 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
 
-import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

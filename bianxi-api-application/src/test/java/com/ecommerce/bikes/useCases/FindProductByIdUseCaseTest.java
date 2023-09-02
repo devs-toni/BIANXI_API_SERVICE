@@ -6,12 +6,13 @@ import com.ecommerce.bikes.exception.ProductNotFoundException;
 import com.ecommerce.bikes.ports.ProductRepositoryPort;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
-import static com.ecommerce.bikes.TestDataHelpers.createProduct;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FindProductByIdUseCaseTest {
     private final ProductRepositoryPort productRepositoryPort = mock(ProductRepositoryPort.class);
 
@@ -23,7 +24,7 @@ public class FindProductByIdUseCaseTest {
     }
 
     @Test
-    public void find_correct_product() throws ProductNotFoundException {
+    public void find_correct_product() {
         Long productId = 1L;
 
         when(productRepositoryPort.findById(productId)).thenReturn(product);
@@ -32,7 +33,7 @@ public class FindProductByIdUseCaseTest {
     }
 
     @Test
-    public void throw_ProductNotFoundException() throws ProductNotFoundException {
+    public void throw_ProductNotFoundException() {
         when(productRepositoryPort.findById(1L)).thenThrow(ProductNotFoundException.class);
 
         assertThrows(ProductNotFoundException.class, () -> {

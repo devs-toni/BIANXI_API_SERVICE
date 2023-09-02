@@ -3,11 +3,13 @@ package com.ecommerce.bikes.useCases;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeleteLikeUseCaseTest {
 
     private final EntityManager entityManager = mock(EntityManager.class);
