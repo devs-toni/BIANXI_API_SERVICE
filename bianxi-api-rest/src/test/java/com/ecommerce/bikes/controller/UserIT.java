@@ -4,7 +4,9 @@ import com.ecommerce.bikes.DockerConfiguration;
 import com.ecommerce.bikes.exception.ErrorResponse;
 import com.ecommerce.bikes.http.UserRegisterRequest;
 import com.ecommerce.bikes.http.UserRegisterResponse;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
@@ -12,7 +14,6 @@ import org.springframework.http.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserIT extends DockerConfiguration {
 
     @Autowired
@@ -26,28 +27,8 @@ public class UserIT extends DockerConfiguration {
     }
 
     @Test
-    @Order(1)
-    @DisplayName("GIVEN user data WHEN user login THEN throw exception because user doesn't exist")
-    @Disabled
-    public void should_throw_UserNotFoundException_when_verify_user() {
-        UserRegisterRequest userToVerify = new UserRegisterRequest("admin", "adm");
-        ErrorResponse expectedResponse = new ErrorResponse(404, "The user is not valid");
-
-        HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToVerify, headers);
-
-        ResponseEntity<ErrorResponse> response = this.rest.postForEntity(createUrl() + "api/users/verify", request, ErrorResponse.class);
-
-        ErrorResponse errorResponse = response.getBody();
-
-        assertNotNull(errorResponse);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertEquals(expectedResponse, errorResponse);
-    }
-
-    @Test
-    @Order(2)
     @DisplayName("GIVEN a new user WHEN user saves THEN new user is saved")
-    public void should_register_and_return_created_user() {
+    public void should_return_saved_user() {
         UserRegisterRequest userToCreate = new UserRegisterRequest("devs@devs.es", "$2a$12$sNsZMHtAarUIvVkQEEXsi.3bQ0sJlhV09X3SlOJ1Egx1JGrCOdK0e");
         UserRegisterResponse userCreated = new UserRegisterResponse(15L, "devs@devs.es", 'U');
 
@@ -63,9 +44,8 @@ public class UserIT extends DockerConfiguration {
     }
 
     @Test
-    @Order(4)
     @DisplayName("GIVEN a new user WHEN user saves THEN throw exception because the user already exist in system")
-    public void should_throw_UserAlreadyExistException_when_register_new_user() {
+    public void should_throw_UserAlreadyExistException_when_save_user() {
         UserRegisterRequest userToCreate = new UserRegisterRequest("admin", "admin");
         ErrorResponse expectedResponse = new ErrorResponse(400, "This user already exists");
 
@@ -81,9 +61,8 @@ public class UserIT extends DockerConfiguration {
     }
 
     @Test
-    @Order(3)
     @DisplayName("GIVEN user data WHEN user login THEN user is verified successfully")
-    public void should_verify_and_return_verified_user() {
+    public void should_return_verified_user() {
         UserRegisterRequest userToVerify = new UserRegisterRequest("admin", "admin");
         UserRegisterResponse verifiedUser = new UserRegisterResponse(2L, "admin", 'A');
 
@@ -99,12 +78,10 @@ public class UserIT extends DockerConfiguration {
     }
 
     @Test
-    @Order(5)
-    @DisplayName("GIVEN user data WHEN user login THEN throw exception because password is not correct")
-    @Disabled
-    public void should_throw_UserIsNotValidException_when_verify_user() {
-        UserRegisterRequest userToVerify = new UserRegisterRequest("admin", "adm");
-        ErrorResponse expectedResponse = new ErrorResponse(401, "The user is not valid");
+    @DisplayName("GIVEN user data WHEN user login THEN throw exception because user doesn't exist")
+    public void testA() {
+        UserRegisterRequest userToVerify = new UserRegisterRequest("sdaf", "adm");
+        ErrorResponse expectedResponse = new ErrorResponse(404, "The user does not exist");
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToVerify, headers);
 
@@ -113,7 +90,24 @@ public class UserIT extends DockerConfiguration {
         ErrorResponse errorResponse = response.getBody();
 
         assertNotNull(errorResponse);
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(expectedResponse, errorResponse);
+    }
+
+    @Test
+    @DisplayName("GIVEN user data WHEN user login THEN throw exception because password is not correct")
+    public void testE() {
+        UserRegisterRequest userToVerify = new UserRegisterRequest("admin", "adm");
+        ErrorResponse expectedResponse = new ErrorResponse(400, "The credentials are not valid");
+
+        HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToVerify, headers);
+
+        ResponseEntity<ErrorResponse> response = this.rest.postForEntity(createUrl() + "api/users/verify", request, ErrorResponse.class);
+
+        ErrorResponse errorResponse = response.getBody();
+
+        assertNotNull(errorResponse);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(expectedResponse, errorResponse);
     }
 }

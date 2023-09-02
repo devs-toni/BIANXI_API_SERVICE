@@ -1,7 +1,10 @@
 package com.ecommerce.bikes.controller;
 
 import com.ecommerce.bikes.domain.User;
-import com.ecommerce.bikes.exception.*;
+import com.ecommerce.bikes.exception.ErrorResponse;
+import com.ecommerce.bikes.exception.UserAlreadyExistException;
+import com.ecommerce.bikes.exception.UserIsNotValidException;
+import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.http.UserRegisterRequest;
 import com.ecommerce.bikes.http.UserRegisterResponse;
 import com.ecommerce.bikes.useCases.RegisterUserUseCase;
@@ -25,9 +28,9 @@ public class UserController {
     @PostMapping(value = "/verify", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserRegisterResponse> verify(@RequestBody UserRegisterRequest userRegisterRequest) {
 
-            User user = verifyUserUseCase.verify(userRegisterRequest.getEmail(), userRegisterRequest.getPassword());
-            UserRegisterResponse response = UserRegisterResponse.toUserRegisterResponse(user);
-            return new ResponseEntity<>(response, HttpStatus.OK);
+        User user = verifyUserUseCase.verify(userRegisterRequest.getEmail(), userRegisterRequest.getPassword());
+        UserRegisterResponse response = UserRegisterResponse.toUserRegisterResponse(user);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping
@@ -38,22 +41,13 @@ public class UserController {
         return new ResponseEntity<>(userSaved, HttpStatus.OK);
     }
 
-    @ExceptionHandler(UserAlreadyExistException.class)
+    @ExceptionHandler({UserAlreadyExistException.class, UserIsNotValidException.class})
     public ResponseEntity<ErrorResponse> handleUserAlreadyExist(
-            UserAlreadyExistException uae
+            RuntimeException re
     ) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), uae.getMessage()));
-    }
-
-    @ExceptionHandler(UserIsNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleUserIsNotValid(
-            UserIsNotValidException uinve
-    ) {
-        return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .body(new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), uinve.getMessage()));
+                .body(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), re.getMessage()));
     }
 
     @ExceptionHandler(UserNotFoundException.class)
