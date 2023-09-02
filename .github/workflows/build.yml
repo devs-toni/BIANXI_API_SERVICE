@@ -21,7 +21,7 @@ jobs:
       - name: Grant Permissions
         run: chmod +x mvnw
 
-      - name: Build & Deploy
-        run: ./mvnw --batch-mode clean install
+      - name: Maven Verify
+        run: ./mvnw --batch-mode clean verify
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
