@@ -16,10 +16,11 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>application</module>
-        <module>domain</module>
-        <module>repository</module>
-        <module>rest</module>
+        <module>bianxi-api-application</module>
+        <module>bianxi-api-domain</module>
+        <module>bianxi-api-repository</module>
+        <module>bianxi-api-rest</module>
+        <module>bianxi-api-boot</module>
     </modules>
 
     <profiles>
