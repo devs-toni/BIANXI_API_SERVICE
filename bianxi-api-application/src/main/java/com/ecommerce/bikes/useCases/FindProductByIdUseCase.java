@@ -14,7 +14,7 @@ public class FindProductByIdUseCase {
         this.productRepositoryPort = productRepositoryPort;
     }
 
-    public Product find(Long id) throws ProductNotFoundException {
+    public Product find(Long id) {
         return productRepositoryPort.findById(id);
     }
 }

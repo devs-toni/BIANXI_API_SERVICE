@@ -19,7 +19,7 @@ public class RegisterUserUseCase {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User save(User user) throws UserAlreadyExistException {
+    public User save(User user) {
         try {
             userRepositoryPort.findByEmail(user.getEmail());
             throw new UserAlreadyExistException("This user already exists");

@@ -14,7 +14,7 @@ public class FindOrderProductsByOrderIdUseCase {
         this.orderRepositoryPort = orderRepositoryPort;
     }
 
-    public Order find(Long id) throws OrderNotFoundException {
+    public Order find(Long id) {
         return orderRepositoryPort.findById(id);
     }
 }

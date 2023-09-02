@@ -26,7 +26,7 @@ public class CreateOrderUseCase {
         this.productRepositoryPort = productRepositoryPort;
     }
 
-    public Long create(List<Long> productsIds, Long userId, String address, Float amount) throws UserNotFoundException, ProductNotFoundException {
+    public Long create(List<Long> productsIds, Long userId, String address, Float amount) {
 
         List<Product> productsInOrder = new ArrayList<>();
         productsIds.forEach(productId -> {

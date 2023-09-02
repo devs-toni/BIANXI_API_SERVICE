@@ -16,7 +16,7 @@ public class GetLikeUseCase {
     }
 
     @Transactional
-    public Object get(Long productId, Long userId) throws LikeDoesNotExistResultException {
+    public Object get(Long productId, Long userId) {
         try {
             return entityManager.createNativeQuery("SELECT * FROM likes WHERE product_id=? AND user_id=?")
                     .setParameter(1, productId)

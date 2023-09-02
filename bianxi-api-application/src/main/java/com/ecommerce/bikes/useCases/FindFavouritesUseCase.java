@@ -19,7 +19,7 @@ public class FindFavouritesUseCase {
         this.findProductByIdUseCase = findProductByIdUseCase;
     }
 
-    public List<Product> find(Long userId) throws UserNotFoundException {
+    public List<Product> find(Long userId) {
         User user = userRepositoryPort.findById(userId);
         return user.getLikes().stream().map(like -> findProductByIdUseCase.find(like.getProduct())).toList();
     }
