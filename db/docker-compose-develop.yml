@@ -15,7 +15,4 @@ services:
     expose:
       - '3306'
     volumes:
-      - bianxi-db:/usr/bianxi-db
-
-volumes:
-  bianxi-db:
+      - ../.mysql:/var/lib/mysql

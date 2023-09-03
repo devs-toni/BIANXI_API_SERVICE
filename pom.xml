@@ -43,6 +43,7 @@
     <properties>
         <java.version>17</java.version>
         <maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
+        <flyway.version>9.5.1</flyway.version>
     </properties>
 
     <dependencies>
@@ -72,10 +73,12 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <version>${flyway.version}</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-mysql</artifactId>
+            <version>${flyway.version}</version>
         </dependency>
 
         <!-- ========================================== Testing Dependencies ==================================== -->
