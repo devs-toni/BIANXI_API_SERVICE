@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  bianxi-db:
+    container_name: bianxi-database
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'bianxi'
+      MYSQL_USER: 'bianxi'
+      MYSQL_PASSWORD: 'bianxi'
+      MYSQL_ROOT_PASSWORD: 'bianxi'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - bianxi-db:/usr/bianxi-db
+
+volumes:
+  bianxi-db:
