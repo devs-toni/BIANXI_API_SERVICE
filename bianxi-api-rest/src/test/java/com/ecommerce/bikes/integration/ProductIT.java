@@ -159,11 +159,12 @@ public class ProductIT extends DockerConfiguration {
     public void should_add_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<ProductResponse>> response = this.rest.exchange(
-                createUrl() + "api/products/likes/2/1", HttpMethod.POST, request, new ParameterizedTypeReference<>() {
-                });
+        ResponseEntity<Integer> response = this.rest.postForEntity(
+                createUrl() + "api/products/likes/2/1", request, Integer.class);
 
-        assertNull(response.getBody());
+        Object result = response.getBody();
+
+        assertEquals(1, result);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
@@ -173,12 +174,12 @@ public class ProductIT extends DockerConfiguration {
     public void should_get_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<Object> response = this.rest.getForEntity(
-                createUrl() + "api/products/likes/3/2", Object.class, request);
+        ResponseEntity<Integer> response = this.rest.getForEntity(
+                createUrl() + "api/products/likes/3/2", Integer.class, request);
 
         Object result = response.getBody();
 
-        assertNotNull(result);
+        assertEquals(1, result);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
@@ -187,7 +188,7 @@ public class ProductIT extends DockerConfiguration {
     @DisplayName("GIVEN a specific user product WHEN user tries to find like THEN throw exepction because like doesn't exist")
     public void should_throw_LikeDoesNotExistResultException_when_get_not_existent_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
-        ErrorResponse expectedResponse = new ErrorResponse(404, "Does not exist a result with this specifications");
+        ErrorResponse expectedResponse = new ErrorResponse(200, "Does not exist a result with this specifications", "LIKE_DOES_NOT_EXIST");
 
         ResponseEntity<ErrorResponse> response = this.rest.getForEntity(
                 createUrl() + "api/products/likes/3/3", ErrorResponse.class, request);
@@ -195,7 +196,7 @@ public class ProductIT extends DockerConfiguration {
         ErrorResponse errorResponse = response.getBody();
 
         assertNotNull(errorResponse);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, errorResponse);
     }
 
@@ -205,11 +206,12 @@ public class ProductIT extends DockerConfiguration {
     public void should_delete_like() {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<List<ProductResponse>> response = this.rest.exchange(
-                createUrl() + "api/products/likes/2/1", HttpMethod.DELETE, request, new ParameterizedTypeReference<>() {
-                });
+        ResponseEntity<Integer> response = this.rest.exchange(
+                createUrl() + "api/products/likes/2/1", HttpMethod.DELETE, request, Integer.class);
 
-        assertNull(response.getBody());
+        Integer result = response.getBody();
+
+        assertEquals(1, result);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
