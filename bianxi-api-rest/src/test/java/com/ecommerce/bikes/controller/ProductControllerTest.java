@@ -144,8 +144,10 @@ public class ProductControllerTest {
 
         ResponseEntity<Integer> response = productController.addLike(1L, 1L);
 
+        Object result = response.getBody();
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNull(response.getBody());
+        assertEquals(1, result);
     }
 
     @Test
@@ -153,13 +155,12 @@ public class ProductControllerTest {
     public void should_get_like() {
         when(getLikeUseCase.get(1L, 1L)).thenReturn(1);
 
-        ResponseEntity<Object> response = productController.getLike(1L, 1L);
+        ResponseEntity<Integer> response = productController.getLike(1L, 1L);
 
         Object result = response.getBody();
 
-        assertNotNull(result);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertThat(Integer.parseInt(result.toString())).isGreaterThan(0);
+        assertEquals(1, result);
     }
 
     @Test
@@ -179,8 +180,10 @@ public class ProductControllerTest {
 
         ResponseEntity<Integer> response = productController.deleteLike(1L, 1L);
 
+        Object result = response.getBody();
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNull(response.getBody());
+        assertEquals(1, result);
     }
 
     protected static final ProductEntity productEntity =

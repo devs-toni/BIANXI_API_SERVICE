@@ -11,7 +11,14 @@ public class ErrorResponse {
 
     private int status;
     private String message;
+    private String error;
     private String stackTrace = null;
+
+    public ErrorResponse(int status, String message, String error) {
+        this.status = status;
+        this.message = message;
+        this.error = error;
+    }
 
     public ErrorResponse(int status, String message) {
         this.status = status;
@@ -30,6 +37,14 @@ public class ErrorResponse {
         return message;
     }
 
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
     public void setMessage(String message) {
         this.message = message;
     }
@@ -42,17 +57,16 @@ public class ErrorResponse {
         this.stackTrace = stackTrace;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ErrorResponse that)) return false;
-        return status == that.status && Objects.equals(message, that.message) && Objects.equals(stackTrace, that.stackTrace);
+        return status == that.status && Objects.equals(message, that.message) && Objects.equals(error, that.error) && Objects.equals(stackTrace, that.stackTrace);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(status, message, stackTrace);
+        return Objects.hash(status, message, error, stackTrace);
     }
 
     @Override
@@ -60,6 +74,7 @@ public class ErrorResponse {
         return "ErrorResponse{" +
                 "status=" + status +
                 ", message='" + message + '\'' +
+                ", error='" + error + '\'' +
                 ", stackTrace='" + stackTrace + '\'' +
                 '}';
     }

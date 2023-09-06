@@ -82,9 +82,9 @@ public class ProductController {
 
     @GetMapping("/likes/{productId}/{userId}")
     @ResponseBody
-    public ResponseEntity<Object> getLike(@PathVariable Long productId, @PathVariable Long userId) {
-        Object result = getLikeUseCase.get(productId, userId);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<Integer> getLike(@PathVariable Long productId, @PathVariable Long userId) {
+        getLikeUseCase.get(productId, userId);
+        return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
     @PostMapping("/likes/{productId}/{userId}")
@@ -92,7 +92,7 @@ public class ProductController {
     public ResponseEntity<Integer> addLike(@PathVariable Long productId, @PathVariable Long userId) {
 
         insertLikeUseCase.add(productId, userId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
     @DeleteMapping("/likes/{productId}/{userId}")
@@ -100,7 +100,7 @@ public class ProductController {
     public ResponseEntity<Integer> deleteLike(@PathVariable Long productId, @PathVariable Long userId) {
 
         deleteLikeUseCase.delete(productId, userId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
@@ -126,7 +126,7 @@ public class ProductController {
             LikeDoesNotExistResultException ldnere
     ) {
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), ldnere.getMessage()));
+                .status(HttpStatus.OK)
+                .body(new ErrorResponse(HttpStatus.OK.value(), ldnere.getMessage(), "LIKE_DOES_NOT_EXIST"));
     }
 }

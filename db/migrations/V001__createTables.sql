@@ -2,17 +2,12 @@ CREATE TABLE `colors` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `color` varchar(60) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-INSERT INTO `colors` VALUES (1,'#FFFFFF'),(2,'#F2F2F2');
-
-CREATE TABLE `sizes` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `size` char(3) COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
-INSERT INTO `sizes` VALUES (1,'47'),(2,'48'),(3,'49'),(4,'50'),(5,'51'),(6,'52'),(7,'53'),(8,'54'),(9,'55'),(10,'56');
+INSERT INTO `colors` VALUES
+(1,'#8feee7'),
+(2,'#000000'),
+(3,'#6a6a6c');
 
 CREATE TABLE `users` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -20,9 +15,10 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `role` enum('U','A') COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-INSERT INTO `users` VALUES (1,'devs','$2a$12$sNsZMHtAarUIvVkQEEXsi.3bQ0sJlhV09X3SlOJ1Egx1JGrCOdK0e','U'),(2,'admin','$2a$12$1X5edHiITLLSZZTXYeVjievcICKecHVJOsPcKjJpWLs2vCh5ipVRu','A'),(3,'Antonio Rufino','115927303214850451076','U'),(5,'pepe@gmail.com','$2a$10$u28oT4lubY/ZAS.ZYO711uyAl8fK33mHDx.WVGfcIj/8OdQBl.nYa','U'),(16,'prueba@gmail.com','$2a$10$eX/fiF9r2eJ/cNd/wp3TceUVI7AA4hgC1uNBWaoP/TFRcF/Dw8OEK','U'),(17,'pruba@gmail.com','$2a$10$Cbrb6iDijzaruEkl8Z/Yn.CEE16V5KdhCgONVYwsnbLJ5q2iWPw7W','U');
+INSERT INTO `users` VALUES
+(1,'admin','$2a$12$1X5edHiITLLSZZTXYeVjievcICKecHVJOsPcKjJpWLs2vCh5ipVRu','A');
 
 
 CREATE TABLE `products` (
@@ -36,7 +32,106 @@ CREATE TABLE `products` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-INSERT INTO `products` VALUES (1,'Methanol CV FS 9.3 XT','mtb',4707,0,'ULTIMATE CROSS-COUNTRY RACE BIKE','Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.'),(2,'Methanol CV FS 9.2 XTR','mtb',6195,0,'ULTIMATE CROSS-COUNTRY RACE BIKE','Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.'),(3,'Methanol CV FS 9.1 XX1','mtb',9932,0,'ULTIMATE CROS-COUNTRY RACE BIKE','Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.'),(4,'Methanol CV RS 9.3 XT','mtb',4511,0,'ULTIMATE CROS-COUNTRY RACE BIKE','Con las versiones Methanol CV RS y S, Bianchi amplía la gama de la familia Methanol. Al igual que la Methanol CV FS, estas bicicletas rígidas de Bianchi altamente maniobrables están equipadas con la tecnología Countervail de Bianchi. Mediante el uso de carbono especial Countervail y resina viscoelástica, se puede compensar el 80% de las vibraciones. El Methanol CV ha sido desarrollado para corredores profesionales, así como para atletas aficionados ambiciosos que valoran el equipamiento profesional.'),(5,'Methanol CV RS 9.1 XX1','mtb',8475,10,'ULTIMATE CROS-COUNTRY RACE BIKE','Con las versiones Methanol CV RS y S, Bianchi amplía la gama de la familia Methanol. Al igual que la Methanol CV FS, estas bicicletas rígidas de Bianchi altamente maniobrables están equipadas con la tecnología Countervail de Bianchi. Mediante el uso de carbono especial Countervail y resina viscoelástica, se puede compensar el 80% de las vibraciones. El Methanol CV ha sido desarrollado para corredores profesionales, así como para atletas aficionados ambiciosos que valoran el equipamiento profesional.'),(6,'Nitron 9.2 XT','mtb',2784,0,'OUR 29ER WITH RACE-WINNING DNA','Construido con nuestra avanzada tecnología de tendido de fibra de carbono, el marco Nitron utiliza perfiles de tubo altamente afinados, desde el tubo de la cabeza hasta los punteros. Logrando un Excelente relación rigidez peso, dirección precisa y niveles sublimes de Comodidad para largas horas en silla de montar y disponible en cuatro tamaños 15, 17, 19 y 21.pulgadas.'),(7,'Nitron 9.3 XT','mtb',2317,5,'OUR 29ER WITH RACE-WINNING DNA','Construido con nuestra avanzada tecnología de tendido de fibra de carbono, el marco Nitron utiliza perfiles de tubo altamente afinados, desde el tubo de la cabeza hasta los punteros. Logrando un Excelente relación rigidez peso, dirección precisa y niveles sublimes de Comodidad para largas horas en silla de montar y disponible en cuatro tamaños 15, 17, 19 y 21.pulgadas.'),(8,'Nitron 9.4 XT','mtb',2015,0,'OUR 29ER WITH RACE-WINNING DNA','Construido con nuestra avanzada tecnología de tendido de fibra de carbono, el marco Nitron utiliza perfiles de tubo altamente afinados, desde el tubo de la cabeza hasta los punteros. Logrando un Excelente relación rigidez peso, dirección precisa y niveles sublimes de Comodidad para largas horas en silla de montar y disponible en cuatro tamaños 15, 17, 19 y 21.pulgadas.'),(9,'Magma 9.2 Alivio','mtb',703,15,'FOR FIRST TIME SHREDDERS','La MAGMA 9.S es una bicicleta polivalente pensada para la iniciación al ciclismo de montaña. Con ella podrás empezar a disfrutar de tus salidas por la naturaleza de una manera eficiente y fiable.'),(10,'Aria 105','road',3240,0,NULL,'La ARIA DISC es una bicicleta de carretera aerodinámica orientada al rendimiento rápido. Creado para los amantes de la velocidad, es el compañero perfecto para sus desafíos en la carretera.'),(11,'Oltre PRO Ultegra Di2','road',7949,0,NULL,'El Oltre Pro comparte los mismos principios de construcción que el modelo RC de gama alta y cuenta con la tecnología Air Deflector y un nuevo manillar aerodinámico. El cuadro incorpora el sistema de cancelación de vibraciones Bianchi CV en la fibra de carbono, lo que aumenta la comodidad de conducción para un ciclista menos extremo. Equipada con componentes Reparto Corse, la Oltre Pro presenta el sillín RC139 Carbon y un juego de ruedas RC50 tubeless ready (perfil de 50 mm delante y detrás). Disponible en seis tamaños y tres colores diferentes (antracita con inserciones Celeste, antracita con inserciones blancas y antracita con inserciones negras).'),(12,'Oltre XR4 Red AXS 12v','road',11049,0,'POLIVALENCIA EN ESTADO PURO','Con una agresiva geometría de competición, ligera y extremadamente aerodinámica y equipada con la exclusiva tecnología de absorción de vibraciones Countervail, la nueva Oltre XR4 es aún más rápida. Esta bicicleta de carretera de última generación fue desarrollada y probada en colaboración con el equipo Bianchi World Tour “Jumbo-Visma” y ya ha logrado un éxito considerable en el escenario mundial. Los corredores profesionales Dylan Groenewegen y Primoz Roglic, así como todo el equipo holandés del “Jumbo-Visma”, ya han conseguido notables éxitos y varias victorias de etapa en el Tour de Francia con la Oltre XR4.'),(13,'Oltre Ultegra Di2','road',5749,0,'CREADA PARA AQUELLOS QUE EMPIEZAN SU VIAJE EN LA CARRETERA','Con la nueva gama Oltre, Bianchi Reparto Corse parte de cero y va más allá del concepto de bicicleta aerodinámica al presentar la primera Hyperbike: la Oltre RC. Un sistema atleta-bicicleta perfectamente integrado garantiza el rendimiento y la velocidad extremos de la Oltre RC, gracias a la tecnología Air Deflector y una innovadora cabina aerodinámica. La nueva colección Oltre representa la primera plataforma general de cuadro/componentes diseñada íntegramente por Bianchi Oltre RC Aerovolución es ahora. Bianchi ha reescrito el concepto de bicicleta aerodinámica de alto rendimiento con el lanzamiento de la plataforma Oltre, liderada por la hiperbicicleta Oltre RC y complementada con los modelos Oltre Pro y Oltre. Nacido de la investigación y el desarrollo de Bianchi Reparto Corse, el Oltre RC es una revolución en términos de diseño e ingeniería con el objetivo de dominar y explotar activamente el flujo de aire a través de la ingeniería de un sistema bicicleta-atleta y componentes del cuadro perfectamente integrado. Oltre es un enfoque de pensamiento de diseño revolucionario definido por la introducción de la tecnología Bianchi Air Deflector. “El Bianchi Oltre RC establece un nuevo estándar tecnológico en el mundo del ciclismo”, dijo el CEO de Bianchi, Fabrizio Scalzotto. “Con Oltre empezamos desde cero para crear una bicicleta aerodinámica sin precedentes. Es un proyecto desarrollado por nuestro Reparto Corse que marca un punto de inflexión para la marca. La nueva familia Oltre representa la primera plataforma completa de cuadro/componentes diseñada y fabricada íntegramente por Bianchi: desde el cuadro hasta el sistema de manillar, pasando por las ruedas, los bujes y los sillines”.'),(14,'Sprint 105','road',2277,10,'CREADA PARA AQUELLOS QUE EMPIEZAN SU VIAJE EN LA CARRETERA','La Sprint es digna de inclusión en la categoría de carreras de Bianchi, creada para aquellos que empiezan su viaje en la carretera. Lanzada en la década de 1970, el sprint original fue amado por los corredores de la época, y todavía está mirado como una pieza icónica de la historia del ciclismo'),(15,'Sprint 105 Di2 Disc','road',2733,0,'CREADA PARA AQUELLOS QUE EMPIEZAN SU VIAJE EN LA CARRETERA','La Sprint es digna de inclusión en la categoría de carreras de Bianchi, creada para aquellos que empiezan su viaje en la carretera. Lanzada en la década de 1970, el sprint original fue amado por los corredores de la época, y todavía está mirado como una pieza icónica de la historia del ciclismo'),(16,'Sprint Ultegra','road',3121,0,'CREADA PARA AQUELLOS QUE EMPIEZAN SU VIAJE EN LA CARRETERA','La Sprint es digna de inclusión en la categoría de carreras de Bianchi, creada para aquellos que empiezan su viaje en la carretera. Lanzada en la década de 1970, el sprint original fue amado por los corredores de la época, y todavía está mirado como una pieza icónica de la historia del ciclismo'),(17,'Oltre XR4 Rival AXS Fulcrum','road',8343,15,'POLIVALENCIA EN ESTADO PURO','Con una agresiva geometría de competición, ligera y extremadamente aerodinámica y equipada con la exclusiva tecnología de absorción de vibraciones Countervail, la nueva Oltre XR4 es aún más rápida. Esta bicicleta de carretera de última generación fue desarrollada y probada en colaboración con el equipo Bianchi World Tour “Jumbo-Visma” y ya ha logrado un éxito considerable en el escenario mundial. Los corredores profesionales Dylan Groenewegen y Primoz Roglic, así como todo el equipo holandés del “Jumbo-Visma”, ya han conseguido notables éxitos y varias victorias de etapa en el Tour de Francia con la Oltre XR4.'),(18,'T-Tronik Performer 9.1 XTR','ebike',8113,0,'ELECTRIFY YOUR TRAIL RIDING','La T-Tronik, la nueva generación de E-MTB de Bianchi, entra en la era de la propulsión eléctrica asistida y se sitúa a la vanguardia de un mayor disfrute al aire libre. La familia de modelos T-Tronik incluye tres productos diferentes: T-Tronik Performer, Rebel y Sport.'),(19,'T-Tronik Performer 9.2 XT','ebike',7059,0,'ELECTRIFY YOUR TRAIL RIDING','La T-Tronik, la nueva generación de E-MTB de Bianchi, entra en la era de la propulsión eléctrica asistida y se sitúa a la vanguardia de un mayor disfrute al aire libre. La familia de modelos T-Tronik incluye tres productos diferentes: T-Tronik Performer, Rebel y Sport.'),(20,'T-Tronik Performer 9.3 XT','ebike',6388,0,'ELECTRIFY YOUR TRAIL RIDING','La T-Tronik, la nueva generación de E-MTB de Bianchi, entra en la era de la propulsión eléctrica asistida y se sitúa a la vanguardia de un mayor disfrute al aire libre. La familia de modelos T-Tronik incluye tres productos diferentes: T-Tronik Performer, Rebel y Sport.'),(21,'T-Tronik Rebel 9.1 XT','ebike',5423,0,'ASSIST YOUR MOUNTAIN ADVENTURE','La T-Tronik Rebel es la bicicleta eléctrica de doble suspensión con cuadro de aluminio de la marca italiana. Con el nuevo motor Shimano EP8 y batería integrada de 630WH es una e-mtb perfecta que te llevará a la cima más alta y con tija teléscopica de serie para disfrutar de lo lindo bajando'),(22,'T-Tronik Rebel 9.2 NX','ebike',4949,10,'ASSIST YOUR MOUNTAIN ADVENTURE','La T-Tronik Rebel es la bicicleta eléctrica de doble suspensión con cuadro de aluminio de la marca italiana. Con el nuevo motor Shimano EP8 y batería integrada de 630WH es una e-mtb perfecta que te llevará a la cima más alta y con tija teléscopica de serie para disfrutar de lo lindo bajando'),(23,'T-Tronik Sport 9.1 Deore 12v','ebike',3009,0,'HARDTAIL PROWESS, ELECTRIC FUN','Diviértete descubriendo caminos con esta mtb de asistencia eléctrica gracias al motor Shimano de 250W y la batería de 522WH.'),(24,'T-Tronik Sport 9.1 Deore 12vTRK','ebike',3060,0,'ELECTRIFY YOUR TRAIL RIDING','Diviértete descubriendo caminos con esta mtb de asistencia eléctrica gracias al motor Shimano E7000 y 250W con batería de 522WH.'),(25,'T-Tronik Sport 9.1 SX','ebike',3009,0,'HARDTAIL PROWESS, ELECTRIC FUN','Diviértete descubriendo caminos con esta mtb de asistencia eléctrica gracias al motor Oli de 250W 85Nm y la batería de 504WH.'),(26,'T-Tronik Sport 9.2 Altus','ebike',2841,14,'HARDTAIL PROWESS, ELECTRIC FUN','Diviértete descubriendo caminos con esta mtb de asistencia eléctrica gracias al motor Shimano de 250W y la batería de 522WH.'),(27,'Infinito CV Rival AXS','road',5999,0,'The Gran Fondo Crusher','La Bianchi Infinito CV disc, si lo tuyo es el gran fono la Infinito es tu bici, la endurance de la prestigiosa marca italiana diseñada para ser cómoda y rápida al mismo tiempo.'),(28,'C-Sport 2 Acera Step-Through','city',789,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.'),(29,'C-Sport 3 Acera','city',807,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.'),(30,'C-Sport 3 Alivio','city',859,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.'),(31,'C-Sport Cross Acera','city',751,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.'),(32,'C-Sport Cross Acera Step-Through','city',751,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.');
+INSERT INTO `products` VALUES
+(1,'Methanol CV FS 9.3 XT','mtb',4707,0,'ULTIMATE CROSS-COUNTRY RACE BIKE','Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.'),
+
+(2,'Methanol CV FS 9.2 XTR','mtb',6195,0,'ULTIMATE CROSS-COUNTRY RACE BIKE','Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.'),
+
+(3,'Methanol CV FS 9.1 XX1','mtb',9932,0,'ULTIMATE CROS-COUNTRY RACE BIKE','Bianchi Methanol FS es la joya de doble suspensión de Bianchi. Una btt que te permitirá subir como un cohete y bajar como un rayo, gracias a su geometría renovada y su carbono CV que absorve el 80% de las vibraciones.'),
+
+(4,'Methanol CV RS 9.3 XT','mtb',4511,0,'ULTIMATE CROS-COUNTRY RACE BIKE','Con las versiones Methanol CV RS y S, Bianchi amplía la gama de la familia Methanol. Al igual que la Methanol CV FS, estas bicicletas rígidas de Bianchi altamente maniobrables están equipadas con la tecnología Countervail de Bianchi. Mediante el uso de carbono especial Countervail y resina viscoelástica, se puede compensar el 80% de las vibraciones. El Methanol CV ha sido desarrollado para corredores profesionales, así como para atletas aficionados ambiciosos que valoran el equipamiento profesional.'),
+
+(5,'Methanol CV RS 9.1 XX1','mtb',8475,10,'ULTIMATE CROS-COUNTRY RACE BIKE','Con las versiones Methanol CV RS y S, Bianchi amplía la gama de la familia Methanol. Al igual que la Methanol CV FS, estas bicicletas rígidas de Bianchi altamente maniobrables están equipadas con la tecnología Countervail de Bianchi. Mediante el uso de carbono especial Countervail y resina viscoelástica, se puede compensar el 80% de las vibraciones. El Methanol CV ha sido desarrollado para corredores profesionales, así como para atletas aficionados ambiciosos que valoran el equipamiento profesional.'),
+
+(6,'Nitron 9.2 XT','mtb',2784,0,'OUR 29ER WITH RACE-WINNING DNA','Construido con nuestra avanzada tecnología de tendido de fibra de carbono, el marco Nitron utiliza perfiles de tubo altamente afinados, desde el tubo de la cabeza hasta los punteros. Logrando un Excelente relación rigidez peso, dirección precisa y niveles sublimes de Comodidad para largas horas en silla de montar y disponible en cuatro tamaños 15, 17, 19 y 21.pulgadas.'),
+
+(7,'Nitron 9.3 XT','mtb',2317,5,'OUR 29ER WITH RACE-WINNING DNA','Construido con nuestra avanzada tecnología de tendido de fibra de carbono, el marco Nitron utiliza perfiles de tubo altamente afinados, desde el tubo de la cabeza hasta los punteros. Logrando un Excelente relación rigidez peso, dirección precisa y niveles sublimes de Comodidad para largas horas en silla de montar y disponible en cuatro tamaños 15, 17, 19 y 21.pulgadas.'),
+
+(8,'Nitron 9.4 XT','mtb',2015,0,'OUR 29ER WITH RACE-WINNING DNA','Construido con nuestra avanzada tecnología de tendido de fibra de carbono, el marco Nitron utiliza perfiles de tubo altamente afinados, desde el tubo de la cabeza hasta los punteros. Logrando un Excelente relación rigidez peso, dirección precisa y niveles sublimes de Comodidad para largas horas en silla de montar y disponible en cuatro tamaños 15, 17, 19 y 21.pulgadas.'),
+
+(9,'Magma 9.2 Alivio','mtb',703,15,'FOR FIRST TIME SHREDDERS','La MAGMA 9.S es una bicicleta polivalente pensada para la iniciación al ciclismo de montaña. Con ella podrás empezar a disfrutar de tus salidas por la naturaleza de una manera eficiente y fiable.'),
+
+(10,'Aria 105','road',3240,0,NULL,'La ARIA DISC es una bicicleta de carretera aerodinámica orientada al rendimiento rápido. Creado para los amantes de la velocidad, es el compañero perfecto para sus desafíos en la carretera.'),
+
+(11,'Oltre PRO Ultegra Di2','road',7949,0,NULL,'El Oltre Pro comparte los mismos principios de construcción que el modelo RC de gama alta y cuenta con la tecnología Air Deflector y un nuevo manillar aerodinámico. El cuadro incorpora el sistema de cancelación de vibraciones Bianchi CV en la fibra de carbono, lo que aumenta la comodidad de conducción para un ciclista menos extremo. Equipada con componentes Reparto Corse, la Oltre Pro presenta el sillín RC139 Carbon y un juego de ruedas RC50 tubeless ready (perfil de 50 mm delante y detrás). Disponible en seis tamaños y tres colores diferentes (antracita con inserciones Celeste, antracita con inserciones blancas y antracita con inserciones negras).'),
+
+(12,'Oltre XR4 Red AXS 12v','road',11049,0,'POLIVALENCIA EN ESTADO PURO','Con una agresiva geometría de competición, ligera y extremadamente aerodinámica y equipada con la exclusiva tecnología de absorción de vibraciones Countervail, la nueva Oltre XR4 es aún más rápida. Esta bicicleta de carretera de última generación fue desarrollada y probada en colaboración con el equipo Bianchi World Tour “Jumbo-Visma” y ya ha logrado un éxito considerable en el escenario mundial. Los corredores profesionales Dylan Groenewegen y Primoz Roglic, así como todo el equipo holandés del “Jumbo-Visma”, ya han conseguido notables éxitos y varias victorias de etapa en el Tour de Francia con la Oltre XR4.'),
+
+(13,'Oltre Ultegra Di2','road',5749,0,'CREADA PARA AQUELLOS QUE EMPIEZAN SU VIAJE EN LA CARRETERA','Con la nueva gama Oltre, Bianchi Reparto Corse parte de cero y va más allá del concepto de bicicleta aerodinámica al presentar la primera Hyperbike: la Oltre RC. Un sistema atleta-bicicleta perfectamente integrado garantiza el rendimiento y la velocidad extremos de la Oltre RC, gracias a la tecnología Air Deflector y una innovadora cabina aerodinámica. La nueva colección Oltre representa la primera plataforma general de cuadro/componentes diseñada íntegramente por Bianchi Oltre RC Aerovolución es ahora. Bianchi ha reescrito el concepto de bicicleta aerodinámica de alto rendimiento con el lanzamiento de la plataforma Oltre, liderada por la hiperbicicleta Oltre RC y complementada con los modelos Oltre Pro y Oltre. Nacido de la investigación y el desarrollo de Bianchi Reparto Corse, el Oltre RC es una revolución en términos de diseño e ingeniería con el objetivo de dominar y explotar activamente el flujo de aire a través de la ingeniería de un sistema bicicleta-atleta y componentes del cuadro perfectamente integrado. Oltre es un enfoque de pensamiento de diseño revolucionario definido por la introducción de la tecnología Bianchi Air Deflector. “El Bianchi Oltre RC establece un nuevo estándar tecnológico en el mundo del ciclismo”, dijo el CEO de Bianchi, Fabrizio Scalzotto. “Con Oltre empezamos desde cero para crear una bicicleta aerodinámica sin precedentes. Es un proyecto desarrollado por nuestro Reparto Corse que marca un punto de inflexión para la marca. La nueva familia Oltre representa la primera plataforma completa de cuadro/componentes diseñada y fabricada íntegramente por Bianchi: desde el cuadro hasta el sistema de manillar, pasando por las ruedas, los bujes y los sillines”.'),
+
+(14,'Sprint 105','road',2277,10,'CREADA PARA AQUELLOS QUE EMPIEZAN SU VIAJE EN LA CARRETERA','La Sprint es digna de inclusión en la categoría de carreras de Bianchi, creada para aquellos que empiezan su viaje en la carretera. Lanzada en la década de 1970, el sprint original fue amado por los corredores de la época, y todavía está mirado como una pieza icónica de la historia del ciclismo'),
+
+(15,'Sprint 105 Di2 Disc','road',2733,0,'CREADA PARA AQUELLOS QUE EMPIEZAN SU VIAJE EN LA CARRETERA','La Sprint es digna de inclusión en la categoría de carreras de Bianchi, creada para aquellos que empiezan su viaje en la carretera. Lanzada en la década de 1970, el sprint original fue amado por los corredores de la época, y todavía está mirado como una pieza icónica de la historia del ciclismo'),
+
+(16,'Sprint Ultegra','road',3121,0,'CREADA PARA AQUELLOS QUE EMPIEZAN SU VIAJE EN LA CARRETERA','La Sprint es digna de inclusión en la categoría de carreras de Bianchi, creada para aquellos que empiezan su viaje en la carretera. Lanzada en la década de 1970, el sprint original fue amado por los corredores de la época, y todavía está mirado como una pieza icónica de la historia del ciclismo'),
+
+(17,'Oltre XR4 Rival AXS Fulcrum','road',8343,15,'POLIVALENCIA EN ESTADO PURO','Con una agresiva geometría de competición, ligera y extremadamente aerodinámica y equipada con la exclusiva tecnología de absorción de vibraciones Countervail, la nueva Oltre XR4 es aún más rápida. Esta bicicleta de carretera de última generación fue desarrollada y probada en colaboración con el equipo Bianchi World Tour “Jumbo-Visma” y ya ha logrado un éxito considerable en el escenario mundial. Los corredores profesionales Dylan Groenewegen y Primoz Roglic, así como todo el equipo holandés del “Jumbo-Visma”, ya han conseguido notables éxitos y varias victorias de etapa en el Tour de Francia con la Oltre XR4.'),
+
+(18,'T-Tronik Performer 9.1 XTR','ebike',8113,0,'ELECTRIFY YOUR TRAIL RIDING','La T-Tronik, la nueva generación de E-MTB de Bianchi, entra en la era de la propulsión eléctrica asistida y se sitúa a la vanguardia de un mayor disfrute al aire libre. La familia de modelos T-Tronik incluye tres productos diferentes: T-Tronik Performer, Rebel y Sport.'),
+
+(19,'T-Tronik Performer 9.2 XT','ebike',7059,0,'ELECTRIFY YOUR TRAIL RIDING','La T-Tronik, la nueva generación de E-MTB de Bianchi, entra en la era de la propulsión eléctrica asistida y se sitúa a la vanguardia de un mayor disfrute al aire libre. La familia de modelos T-Tronik incluye tres productos diferentes: T-Tronik Performer, Rebel y Sport.'),
+
+(20,'T-Tronik Performer 9.3 XT','ebike',6388,0,'ELECTRIFY YOUR TRAIL RIDING','La T-Tronik, la nueva generación de E-MTB de Bianchi, entra en la era de la propulsión eléctrica asistida y se sitúa a la vanguardia de un mayor disfrute al aire libre. La familia de modelos T-Tronik incluye tres productos diferentes: T-Tronik Performer, Rebel y Sport.'),
+
+(21,'T-Tronik Rebel 9.1 XT','ebike',5423,0,'ASSIST YOUR MOUNTAIN ADVENTURE','La T-Tronik Rebel es la bicicleta eléctrica de doble suspensión con cuadro de aluminio de la marca italiana. Con el nuevo motor Shimano EP8 y batería integrada de 630WH es una e-mtb perfecta que te llevará a la cima más alta y con tija teléscopica de serie para disfrutar de lo lindo bajando'),
+
+(22,'T-Tronik Rebel 9.2 NX','ebike',4949,10,'ASSIST YOUR MOUNTAIN ADVENTURE','La T-Tronik Rebel es la bicicleta eléctrica de doble suspensión con cuadro de aluminio de la marca italiana. Con el nuevo motor Shimano EP8 y batería integrada de 630WH es una e-mtb perfecta que te llevará a la cima más alta y con tija teléscopica de serie para disfrutar de lo lindo bajando'),
+
+(23,'T-Tronik Sport 9.1 Deore 12v','ebike',3009,0,'HARDTAIL PROWESS, ELECTRIC FUN','Diviértete descubriendo caminos con esta mtb de asistencia eléctrica gracias al motor Shimano de 250W y la batería de 522WH.'),
+
+(24,'T-Tronik Sport 9.1 Deore 12vTRK','ebike',3060,0,'ELECTRIFY YOUR TRAIL RIDING','Diviértete descubriendo caminos con esta mtb de asistencia eléctrica gracias al motor Shimano E7000 y 250W con batería de 522WH.'),
+
+(25,'T-Tronik Sport 9.1 SX','ebike',3009,0,'HARDTAIL PROWESS, ELECTRIC FUN','Diviértete descubriendo caminos con esta mtb de asistencia eléctrica gracias al motor Oli de 250W 85Nm y la batería de 504WH.'),
+
+(26,'T-Tronik Sport 9.2 Altus','ebike',2841,14,'HARDTAIL PROWESS, ELECTRIC FUN','Diviértete descubriendo caminos con esta mtb de asistencia eléctrica gracias al motor Shimano de 250W y la batería de 522WH.'),
+
+(27,'Infinito CV Rival AXS','road',5999,0,'The Gran Fondo Crusher','La Bianchi Infinito CV disc, si lo tuyo es el gran fono la Infinito es tu bici, la endurance de la prestigiosa marca italiana diseñada para ser cómoda y rápida al mismo tiempo.'),
+
+(28,'C-Sport 2 Acera Step-Through','city',789,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.'),
+
+(29,'C-Sport 3 Acera','city',807,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.'),
+
+(30,'C-Sport 3 Alivio','city',859,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.'),
+
+(31,'C-Sport Cross Acera','city',751,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.'),
+
+(32,'C-Sport Cross Acera Step-Through','city',751,0,NULL,'Diseñada para quienes buscan una bicicleta con carácter fuerte: sólida como una bicicleta de montaña, ligera y suave como una bicicleta de carretera. Bicicleta versátil, rápida, confiable. Las bicicletas C-Sport pueden encontrar su hábitat natural tanto en la ciudad como en el campo. Las bicicletas perfectas para mejorar tu estado físico y dar una vuelta en una escapada de fin de semana.');
+
+CREATE TABLE `sizes` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `size` char(3) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+INSERT INTO `sizes` VALUES
+(1,'47'),
+(2,'48'),
+(3,'49'),
+(4,'50'),
+(5,'51'),
+(6,'52'),
+(7,'53'),
+(8,'54'),
+(9,'55'),
+(10,'56'),
+(11,'57'),
+(12,'58'),
+(13,'59'),
+(14,'60'),
+(15,'61');
+
+CREATE TABLE `orders` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `price` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+INSERT INTO `orders` VALUES
+(1,1,'C/Muro n3',563.25);
 
 CREATE TABLE `datasheets` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -48,7 +143,264 @@ CREATE TABLE `datasheets` (
   CONSTRAINT `datasheets_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-INSERT INTO `datasheets` VALUES (1,1,'Methanol CV FS 100mm 29\" full carbon','Cuadro'),(2,1,'Rock Shox Sid SL Select 29\"','Horquilla'),(3,1,'Sram Sid Luxe Select + RLR','Amortiguador'),(4,1,'32T, FC-MT511-1','Bielas'),(5,1,'10-51T, Shimano CS-M7100-12','Piñonera'),(6,1,'Shimano XT RD-M8100-SGS','Cambio'),(7,1,'Shimano CN-M7100','Cadena'),(8,1,'Shimano SLX 12sp','Manetas'),(9,1,'Shimano BR-M6100','Frenos'),(10,1,'180mm front & 160mm rear, Shimano RT-54','Discos'),(11,1,'double butted, Reparto Corse','Manillar'),(12,1,'3D forged AL7050-T6, Reparto Corse','Potencia'),(13,1,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),(14,1,'Reparto Corse Carbon SB0','Tija'),(15,1,'Wtb KOM light i25 29','Ruedas'),(16,2,'Methanol CV FS 100mm 29\" full carbon','Cuadro'),(17,2,'Rock Shox Sid SL Select 29\"','Horquilla'),(18,2,'Sram Sid Luxe Select + RLR','Amortiguador'),(19,2,'Fsa K-Force BB392Evo 34T','Bielas'),(20,2,'10-51T, Shimano CS-M8100-12','Piñonera'),(21,2,'Shimano XTR RD-M9100','Cambio'),(22,2,'12sp, Shimano CN-M8100','Cadena'),(23,2,'Shimano XT SL-M8100R 12sp','Manetas'),(24,2,'Shimano XT BR-M8100','Frenos'),(25,2,'Shimano RT-MT800 diam. front 180mm and rear 160mm','Discos'),(26,2,'double butted, Reparto Corse','Manillar'),(27,2,'3D forged AL7050-T6, Reparto Corse','Potencia'),(28,2,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),(29,2,'Reparto Corse Carbon SB0','Tija'),(30,2,'DT Swiss XR1700 Spline','Ruedas'),(31,3,'Methanol CV FS 100mm 29\" full carbon','Cuadro'),(32,3,'Fox 34 SC 29\" Factory Kashima','Horquilla'),(33,3,'Fox Float DPS Factory Kashima','Amortiguador'),(34,3,'Sram XX1 Eagle AXS DUB 34T','Bielas'),(35,3,'Sram XG-1299 Eagle Rainbow 12sp','Piñonera'),(36,3,'Sram XX1 Eagle AXS 12sp','Cambio'),(37,3,'Sram PC-XX1 Eagle 12sp','Cadena'),(38,3,'Sram XX1 Eagle AXS 12sp','Manetas'),(39,3,'Shimano XTR M9100','Frenos'),(40,3,'Shimano RT-MT900 diam. front 180mm and rear 160mm','Discos'),(41,3,'Fsa KFX ICR flat, UD carbon','Manillar'),(42,3,'3D forged/machined AL2014, Fsa KFX','Potencia'),(43,3,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),(44,3,'Fsa KFX SB0 UD carbon monocoque','Tija'),(45,3,'DT Swiss XRC 1501 Spline One 29\" Carbon 30mm','Ruedas'),(46,4,'Methanol CV RS 29\" carbon HM','Cuadro'),(47,4,'Rock Shox Sid SL Select 29\"','Horquilla'),(48,4,'32T, Shimano XT FC-M8100-1','Amortiguador'),(49,4,'10-51T, Shimano CS-M8100-12','Bielas'),(50,4,'Shimano XT RD-M8100-SGS','Piñonera'),(51,4,'Shimano XT RD-M8100-SGS','Cambio'),(52,4,'Shimano CN-M7100 12sp','Cadena'),(53,4,'Shimano XT SL-M8100R','Manetas'),(54,4,'Shimano XT BR-M8100','Frenos'),(55,4,'180mm & 160mm, Shimano RT-70','Discos'),(56,4,'Fsa KFX ICR flat, UD carbon','Manillar'),(57,4,'3D forged/machined AL2014, Fsa KFX','Potencia'),(58,4,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),(59,4,'Fsa KFX SB0, UD carbon monocoque','Tija'),(60,4,'DT Swiss XR 1700 Spline 29\" 25mm','Ruedas'),(61,5,'Methanol CV RS 29\" carbon HM','Cuadro'),(62,5,'Fox 32 SC 29\" Factory Kashima','Horquilla'),(63,5,'Sram XX1 Eagle DUB 34T','Amortiguador'),(64,5,'Sram XG-1299 Eagle Rainbow 12sp','Bielas'),(65,5,'Sram XX1 Eagle AXS 12sp','Piñonera'),(66,5,'Sram XX1 Eagle AXS 12sp','Cambio'),(67,5,'Sram PC-XX1 Eagle 12sp','Cadena'),(68,5,'Sram XX1 Eagle AXS 12sp','Manetas'),(69,5,'Sram Level Ultimate','Frenos'),(70,5,'diam front 180mm and rear 160mm, Sram Centerline X','Discos'),(71,5,'Fsa KFX ICR flat, UD carbon','Manillar'),(72,5,'3D forged/machined AL2014, Fsa KFX','Potencia'),(73,5,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),(74,5,'Fsa KFX SB0, UD carbon monocoque','Tija'),(75,5,'DT Swiss XRC 1501','Ruedas'),(76,6,'Nitron 29\" full carbon monocoque','Cuadro'),(77,6,'Rock Shox Sid SL Select 29\"','Horquilla'),(78,6,'32T, Shimano XT FC-M8100-1','Bielas'),(79,6,'10-51T, Shimano CS-M7100-12','Piñonera'),(80,6,'Shimano XT RD-M8100-SGS','Cambio'),(81,6,'Shimano CN-M7100 12sp','Cadena'),(82,6,'Shimano SLX 1x12sp','Manetas'),(83,6,'Shimano M6100','Frenos'),(84,6,'Center Lock, Shimano SM-RT54 CL 180mm & 160mm','Discos'),(85,6,'Velomann Flat top DB Alloy 6061-T6','Manillar'),(86,6,'3D forged alloy 6061, Velomann','Potencia'),(87,6,'Velomann 1285URN','Sillin'),(88,6,'AL6061, Velomann','Tija'),(89,6,'Velomann KOM light i25 29\"','Ruedas'),(90,7,'Nitron 29\" full carbon monocoque','Cuadro'),(91,7,'Rock Shox Judy Gold RL 29\"','Horquilla'),(92,7,'32T, Shimano FC-MT511-1','Bielas'),(93,7,'10-51T, Shimano CS-M7100-12','Piñonera'),(94,7,'Shimano XT RD-M8100-SGS','Cambio'),(95,7,'Shimano CN-M6100 12sp','Cadena'),(96,7,'Shimano SLX 1x12sp','Manetas'),(97,7,'Shimano M4100','Frenos'),(98,7,'Shimano RT10 180mm & 160mm','Discos'),(99,7,'Velomann Flat top DB Alloy 6061-T6','Manillar'),(100,7,'3D forged alloy 6061, Velomann','Potencia'),(101,7,'Velomann 1285URN','Sillin'),(102,7,'AL6061, Velomann','Tijia'),(103,7,'Velomann KOM light i25 29\"','Ruedas'),(104,8,'Nitron 29\" full carbon monocoque','Cuadro'),(105,8,'Rock Shox Judy Silver TK 29\"','Horquilla'),(106,8,'32T, Shimano FC-MT511-1','Bielas'),(107,8,'10-51T, 12sp, Shimano CS-M6100-12','Piñonera'),(108,8,'Shimano XT RD-M8100-SGS','Cambio'),(109,8,'Shimano CN-M6100 12sp','Cadena'),(110,8,'Shimano Deore SL-M6100-R 1x12sp','Manetas'),(111,8,'Shimano BR-MT200','Frenos'),(112,8,'Shimano RT10 180mm & 160mm','Discos'),(113,8,'Velomann Flat top DB Alloy 6061-T6','Manillar'),(114,8,'3D forged alloy 6061, Velomann','Potencia'),(115,8,'Velomann 1285URN','Sillin'),(116,8,'AL6061, Velomann','Tija'),(117,8,'Velomann KOM light i25 29\"','Ruedas'),(118,9,'Magma 29\" alu','Cuadro'),(119,9,'SR Suntour XCM HLO DS 29\"','Horquilla'),(120,9,'36/22T, Shimano FC-MT101-2','Bielas'),(121,9,'Shimano HG200-9 11-36','Piñonera'),(122,9,'Shimano Alivio RDM3100 SGS 9sp','Cambio'),(123,9,'Kmc HV900 9sp','Cadena'),(124,9,'Shimano Alivio SL-M3100 2x9sp','Manetas'),(125,9,'Shimano BR-MT200','Frenos'),(126,9,'Shimano RT10 160mm','Discos'),(127,9,'Velomann Flat top DB Alloy 6061-T6','Manillar'),(128,9,'3D forged alloy 6061, Velomann','Potencia'),(129,9,'steel rails, Velomann','Sillin'),(130,9,'AL6061, Velomann','Tija'),(131,9,'VelomannDP2.5','Ruedas'),(132,10,'Aria Disc carbon','Cuadro'),(133,10,'Bianchi Full Carbon w/Bianchi','Horquilla'),(134,10,'Shimano 105 R7000 50-34','Bielas'),(135,10,'Shimano R7000 11-3','Piñonera'),(136,10,'Shimano 105 R7000','Cambio'),(137,10,'Shimano 105 R7000','Desviador'),(138,10,'KMC x11','Cadena'),(139,10,'Shimano 105 R7020','Manetas'),(140,10,'Shimano 105 R7020','Frenos'),(141,10,'Shimano SM-RT70, diam. 160mm','Discos'),(142,10,'Reparto Corse Aero Compact','Manillar'),(143,10,'Reparto Corse 3D Forged alloy','Potencia'),(144,10,'Selle Royal Seta S31','Sillin'),(145,10,'Reparto Corse Full Carbon Aero','Tija'),(146,10,'Fulcrum Racing 818 DB','Ruedas'),(147,11,'Oltre PRO carbon cv','Cuadro'),(148,11,'Bianchi Full Carbon Aero w/Bianchi CV','Horquilla'),(149,11,'Ultegra R8100','Bielas'),(150,11,'Ultegra R8150','Cambio'),(151,11,'Shimano Ultegra Di2 R8150','Desviador'),(152,11,'Shimano CN-M7100 12sp','Cadena'),(153,11,'Ultegra R8100','Piñonera'),(154,11,'Shimano Ultegra Di2 R8170','Manteas'),(155,11,'Shimano Ultegra R8170','Frenos'),(156,11,'Bianchi RC 139 carbon Air 3D','Sillin'),(157,11,'Oltre Full Carbon Aero','Tija'),(158,11,'Reparto Corse Carbon 50mm profile','Ruedas'),(159,12,'Oltre XR4 carbon w/Bianchi CV','Cuadro'),(160,12,'Bianchi Full Carbon Aero w/Bianchi CV','Horquilla'),(161,12,'Sram Red AXS 48-35','Bielas'),(162,12,'Sram Red 10-33','Piñonera'),(163,12,'Sram Red AXS','Cambio'),(164,12,'Sram Red eTap AXS','Desviador'),(165,12,'Sram Red eTap AXS FlatTop','Cadena'),(166,12,'Sram Red eTap AXS D1 2x12sp','Manetas'),(167,12,'Sram Red eTap AXS','Frenos'),(168,12,'Sram Centerline X Road, 160mm','Discos'),(169,12,'Reparto Corse by Vision Metron 5D ACR Disc Integrated Aero ','Manillar'),(170,12,'Reparto Corse by Vision Metron 5D ACR Disc Integrated Aero ','Potencia'),(171,12,'Fi\'zi:k Argo Vento R1','Sillin'),(172,12,'Reparto Corse Full Carbon Aero','Tija'),(173,12,'Vision 55 SC','Ruedas'),(174,13,'Oltre carbon','Cuadro'),(175,13,'Full Carbon aero','Horquilla'),(176,13,'Ultegra R8100','Bielas'),(177,13,'Ultegra R8100','Piñonera'),(178,13,'Ultegra R8150','Cambio'),(179,13,'Ultegra R8150','Desviador'),(180,13,'Shimano M7100','Cadena'),(181,13,'Shimano Ultegra Di2 R8170','Manetas'),(182,13,'Shimano Ultegra R8170','Frenos'),(183,13,'Velomann Aero compact','Manillar'),(184,13,'Velomann Aero','Potencia'),(185,13,'Velomann Mitora','Sillin'),(186,13,'Velomann Oltre Full Carbon Aero','Tija'),(187,13,'Velomann Carbon 55mm profile','Ruedas'),(188,14,'Sprint carbon monocoque','Cuadro'),(189,14,'Bianchi Full Carbon','Horquilla'),(190,14,'FC-RS510 50-34','Bielas'),(191,14,'Miche 11-32','Piñonera'),(192,14,'Shimano 105 R7000','Cambio'),(193,14,'Shimano 105 R7000','Desviador'),(194,14,'KMC x11','Cadena'),(195,14,'Shimano 105 ST-R7000','Manetas'),(196,14,'Shimano BR-R561-L','Frenos'),(197,14,'Velomann Compact, Flat Top','Manillar'),(198,14,'Velomann Alloy 6061','Potencia'),(199,14,'Velomann 1285 URN','Sillin'),(200,14,'Velomann Alloy shaft','Tija'),(201,14,'Shimano WH-RS100','Ruedas'),(202,15,'Sprint Disc carbon monocoque','Cuadro'),(203,15,'Bianchi Full Carbon Disc','Horquilla'),(204,15,'Shimano 105 R7100 50-34','Bielas'),(205,15,'Shimano 105 R7100','Piñonera'),(206,15,'Shimano 105 R7150','Cambio'),(207,15,'Shimano 105 R7150','Desviador'),(208,15,'Shimano M7100','Cadena'),(209,15,'Shimano 105 R7170','Manetas'),(210,15,'Shimano 105 R7170','Frenos'),(211,15,'Shimano SM-RT70, diam. 160mm','Discos'),(212,15,'Velomann Compact, Flat Top','Manillar'),(213,15,'Velomann Alloy 6061','Potencia'),(214,15,'Velomann 1285 URN','Sillin'),(215,15,'Velomann Alloy shaft','Tija'),(216,15,'Velomann VR30','Ruedas'),(217,16,'Sprint Disc carbon monocoque','Cuadro'),(218,16,'Bianchi Full Carbon Disc','Horquilla'),(219,16,'Shimano Ultegra R8000 50-34','Bielas'),(220,16,'Shimano R7000 11-32','Piñonera'),(221,16,'Shimano Ultegra R8000','Cambio'),(222,16,'Shimano Ultegra R8000','Desviador'),(223,16,'Shimano Ultegra HG701','Cadena'),(224,16,'Shimano Ultegra R8020','Manetas'),(225,16,'Shimano Ultegra R8070','Frenos'),(226,16,'Shimano SM-RT70, diam. 160mm','Discos'),(227,16,'Velomann Compact, Flat Top','Manillar'),(228,16,'Velomann Alloy 6061','Potencia'),(229,16,'Velomann 1285 URN','Sillin'),(230,16,'Velomann Alloy shaft','Tija'),(231,16,'Velomann VR30','Ruedas'),(232,17,'Oltre XR4 carbon w/Bianchi CV','Cuadro'),(233,17,'Bianchi Full Carbon Aero w/Bianchi CV','Horquilla'),(234,17,'Sram Rival Axs 48-35','Bielas'),(235,17,'Sram Rival AXS 10-36','Piñonera'),(236,17,'Sram Rival AXS','Cambio'),(237,17,'Sram Rival AXS','Desviador'),(238,17,'Sram Rival AXS Flat Top','Cadena'),(239,17,'Sram Rival AXS','Manetas'),(240,17,'Sram Rival AXS','Freons'),(241,17,'Sram Rotor centerlock centerline Road 160mm','Discos'),(242,17,'Reparto Corse by Vision Metron 5D ACR Disc Integrated Aero','Manillar'),(243,17,'Reparto Corse by Vision Metron 5D ACR Disc Integrated Aero','Potencia'),(244,17,'Fi\'zi:k Argo Vento R1','Sillin'),(245,17,'Reparto Corse Full Carbon Aero','Tija'),(246,17,'Fulcrum AirBeat 400 DB','Ruedas'),(247,27,'Carbon w/Bianchi CV, Infinito CV Disc','Cuadro'),(248,27,'Bianchi Full Carbon w/Bianchi CV','Horquilla'),(249,27,'Sram Rival Axs 48-35','Bielas'),(250,27,'Sram Rival AXS 10-36','Piñonera'),(251,27,'Sram Rival AXS','Cambio'),(252,27,'Sram Rival AXS','Desviador'),(253,27,'Sram Rival AXS Flat Top','Cadena'),(254,27,'Sram Rival AXS','Manetas'),(255,27,'Sram Rival AXS','Frenos'),(256,27,'Sram Rotor centerlock centerline Road 160mm','Discos'),(257,27,'Reparto Corse Compact Flat Top','Manillar'),(258,27,'Reparto Corse 3D Forged alloy','Potencia'),(259,27,'Fi\'zi:k Argo Tempo R6','Sillin'),(260,27,'Reparto Corse Full Carbon Aero','Tija'),(261,27,'Fulcrum Racing 400 DB','Ruedas');
+INSERT INTO `datasheets` VALUES
+(1,1,'Methanol CV FS 100mm 29\" full carbon','Cuadro'),
+(2,1,'Rock Shox Sid SL Select 29\"','Horquilla'),
+(3,1,'Sram Sid Luxe Select + RLR','Amortiguador'),
+(4,1,'32T, FC-MT511-1','Bielas'),
+(5,1,'10-51T, Shimano CS-M7100-12','Piñonera'),
+(6,1,'Shimano XT RD-M8100-SGS','Cambio'),
+(7,1,'Shimano CN-M7100','Cadena'),
+(8,1,'Shimano SLX 12sp','Manetas'),
+(9,1,'Shimano BR-M6100','Frenos'),
+(10,1,'180mm front & 160mm rear, Shimano RT-54','Discos'),
+(11,1,'double butted, Reparto Corse','Manillar'),
+(12,1,'3D forged AL7050-T6, Reparto Corse','Potencia'),
+(13,1,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),
+(14,1,'Reparto Corse Carbon SB0','Tija'),
+(15,1,'Wtb KOM light i25 29','Ruedas'),
+(16,2,'Methanol CV FS 100mm 29\" full carbon','Cuadro'),
+(17,2,'Rock Shox Sid SL Select 29\"','Horquilla'),
+(18,2,'Sram Sid Luxe Select + RLR','Amortiguador'),
+(19,2,'Fsa K-Force BB392Evo 34T','Bielas'),
+(20,2,'10-51T, Shimano CS-M8100-12','Piñonera'),
+(21,2,'Shimano XTR RD-M9100','Cambio'),
+(22,2,'12sp, Shimano CN-M8100','Cadena'),
+(23,2,'Shimano XT SL-M8100R 12sp','Manetas'),
+(24,2,'Shimano XT BR-M8100','Frenos'),
+(25,2,'Shimano RT-MT800 diam. front 180mm and rear 160mm','Discos'),
+(26,2,'double butted, Reparto Corse','Manillar'),
+(27,2,'3D forged AL7050-T6, Reparto Corse','Potencia'),
+(28,2,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),
+(29,2,'Reparto Corse Carbon SB0','Tija'),
+(30,2,'DT Swiss XR1700 Spline','Ruedas'),
+(31,3,'Methanol CV FS 100mm 29\" full carbon','Cuadro'),
+(32,3,'Fox 34 SC 29\" Factory Kashima','Horquilla'),
+(33,3,'Fox Float DPS Factory Kashima','Amortiguador'),
+(34,3,'Sram XX1 Eagle AXS DUB 34T','Bielas'),
+(35,3,'Sram XG-1299 Eagle Rainbow 12sp','Piñonera'),
+(36,3,'Sram XX1 Eagle AXS 12sp','Cambio'),
+(37,3,'Sram PC-XX1 Eagle 12sp','Cadena'),
+(38,3,'Sram XX1 Eagle AXS 12sp','Manetas'),
+(39,3,'Shimano XTR M9100','Frenos'),
+(40,3,'Shimano RT-MT900 diam. front 180mm and rear 160mm','Discos'),
+(41,3,'Fsa KFX ICR flat, UD carbon','Manillar'),
+(42,3,'3D forged/machined AL2014, Fsa KFX','Potencia'),
+(43,3,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),
+(44,3,'Fsa KFX SB0 UD carbon monocoque','Tija'),
+(45,3,'DT Swiss XRC 1501 Spline One 29\" Carbon 30mm','Ruedas'),
+(46,4,'Methanol CV RS 29\" carbon HM','Cuadro'),
+(47,4,'Rock Shox Sid SL Select 29\"','Horquilla'),
+(48,4,'32T, Shimano XT FC-M8100-1','Amortiguador'),
+(49,4,'10-51T, Shimano CS-M8100-12','Bielas'),
+(50,4,'Shimano XT RD-M8100-SGS','Piñonera'),
+(51,4,'Shimano XT RD-M8100-SGS','Cambio'),
+(52,4,'Shimano CN-M7100 12sp','Cadena'),
+(53,4,'Shimano XT SL-M8100R','Manetas'),
+(54,4,'Shimano XT BR-M8100','Frenos'),
+(55,4,'180mm & 160mm, Shimano RT-70','Discos'),
+(56,4,'Fsa KFX ICR flat, UD carbon','Manillar'),
+(57,4,'3D forged/machined AL2014, Fsa KFX','Potencia'),
+(58,4,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),
+(59,4,'Fsa KFX SB0, UD carbon monocoque','Tija'),
+(60,4,'DT Swiss XR 1700 Spline 29\" 25mm','Ruedas'),
+(61,5,'Methanol CV RS 29\" carbon HM','Cuadro'),
+(62,5,'Fox 32 SC 29\" Factory Kashima','Horquilla'),
+(63,5,'Sram XX1 Eagle DUB 34T','Amortiguador'),
+(64,5,'Sram XG-1299 Eagle Rainbow 12sp','Bielas'),
+(65,5,'Sram XX1 Eagle AXS 12sp','Piñonera'),
+(66,5,'Sram XX1 Eagle AXS 12sp','Cambio'),
+(67,5,'Sram PC-XX1 Eagle 12sp','Cadena'),
+(68,5,'Sram XX1 Eagle AXS 12sp','Manetas'),
+(69,5,'Sram Level Ultimate','Frenos'),
+(70,5,'diam front 180mm and rear 160mm, Sram Centerline X','Discos'),
+(71,5,'Fsa KFX ICR flat, UD carbon','Manillar'),
+(72,5,'3D forged/machined AL2014, Fsa KFX','Potencia'),
+(73,5,'Fi\'zi:k Taiga, S-alloy rails','Sillin'),
+(74,5,'Fsa KFX SB0, UD carbon monocoque','Tija'),
+(75,5,'DT Swiss XRC 1501','Ruedas'),
+(76,6,'Nitron 29\" full carbon monocoque','Cuadro'),
+(77,6,'Rock Shox Sid SL Select 29\"','Horquilla'),
+(78,6,'32T, Shimano XT FC-M8100-1','Bielas'),
+(79,6,'10-51T, Shimano CS-M7100-12','Piñonera'),
+(80,6,'Shimano XT RD-M8100-SGS','Cambio'),
+(81,6,'Shimano CN-M7100 12sp','Cadena'),
+(82,6,'Shimano SLX 1x12sp','Manetas'),
+(83,6,'Shimano M6100','Frenos'),
+(84,6,'Center Lock, Shimano SM-RT54 CL 180mm & 160mm','Discos'),
+(85,6,'Velomann Flat top DB Alloy 6061-T6','Manillar'),
+(86,6,'3D forged alloy 6061, Velomann','Potencia'),
+(87,6,'Velomann 1285URN','Sillin'),
+(88,6,'AL6061, Velomann','Tija'),
+(89,6,'Velomann KOM light i25 29\"','Ruedas'),
+(90,7,'Nitron 29\" full carbon monocoque','Cuadro'),
+(91,7,'Rock Shox Judy Gold RL 29\"','Horquilla'),
+(92,7,'32T, Shimano FC-MT511-1','Bielas'),
+(93,7,'10-51T, Shimano CS-M7100-12','Piñonera'),
+(94,7,'Shimano XT RD-M8100-SGS','Cambio'),
+(95,7,'Shimano CN-M6100 12sp','Cadena'),
+(96,7,'Shimano SLX 1x12sp','Manetas'),
+(97,7,'Shimano M4100','Frenos'),
+(98,7,'Shimano RT10 180mm & 160mm','Discos'),
+(99,7,'Velomann Flat top DB Alloy 6061-T6','Manillar'),
+(100,7,'3D forged alloy 6061, Velomann','Potencia'),
+(101,7,'Velomann 1285URN','Sillin'),
+(102,7,'AL6061, Velomann','Tijia'),
+(103,7,'Velomann KOM light i25 29\"','Ruedas'),
+(104,8,'Nitron 29\" full carbon monocoque','Cuadro'),
+(105,8,'Rock Shox Judy Silver TK 29\"','Horquilla'),
+(106,8,'32T, Shimano FC-MT511-1','Bielas'),
+(107,8,'10-51T, 12sp, Shimano CS-M6100-12','Piñonera'),
+(108,8,'Shimano XT RD-M8100-SGS','Cambio'),
+(109,8,'Shimano CN-M6100 12sp','Cadena'),
+(110,8,'Shimano Deore SL-M6100-R 1x12sp','Manetas'),
+(111,8,'Shimano BR-MT200','Frenos'),
+(112,8,'Shimano RT10 180mm & 160mm','Discos'),
+(113,8,'Velomann Flat top DB Alloy 6061-T6','Manillar'),
+(114,8,'3D forged alloy 6061, Velomann','Potencia'),
+(115,8,'Velomann 1285URN','Sillin'),
+(116,8,'AL6061, Velomann','Tija'),
+(117,8,'Velomann KOM light i25 29\"','Ruedas'),
+(118,9,'Magma 29\" alu','Cuadro'),
+(119,9,'SR Suntour XCM HLO DS 29\"','Horquilla'),
+(120,9,'36/22T, Shimano FC-MT101-2','Bielas'),
+(121,9,'Shimano HG200-9 11-36','Piñonera'),
+(122,9,'Shimano Alivio RDM3100 SGS 9sp','Cambio'),
+(123,9,'Kmc HV900 9sp','Cadena'),
+(124,9,'Shimano Alivio SL-M3100 2x9sp','Manetas'),
+(125,9,'Shimano BR-MT200','Frenos'),
+(126,9,'Shimano RT10 160mm','Discos'),
+(127,9,'Velomann Flat top DB Alloy 6061-T6','Manillar'),
+(128,9,'3D forged alloy 6061, Velomann','Potencia'),
+(129,9,'steel rails, Velomann','Sillin'),
+(130,9,'AL6061, Velomann','Tija'),
+(131,9,'VelomannDP2.5','Ruedas'),
+(132,10,'Aria Disc carbon','Cuadro'),
+(133,10,'Bianchi Full Carbon w/Bianchi','Horquilla'),
+(134,10,'Shimano 105 R7000 50-34','Bielas'),
+(135,10,'Shimano R7000 11-3','Piñonera'),
+(136,10,'Shimano 105 R7000','Cambio'),
+(137,10,'Shimano 105 R7000','Desviador'),
+(138,10,'KMC x11','Cadena'),
+(139,10,'Shimano 105 R7020','Manetas'),
+(140,10,'Shimano 105 R7020','Frenos'),
+(141,10,'Shimano SM-RT70, diam. 160mm','Discos'),
+(142,10,'Reparto Corse Aero Compact','Manillar'),
+(143,10,'Reparto Corse 3D Forged alloy','Potencia'),
+(144,10,'Selle Royal Seta S31','Sillin'),
+(145,10,'Reparto Corse Full Carbon Aero','Tija'),
+(146,10,'Fulcrum Racing 818 DB','Ruedas'),
+(147,11,'Oltre PRO carbon cv','Cuadro'),
+(148,11,'Bianchi Full Carbon Aero w/Bianchi CV','Horquilla'),
+(149,11,'Ultegra R8100','Bielas'),
+(150,11,'Ultegra R8150','Cambio'),
+(151,11,'Shimano Ultegra Di2 R8150','Desviador'),
+(152,11,'Shimano CN-M7100 12sp','Cadena'),
+(153,11,'Ultegra R8100','Piñonera'),
+(154,11,'Shimano Ultegra Di2 R8170','Manteas'),
+(155,11,'Shimano Ultegra R8170','Frenos'),
+(156,11,'Bianchi RC 139 carbon Air 3D','Sillin'),
+(157,11,'Oltre Full Carbon Aero','Tija'),
+(158,11,'Reparto Corse Carbon 50mm profile','Ruedas'),
+(159,12,'Oltre XR4 carbon w/Bianchi CV','Cuadro'),
+(160,12,'Bianchi Full Carbon Aero w/Bianchi CV','Horquilla'),
+(161,12,'Sram Red AXS 48-35','Bielas'),(162,12,'Sram Red 10-33','Piñonera'),
+(163,12,'Sram Red AXS','Cambio'),(164,12,'Sram Red eTap AXS','Desviador'),
+(165,12,'Sram Red eTap AXS FlatTop','Cadena'),(166,12,'Sram Red eTap AXS D1 2x12sp','Manetas'),
+(167,12,'Sram Red eTap AXS','Frenos'),(168,12,'Sram Centerline X Road, 160mm','Discos'),
+(169,12,'Reparto Corse by Vision Metron 5D ACR Disc Integrated Aero ','Manillar'),
+(170,12,'Reparto Corse by Vision Metron 5D ACR Disc Integrated Aero ','Potencia'),
+(171,12,'Fi\'zi:k Argo Vento R1','Sillin'),
+(172,12,'Reparto Corse Full Carbon Aero','Tija'),
+(173,12,'Vision 55 SC','Ruedas'),
+(174,13,'Oltre carbon','Cuadro'),
+(175,13,'Full Carbon aero','Horquilla'),
+(176,13,'Ultegra R8100','Bielas'),
+(177,13,'Ultegra R8100','Piñonera'),
+(178,13,'Ultegra R8150','Cambio'),
+(179,13,'Ultegra R8150','Desviador'),
+(180,13,'Shimano M7100','Cadena'),
+(181,13,'Shimano Ultegra Di2 R8170','Manetas'),
+(182,13,'Shimano Ultegra R8170','Frenos'),
+(183,13,'Velomann Aero compact','Manillar'),
+(184,13,'Velomann Aero','Potencia'),
+(185,13,'Velomann Mitora','Sillin'),
+(186,13,'Velomann Oltre Full Carbon Aero','Tija'),
+(187,13,'Velomann Carbon 55mm profile','Ruedas'),
+(188,14,'Sprint carbon monocoque','Cuadro'),
+(189,14,'Bianchi Full Carbon','Horquilla'),
+(190,14,'FC-RS510 50-34','Bielas'),
+(191,14,'Miche 11-32','Piñonera'),
+(192,14,'Shimano 105 R7000','Cambio'),
+(193,14,'Shimano 105 R7000','Desviador'),
+(194,14,'KMC x11','Cadena'),
+(195,14,'Shimano 105 ST-R7000','Manetas'),
+(196,14,'Shimano BR-R561-L','Frenos'),
+(197,14,'Velomann Compact, Flat Top','Manillar'),
+(198,14,'Velomann Alloy 6061','Potencia'),
+(199,14,'Velomann 1285 URN','Sillin'),
+(200,14,'Velomann Alloy shaft','Tija'),
+(201,14,'Shimano WH-RS100','Ruedas'),
+(202,15,'Sprint Disc carbon monocoque','Cuadro'),
+(203,15,'Bianchi Full Carbon Disc','Horquilla'),
+(204,15,'Shimano 105 R7100 50-34','Bielas'),
+(205,15,'Shimano 105 R7100','Piñonera'),
+(206,15,'Shimano 105 R7150','Cambio'),
+(207,15,'Shimano 105 R7150','Desviador'),
+(208,15,'Shimano M7100','Cadena'),
+(209,15,'Shimano 105 R7170','Manetas'),
+(210,15,'Shimano 105 R7170','Frenos'),
+(211,15,'Shimano SM-RT70, diam. 160mm','Discos'),
+(212,15,'Velomann Compact, Flat Top','Manillar'),
+(213,15,'Velomann Alloy 6061','Potencia'),
+(214,15,'Velomann 1285 URN','Sillin'),
+(215,15,'Velomann Alloy shaft','Tija'),
+(216,15,'Velomann VR30','Ruedas'),
+(217,16,'Sprint Disc carbon monocoque','Cuadro'),
+(218,16,'Bianchi Full Carbon Disc','Horquilla'),
+(219,16,'Shimano Ultegra R8000 50-34','Bielas'),
+(220,16,'Shimano R7000 11-32','Piñonera'),
+(221,16,'Shimano Ultegra R8000','Cambio'),
+(222,16,'Shimano Ultegra R8000','Desviador'),
+(223,16,'Shimano Ultegra HG701','Cadena'),
+(224,16,'Shimano Ultegra R8020','Manetas'),
+(225,16,'Shimano Ultegra R8070','Frenos'),
+(226,16,'Shimano SM-RT70, diam. 160mm','Discos'),
+(227,16,'Velomann Compact, Flat Top','Manillar'),
+(228,16,'Velomann Alloy 6061','Potencia'),
+(229,16,'Velomann 1285 URN','Sillin'),
+(230,16,'Velomann Alloy shaft','Tija'),
+(231,16,'Velomann VR30','Ruedas'),
+(232,17,'Oltre XR4 carbon w/Bianchi CV','Cuadro'),
+(233,17,'Bianchi Full Carbon Aero w/Bianchi CV','Horquilla'),
+(234,17,'Sram Rival Axs 48-35','Bielas'),
+(235,17,'Sram Rival AXS 10-36','Piñonera'),
+(236,17,'Sram Rival AXS','Cambio'),
+(237,17,'Sram Rival AXS','Desviador'),
+(238,17,'Sram Rival AXS Flat Top','Cadena'),
+(239,17,'Sram Rival AXS','Manetas'),
+(240,17,'Sram Rival AXS','Freons'),
+(241,17,'Sram Rotor centerlock centerline Road 160mm','Discos'),
+(242,17,'Reparto Corse by Vision Metron 5D ACR Disc Integrated Aero','Manillar'),
+(243,17,'Reparto Corse by Vision Metron 5D ACR Disc Integrated Aero','Potencia'),
+(244,17,'Fi\'zi:k Argo Vento R1','Sillin'),
+(245,17,'Reparto Corse Full Carbon Aero','Tija'),
+(246,17,'Fulcrum AirBeat 400 DB','Ruedas'),
+(247,27,'Carbon w/Bianchi CV, Infinito CV Disc','Cuadro'),
+(248,27,'Bianchi Full Carbon w/Bianchi CV','Horquilla'),
+(249,27,'Sram Rival Axs 48-35','Bielas'),
+(250,27,'Sram Rival AXS 10-36','Piñonera'),
+(251,27,'Sram Rival AXS','Cambio'),
+(252,27,'Sram Rival AXS','Desviador'),
+(253,27,'Sram Rival AXS Flat Top','Cadena'),
+(254,27,'Sram Rival AXS','Manetas'),
+(255,27,'Sram Rival AXS','Frenos'),
+(256,27,'Sram Rotor centerlock centerline Road 160mm','Discos'),
+(257,27,'Reparto Corse Compact Flat Top','Manillar'),
+(258,27,'Reparto Corse 3D Forged alloy','Potencia'),
+(259,27,'Fi\'zi:k Argo Tempo R6','Sillin'),
+(260,27,'Reparto Corse Full Carbon Aero','Tija'),
+(261,27,'Fulcrum Racing 400 DB','Ruedas');
 
 CREATE TABLE `likes` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -59,21 +411,7 @@ CREATE TABLE `likes` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
   CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
-INSERT INTO `likes` VALUES (43,12,1),(46,18,1),(66,2,3),(81,2,2),(85,11,2),(87,32,5);
-
-CREATE TABLE `orders` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `user_id` bigint NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `price` float NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
-INSERT INTO `orders` VALUES (47,3,'C/Muro n3',563.25),(48,2,'',15103.1),(49,2,'',1578),(50,2,'C/Muro n3',1578),(51,2,'C/Muro n3',12763.8),(55,1,'Dirección de prueba',85),(56,1,'Dirección de prueba',88);
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE `order_products` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -84,9 +422,14 @@ CREATE TABLE `order_products` (
   KEY `product_id` (`product_id`),
   CONSTRAINT `order_products_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   CONSTRAINT `order_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-INSERT INTO `order_products` VALUES (40,47,32),(41,48,11),(42,49,28),(43,50,28),(44,51,17),(48,55,1),(49,55,2),(50,55,3),(51,56,1),(52,56,2),(53,56,3);
+INSERT INTO `order_products` VALUES
+(1,1,32),
+(2,1,11),
+(3,1,28),
+(4,1,28),
+(5,1,17);
 
 CREATE TABLE `stock_colors_sizes` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -95,21 +438,121 @@ CREATE TABLE `stock_colors_sizes` (
   `size_id` bigint NOT NULL,
   `stock` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
-  KEY `size_id` (`size_id`),
-  KEY `color_id` (`color_id`),
   CONSTRAINT `stock_colors_sizes_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
   CONSTRAINT `stock_colors_sizes_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `colors` (`id`) ON DELETE CASCADE,
   CONSTRAINT `stock_colors_sizes_ibfk_3` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
 
 INSERT INTO `stock_colors_sizes` VALUES
-(1,1,1,10,8),
+(1,1,1,11,8),
 (2,1,1,3,5),
-(3,1,2,5,9),
+(3,1,1,5,9),
 (4,1,1,8,6),
-(5,1,1,1,4),
-(6,2,2,2,7),
-(7,2,1,6,2),
+(5,1,1,14,4),
+(6,2,1,12,7),
+(7,2,1,10,2),
 (8,2,1,8,5),
-(9,2,2,4,3);
+(9,2,1,5,3),
+(10,2,1,4,4),
+(11,3,1,7,4),
+(12,3,1,6,6),
+(13,3,1,12,5),
+(14,3,1,10,2),
+(15,3,1,14,8),
+(16,4,1,4,7),
+(17,4,1,6,6),
+(18,4,1,2,3),
+(19,4,1,5,4),
+(20,4,1,3,5),
+(21,5,1,10,8),
+(22,5,1,12,8),
+(23,5,1,14,4),
+(24,5,1,15,6),
+(25,5,1,2,9),
+(26,6,1,1,1),
+(27,6,1,5,4),
+(28,6,1,6,3),
+(29,6,1,4,5),
+(30,6,1,8,2),
+(31,7,3,7,0),
+(32,7,1,9,0),
+(33,7,3,15,0),
+(34,7,1,11,0),
+(35,7,3,4,0),
+(36,8,1,9,7),
+(37,8,3,6,8),
+(38,8,3,5,5),
+(39,8,1,8,9),
+(40,8,3,2,6),
+(41,9,1,3,0),
+(43,9,1,11,0),
+(45,9,1,1,0),
+(46,10,1,1,0),
+(47,10,1,5,0),
+(48,10,1,8,0),
+(49,10,1,9,0),
+(50,10,1,11,0),
+(51,11,1,14,1),
+(53,11,3,4,4),
+(54,11,3,7,6),
+(56,12,3,9,4),
+(57,12,3,4,5),
+(59,12,1,2,7),
+(62,13,3,4,5),
+(64,13,1,2,8),
+(65,13,3,4,6),
+(67,14,1,8,4),
+(68,14,1,2,1),
+(70,14,1,10,5),
+(71,15,1,15,0),
+(73,15,1,5,0),
+(74,15,1,6,0),
+(76,16,1,4,4),
+(79,16,1,6,6),
+(80,16,1,8,8),
+(81,17,3,2,10),
+(82,17,1,15,5),
+(84,17,3,13,9),
+(86,18,1,5,4),
+(87,18,1,8,6),
+(88,18,1,4,9),
+(89,18,1,2,8),
+(90,18,1,11,2),
+(91,19,1,15,3),
+(92,19,1,8,5),
+(93,19,1,7,4),
+(94,19,1,4,8),
+(95,19,1,6,0),
+(96,20,1,2,0),
+(97,20,1,8,0),
+(98,20,1,9,0),
+(99,20,1,2,0),
+(100,20,1,4,0),
+(101,21,1,11,7),
+(104,21,1,7,4),
+(106,22,1,1,0),
+(107,22,1,5,0),
+(110,22,1,4,0),
+(112,23,1,7,6),
+(114,23,1,5,8),
+(121,25,1,10,3),
+(122,25,1,14,4),
+(124,25,1,7,12),
+(126,26,1,6,14),
+(129,26,1,4,8),
+(131,27,1,4,5),
+(132,27,1,8,6),
+(133,27,1,5,9),
+(134,27,1,2,7),
+(135,27,1,6,5),
+(136,28,1,6,4),
+(138,28,1,2,6),
+(140,28,1,4,2),
+(141,29,1,5,5),
+(143,29,1,6,1),
+(145,29,1,14,8),
+(146,30,1,4,9),
+(148,30,1,8,4),
+(150,30,1,5,2);
+
