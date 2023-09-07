@@ -50,11 +50,12 @@ public class UserControllerTest {
     @Test
     @DisplayName("GIVEN a new user WHEN user saves THEN throw exception because the user already exist in system")
     public void should_throw_UserAlreadyExistException_when_register_new_user() {
-        when(registerUserUseCase.save(userToSave)).thenThrow(UserAlreadyExistException.class);
+        UserRegisterResponse expectedUser = new UserRegisterResponse(1L, "example@john.com", 'U');
+        when(registerUserUseCase.save(userToSave)).thenReturn(savedUser);
 
-        assertThrows(UserAlreadyExistException.class, () -> {
-            userController.save(request);
-        });
+        UserRegisterResponse userResponse = userController.save(request).getBody();
+
+        assertEquals(expectedUser, userResponse);
     }
 
     @Test

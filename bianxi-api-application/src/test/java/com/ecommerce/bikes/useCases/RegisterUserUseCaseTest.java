@@ -2,13 +2,12 @@ package com.ecommerce.bikes.useCases;
 
 import com.ecommerce.bikes.UserMother;
 import com.ecommerce.bikes.domain.User;
-import com.ecommerce.bikes.exception.UserAlreadyExistException;
 import com.ecommerce.bikes.exception.UserNotFoundException;
 import com.ecommerce.bikes.ports.UserRepositoryPort;
 import org.junit.jupiter.api.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -42,15 +41,15 @@ public class RegisterUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("WHEN user register a new user THEN throw exception because user already exist in system")
-    public void throws_UserAlreadyExistsException_when_user_is_present() {
+    @DisplayName("WHEN user register a new user THEN throw exception because user already exist in system and save user")
+    public void return_user_when_user_is_present() {
         User user = UserMother.userToSave;
 
         when(userRepositoryPort.findByEmail(user.getEmail())).thenReturn(UserMother.savedUser);
 
-        assertThrows(UserAlreadyExistException.class, () -> {
-            registerUserUseCase.save(user);
-        });
+        User savedUser = registerUserUseCase.save(user);
+
+        assertEquals(UserMother.savedUser, savedUser);
     }
 
 }
