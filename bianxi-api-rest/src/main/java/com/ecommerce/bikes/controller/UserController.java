@@ -41,21 +41,12 @@ public class UserController {
         return new ResponseEntity<>(userSaved, HttpStatus.OK);
     }
 
-    @ExceptionHandler({UserAlreadyExistException.class, UserIsNotValidException.class})
-    public ResponseEntity<ErrorResponse> handleUserAlreadyExist(
+    @ExceptionHandler({UserNotFoundException.class, UserIsNotValidException.class})
+    public ResponseEntity<ErrorResponse> handleUserErrors(
             RuntimeException re
     ) {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), re.getMessage()));
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFound(
-            UserNotFoundException unfe
-    ) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), unfe.getMessage()));
+                .status(HttpStatus.OK)
+                .body(new ErrorResponse(HttpStatus.OK.value(), re.getMessage(), "CREDENTIALS_ARE_NOT_VALID"));
     }
 }

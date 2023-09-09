@@ -21,11 +21,8 @@ public class RegisterUserUseCase {
 
     public User save(User user) {
         try {
-            userRepositoryPort.findByEmail(user.getEmail());
-            throw new UserAlreadyExistException("This user already exists");
-
+            return userRepositoryPort.findByEmail(user.getEmail());
         } catch (UserNotFoundException e) {
-
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepositoryPort.save(user);
         }

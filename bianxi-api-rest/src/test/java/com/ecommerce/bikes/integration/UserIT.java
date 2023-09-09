@@ -1,6 +1,7 @@
 package com.ecommerce.bikes.integration;
 
 import com.ecommerce.bikes.DockerConfiguration;
+import com.ecommerce.bikes.domain.User;
 import com.ecommerce.bikes.exception.ErrorResponse;
 import com.ecommerce.bikes.http.UserRegisterRequest;
 import com.ecommerce.bikes.http.UserRegisterResponse;
@@ -45,26 +46,26 @@ public class UserIT extends DockerConfiguration {
 
     @Test
     @DisplayName("GIVEN a new user WHEN user saves THEN throw exception because the user already exist in system")
-    public void should_throw_UserAlreadyExistException_when_save_user() {
+    public void should_return_saved_user_when_user_already_exist() {
         UserRegisterRequest userToCreate = new UserRegisterRequest("admin", "admin");
-        ErrorResponse expectedResponse = new ErrorResponse(400, "This user already exists");
+        UserRegisterResponse expectedUser = new UserRegisterResponse(2L, "admin", 'A');
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToCreate, headers);
 
-        ResponseEntity<ErrorResponse> response = this.rest.postForEntity(createUrl() + "api/users", request, ErrorResponse.class);
+        ResponseEntity<UserRegisterResponse> response = this.rest.postForEntity(createUrl() + "api/users", request, UserRegisterResponse.class);
 
-        ErrorResponse errorResponse = response.getBody();
+        UserRegisterResponse user = response.getBody();
 
-        assertNotNull(errorResponse);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals(expectedResponse, errorResponse);
+        assertNotNull(user);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedUser, user);
     }
 
     @Test
     @DisplayName("GIVEN user data WHEN user login THEN user is verified successfully")
     public void should_return_verified_user() {
         UserRegisterRequest userToVerify = new UserRegisterRequest("admin", "admin");
-        UserRegisterResponse verifiedUser = new UserRegisterResponse(2L, "admin", 'A');
+        UserRegisterResponse verifiedUser = new UserRegisterResponse(2L,"admin", 'A');
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToVerify, headers);
 
@@ -79,9 +80,9 @@ public class UserIT extends DockerConfiguration {
 
     @Test
     @DisplayName("GIVEN user data WHEN user login THEN throw exception because user doesn't exist")
-    public void testA() {
+    public void should_throw_exception_when_user_does_not_exist() {
         UserRegisterRequest userToVerify = new UserRegisterRequest("sdaf", "adm");
-        ErrorResponse expectedResponse = new ErrorResponse(404, "The user does not exist");
+        ErrorResponse expectedResponse = new ErrorResponse(200, "The user does not exist", "CREDENTIALS_ARE_NOT_VALID");
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToVerify, headers);
 
@@ -90,15 +91,15 @@ public class UserIT extends DockerConfiguration {
         ErrorResponse errorResponse = response.getBody();
 
         assertNotNull(errorResponse);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, errorResponse);
     }
 
     @Test
     @DisplayName("GIVEN user data WHEN user login THEN throw exception because password is not correct")
-    public void testE() {
+    public void should_throw_exception_for_bad_credentiales() {
         UserRegisterRequest userToVerify = new UserRegisterRequest("admin", "adm");
-        ErrorResponse expectedResponse = new ErrorResponse(400, "The credentials are not valid");
+        ErrorResponse expectedResponse = new ErrorResponse(200, "The credentials are not valid", "CREDENTIALS_ARE_NOT_VALID");
 
         HttpEntity<UserRegisterRequest> request = new HttpEntity<>(userToVerify, headers);
 
@@ -107,7 +108,7 @@ public class UserIT extends DockerConfiguration {
         ErrorResponse errorResponse = response.getBody();
 
         assertNotNull(errorResponse);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, errorResponse);
     }
 }
