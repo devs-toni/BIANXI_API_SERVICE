@@ -7,8 +7,6 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: 'bianxi'
-      MYSQL_USER: 'bianxi'
-      MYSQL_PASSWORD: 'bianxi'
       MYSQL_ROOT_PASSWORD: 'bianxi'
     ports:
       - '3306:3306'
