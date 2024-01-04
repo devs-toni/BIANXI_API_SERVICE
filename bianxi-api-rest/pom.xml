@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.ecommerce</groupId>
         <artifactId>bikes</artifactId>
-        <version>0.8.3-SNAPSHOT</version>
+        <version>0.8.3</version>
     </parent>
 
     <artifactId>bianxi-api-rest</artifactId>
@@ -17,13 +17,13 @@
         <dependency>
             <groupId>com.ecommerce</groupId>
             <artifactId>bianxi-api-repository</artifactId>
-            <version>0.8.3-SNAPSHOT</version>
+            <version>0.8.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.ecommerce</groupId>
             <artifactId>bianxi-api-application</artifactId>
-            <version>0.8.3-SNAPSHOT</version>
+            <version>0.8.3</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
