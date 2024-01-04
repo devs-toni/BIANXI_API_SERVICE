@@ -98,7 +98,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Copy Jar File
-        run: mv ${{ github.workspace }}/bianxi-api-boot/target/bianxi-api-boot-${{ env.VERSION }}.jar bianxi-api-${{ env.VERSION }}.jar
+        run: mv ${{ github.workspace }}/bianxi-api-boot/target/bianxi-api-boot-${{ env.HOTFIX_VERSION }}.jar bianxi-api-${{ env.HOTFIX_VERSION }}.jar
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -112,7 +112,7 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/bianxi-api:${{ env.NEXT_RELEASE }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/bianxi-api:${{ env.HOTFIX_VERSION }}
 
       - name: Create GitHub release
         uses: ncipollo/release-action@v1.12.0
