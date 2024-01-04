@@ -11,7 +11,7 @@
 
     <groupId>com.ecommerce</groupId>
     <artifactId>bikes</artifactId>
-    <version>0.8.2</version>
+    <version>0.8.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -173,7 +173,7 @@
     <scm>
         <connection>scm:git:https://github.com/devs-toni/bianxi-api.git</connection>
         <developerConnection>scm:git:https://github.com/devs-toni/bianxi-api.git</developerConnection>
-        <tag>0.8.2</tag>
+        <tag>0.1.0</tag>
         <url>https://github.com/devs-toni/bianxi-api</url>
     </scm>
 
