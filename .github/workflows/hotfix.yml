@@ -34,6 +34,8 @@ jobs:
           cache: "maven"
           server-id: "github"
 
+      - run: chmod +x ./mvnw
+
       - name: Check if hotfix tag already exists
         run: |
           POM_VERSION=$(./mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
@@ -86,6 +88,8 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
+      
+      - run: chmod +x ./mvnw
 
       - name: Build and deploy on maven repository
         run: ./mvnw --batch-mode clean deploy
