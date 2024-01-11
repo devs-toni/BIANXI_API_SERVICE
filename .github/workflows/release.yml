@@ -71,7 +71,7 @@ jobs:
         run: chmod +x mvnw
 
       - name: Build
-        run: ./mvnw --batch-mode package
+        run: ./mvnw --batch-mode deploy
 
       - name: Copy Jar File
         run: mv ${{ github.workspace }}/bianxi-api-boot/target/bianxi-api-boot-${{ env.VERSION }}.jar bianxi-api-${{ env.VERSION }}.jar

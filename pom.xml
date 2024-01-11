@@ -46,6 +46,14 @@
         <flyway.version>9.5.1</flyway.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub devs-toni Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/devs-toni/BIANXI_API_SERVICE</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <!-- ====================================== Spring Boot dependencies ==================================== -->
         <dependency>
@@ -113,14 +121,6 @@
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub</name>
-            <url>https://maven.pkg.github.com/devs-toni/bianxi-api</url>
-        </repository>
-    </distributionManagement>
-
     <build>
         <resources>
             <resource>
@@ -168,13 +168,12 @@
 
     <name>${project.artifactId}</name>
     <description>REST Api to access Bianxi</description>
-    <url>https://github.com/devs-toni/bianxi-api</url>
+    <url>https://github.com/devs-toni/BIANXI_API_SERVICE</url>
 
     <scm>
-        <connection>scm:git:https://github.com/devs-toni/bianxi-api.git</connection>
-        <developerConnection>scm:git:https://github.com/devs-toni/bianxi-api.git</developerConnection>
+        <connection>scm:git:https://github.com/devs-toni/BIANXI_API_SERVICE.git</connection>
+        <developerConnection>scm:git:https://github.com/devs-toni/BIANXI_API_SERVICE.git</developerConnection>
         <tag>0.1.0</tag>
-        <url>https://github.com/devs-toni/bianxi-api</url>
+        <url>https://github.com/devs-toni/BIANXI_API_SERVICE</url>
     </scm>
-
 </project>
