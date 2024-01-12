@@ -6,13 +6,25 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.0.0</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <relativePath />
     </parent>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
+        <flyway.version>9.5.1</flyway.version>
+        <repository.owner>devs-toni</repository.owner>
+        <repository.name>BIANXI_API_SERVICE</repository.name>
+        <repository.url>https://github.com/devs-toni/BIANXI_API_SERVICE</repository.url>
+    </properties>
 
     <groupId>com.ecommerce</groupId>
     <artifactId>bikes</artifactId>
     <version>0.8.7-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>REST Api to access Bianxi</description>
+    <url>${repository.url}</url>
 
     <modules>
         <module>bianxi-api-application</module>
@@ -38,21 +50,33 @@
                 <spring.profiles.active>prod</spring.profiles.active>
             </properties>
         </profile>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/${repository.owner}/${repository.name}</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
     </profiles>
-
-    <properties>
-        <java.version>17</java.version>
-        <maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
-        <flyway.version>9.5.1</flyway.version>
-    </properties>
 
     <distributionManagement>
         <repository>
             <id>github</id>
             <name>GitHub devs-toni Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/devs-toni/BIANXI_API_SERVICE</url>
+            <url>https://maven.pkg.github.com/${repository.owner}/${repository.name}</url>
         </repository>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git:${repository.url}.git</connection>
+        <developerConnection>scm:git:${repository.url}.git</developerConnection>
+        <url>${repository.url}</url>
+    </scm>
 
     <dependencies>
         <!-- ====================================== Spring Boot dependencies ==================================== -->
@@ -165,15 +189,4 @@
         </plugins>
     </build>
 
-
-    <name>${project.artifactId}</name>
-    <description>REST Api to access Bianxi</description>
-    <url>https://github.com/devs-toni/BIANXI_API_SERVICE</url>
-
-    <scm>
-        <connection>scm:git:https://github.com/devs-toni/BIANXI_API_SERVICE.git</connection>
-        <developerConnection>scm:git:https://github.com/devs-toni/BIANXI_API_SERVICE.git</developerConnection>
-        <tag>0.1.0</tag>
-        <url>https://github.com/devs-toni/BIANXI_API_SERVICE</url>
-    </scm>
 </project>
