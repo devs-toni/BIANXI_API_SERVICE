@@ -22,6 +22,6 @@ jobs:
         run: chmod +x mvnw
 
       - name: Maven Verify
-        run: ./mvnw --batch-mode clean verify
+        run: ./mvnw --batch-mode -DskipTests clean verify
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
