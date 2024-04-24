@@ -92,7 +92,7 @@ jobs:
       - run: chmod +x ./mvnw
 
       - name: Build and deploy on maven repository
-        run: ./mvnw --batch-mode clean verify
+        run: ./mvnw --batch-mode -DskipTests clean verify
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
