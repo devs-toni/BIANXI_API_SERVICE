@@ -61,7 +61,7 @@ jobs:
           version_parts_array[2]=$((version_parts_array[2]+1))
           next_development_parts=$(IFS='.'; echo "${version_parts_array[*]}")
           NEXT_DEVELOPMENT=${next_development_parts}-SNAPSHOT
-          ./mvnw --batch-mode release:prepare -DdevelopmentVersion=${NEXT_DEVELOPMENT}
+          ./mvnw --batch-mode -DpreparationGoals=clean release:prepare -DdevelopmentVersion=${NEXT_DEVELOPMENT}
 
   upload-artifacts:
     runs-on: ubuntu-latest
