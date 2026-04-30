@@ -40,11 +40,7 @@ El path quedaría de la siguiente manera:
 
 ---
 
-## 🌿 1.3. REPOSITORIO GIT
-El código está disponible en el repositorio de GitHub:
-👉 [https://github.com/devs-toni/BIANXI_API_SERVICE/](https://github.com/devs-toni/BIANXI_API_SERVICE/)
-
-### 🏷️ 1.3.1. CONVENCIONES DE REPOSITORIO
+## 🌿 1.3. CONVENCIONES DE REPOSITORIO
 Crear rama con la siguiente nomenclatura:
 - `feat/add-branch-name`
 - `refactor/add-branch-name`
