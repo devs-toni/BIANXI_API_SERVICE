@@ -27,4 +27,23 @@ On the <u><i>backend:</i></u>
   <li>MySql</li>
 </ul></b>
 
+# 🚀 BIANXI API Service
+
+[![Spring Boot](https://img.shields.io/badge/Framework-Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-Latest-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/devstoni/bianxi-api)
+[![Architecture](https://img.shields.io/badge/Architecture-Hexagonal-orange?style=for-the-badge)](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software))
+
+Backend robusto para el e-commerce de bicicletas profesionales **Bianchi**. Diseñado bajo arquitectura hexagonal para garantizar escalabilidad y desacoplamiento.
+
+---
+
+## 🛠️ Entorno de Desarrollo
+
+### 1. Base de Datos (MySQL)
+Antes de arrancar la API, levanta la instancia de base de datos:
+```bash
+cd db/migrations
+docker-compose -f docker-compose-develop.yml up -d
+```
+
 👩‍🚀 I hope you enjoy it! 🚀
