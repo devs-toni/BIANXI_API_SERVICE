@@ -1,6 +1,12 @@
-# Bianxi e-commerce
+# 🚀 BIANXI API Service
+
+[![Spring Boot](https://img.shields.io/badge/Framework-Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-Latest-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/devstoni/bianxi-api)
+[![Architecture](https://img.shields.io/badge/Architecture-Hexagonal-orange?style=for-the-badge)](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software))
 
 <b>This project is based on the page <a href="https://bianchistore.es">Bianchi Store</a> and mocks the e-commerce system implemented by this page, trying with this to improve my knowledge of React.js and related libraries</b>
+
+---
 
 <br />
 
@@ -9,41 +15,61 @@
 ![home](./static/cart.png)
 <br />
 
-This web application uses on <u><i>frontend</i></u>:
+## 📝 1.1. INTRODUCCIÓN
+Bianxi API es el backend de la aplicación Bianchi, la cual se compone de una **estructura hexagonal**. Es una API que contiene información para un ecommerce basado en la marca Bianchi de bicicletas profesionales.
 
-<b><ul>
-  <li>React v18.2</li>
-  <li>React router v6.4.5 for the route management</li>
-  <li>Stripe/js for the payment</li>
-  <li>React-uauth/google for google authentication</li>
-  <li>Sass for styles</li>
-</ul></b>
+## 🛠️ 1.2. ENTORNO DE DESARROLLO
+El primer paso es arrancar la base de datos con el archivo docker-compose situado en la ruta `/db/migrations/docker-compose-develop.yml`:
 
-On the <u><i>backend:</i></u>
+```bash
+docker-compose up -d
+```
+---
 
-<b><ul>
+## 🐘 1.3. FLYWAY
+### 📍 1.3.1. FLYWAY LOCATION
+Se debe tener en cuenta la propiedad `spring.flyway.locations` porque dependiendo del sistema en el que se ejecute la aplicación en desarrollo se deberá configurar de un modo u otro:
 
-  <li>SpringBoot</li>
-  <li>MySql</li>
-</ul></b>
+#### 🐧 1.3.1.1. UNIX
+El path quedaría de la siguiente manera:
+`/path/to/folder`
 
-# 🚀 BIANXI API Service
-
-[![Spring Boot](https://img.shields.io/badge/Framework-Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
-[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-Latest-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/devstoni/bianxi-api)
-[![Architecture](https://img.shields.io/badge/Architecture-Hexagonal-orange?style=for-the-badge)](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software))
-
-Backend robusto para el e-commerce de bicicletas profesionales **Bianchi**. Diseñado bajo arquitectura hexagonal para garantizar escalabilidad y desacoplamiento.
+#### 🪟 1.3.1.2. WINDOWS
+El path quedaría de la siguiente manera:
+`./path/to/folder`
 
 ---
 
-## 🛠️ Entorno de Desarrollo
+## 🌿 1.3. REPOSITORIO GIT
+El código está disponible en el repositorio de GitHub:
+👉 [https://github.com/devs-toni/BIANXI_API_SERVICE/](https://github.com/devs-toni/BIANXI_API_SERVICE/)
 
-### 1. Base de Datos (MySQL)
-Antes de arrancar la API, levanta la instancia de base de datos:
-```bash
-cd db/migrations
-docker-compose -f docker-compose-develop.yml up -d
-```
+### 🏷️ 1.3.1. CONVENCIONES DE REPOSITORIO
+Crear rama con la siguiente nomenclatura:
+- `feat/add-branch-name`
+- `refactor/add-branch-name`
+- `test/add-branch-name`
+- `chore/add-branch-name`
 
-👩‍🚀 I hope you enjoy it! 🚀
+Los commits seguirán la siguiente convención:
+- `feat: this is my commit`
+- `internal: commit`
+- `chore: commit`
+
+> [!TIP]
+> **Flujo:** Abrir Pull Request (se recomienda modo borrador) para verificar la build mediante el workflow de GitHub Actions. Tras el Merge, se recomienda eliminar la rama de trabajo.
+
+---
+
+## 📦 1.3.2. GENERAR VERSIÓN
+Para sacar una nueva versión:
+1. Desplazarse a **GitHub Actions - Release**.
+2. Iniciar el proceso seleccionando **Run Workflow**.
+
+Este proceso generará una nueva versión, subirá la imagen a **Docker Hub** y creará una release en GitHub.
+
+---
+
+## 🐳 1.4. REPOSITORIO DOCKER HUB
+Repositorio público para el paquete de producción:
+👉 [https://hub.docker.com/repository/docker/devstoni/bianxi-api/general](https://hub.docker.com/repository/docker/devstoni/bianxi-api/general)
