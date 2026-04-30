@@ -40,7 +40,7 @@ El path quedaría de la siguiente manera:
 
 ---
 
-## 🌿 1.3. CONVENCIONES DE REPOSITORIO
+## 🌿 1.4. CONVENCIONES DE REPOSITORIO
 Crear rama con la siguiente nomenclatura:
 - `feat/add-branch-name`
 - `refactor/add-branch-name`
@@ -57,7 +57,7 @@ Los commits seguirán la siguiente convención:
 
 ---
 
-## 📦 1.3.2. GENERAR VERSIÓN
+## 📦 1.4.2. GENERAR VERSIÓN
 Para sacar una nueva versión:
 1. Desplazarse a **GitHub Actions - Release**.
 2. Iniciar el proceso seleccionando **Run Workflow**.
@@ -66,6 +66,9 @@ Este proceso generará una nueva versión, subirá la imagen a **Docker Hub** y 
 
 ---
 
-## 🐳 1.4. REPOSITORIO DOCKER HUB
-Repositorio público para el paquete de producción:
-👉 [https://hub.docker.com/repository/docker/devstoni/bianxi-api/general](https://hub.docker.com/repository/docker/devstoni/bianxi-api/general)
+## 🐳 1.5. Infrastructura y Despliegue
+
+* **📦 GitOps Repository:** [🚀 `stack/bianxi`](https://github.com/devs-toni/Infrastructure-gitops/tree/main/src/web-server/stacks/bianxi)
+* **🐳 Docker Hub:** [Paquete de producción](https://hub.docker.com/repository/docker/devstoni/bianxi-api/general)
+
+La aplicación dispone de repositorio público en Docker Hub, desde donde se va versionando para obtener el paquete en producción.
